@@ -1,0 +1,381 @@
+,Condition Index,Gene Symbol,Gene Name,Human Gene ID,AGS Gene ID,GS-unique AA substitution,Pathway,Condition,Overall Index
+0,0,ISPD,Isoprenoid synthase domain containing,729920,,,,HT,0
+1,1,SCAMP2,Secretory carrier membrane protein 2,10066,,,,HT,1
+2,2,RCC2,Regulator of chromosome condensation 2,55920,,,,HT,2
+3,3,SRSF4,Serine and arginine rich splicing factor 4,6429,,,,HT,3
+4,4,TOIP1,Torsin-1A-interacting protein,26092,,,,HT,4
+5,5,RPL35,Ribosomal protein L35,11224,,,,HT,5
+6,6,CSTF3,"Cleavage stimulation factor, 3' pre-RNA, subunit 3",1479,,,,HT,6
+7,7,ZNF207,Zinc finger protein 207,7756,,,,HT,7
+8,8,PAFAH1B2,Platelet activating factor acetylhydrolase 1b catalytic subunit 2,5049,,,,HT,8
+9,9,RFC2,Replication factor C subunit 2,5982,,,,HT,9
+10,10,ZBED4,Zinc finger BED-type containing 4,9889,,,,HT,10
+11,11,ASCC2,Activating signal cointegrator 1 complex subunit 2,84164,,,,HT,11
+12,12,BCAS1,Breast carcinoma amplified sequence 1,8537,,,,HT,12
+13,13,P3H2,Prolyl 3-hydroxylase 2,55214,,,,HT,13
+14,14,PRUNE1,Prune exopolyphosphatase 1,58497,,,,HT,14
+15,15,LDB1,LIM domain binding 1,8861,,,,HT,15
+16,16,ATRX,"ATRX, chromatin remodeler",546,,,,HT,16
+17,17,RHOC,rho-related GTP-binding protein RhoC precursor,389,,,,HT,17
+18,18,GHITM,Growth hormone inducible transmembrane protein,27069,,,,HT,18
+19,19,AMDHD2,Amidohydrolase domain containing 2,51005,,,,HT,19
+20,20,CPTP,Ceramide-1-phosphate transfer protein,80772,,,,HT,20
+21,21,UHMK1,U2AF homology motif kinase 1,127933,,,,HT,21
+22,22,CD151,CD151,977,,,,HT,22
+23,23,MPP1,Membrane palmitoylated protein 1,4354,,,,HT,23
+24,24,GNPDA1,Glucosamine-6-Phosphate Deaminase 1,10007,,,,HT,24
+25,25,ACADM,Acyl-CoA dehydrogenase medium chain,34,,,,HT,25
+26,26,NUP155,Nucleoporin 155,9631,,,,HT,26
+27,27,COPZ1,Coatomer protein complex subunit zeta 1,22818,,,,HT,27
+28,28,PMS1,Postmeiotic Segregation Increased Homolog 1,5378,,,,HT,28
+29,29,PRIMPOL,Primase And DNA Directed Polymerase,201973,,,,HT,29
+30,30,NDUFS1,NADH:Ubiquinone Oxidoreductase Core Subunit S1,4719,,,,HT,30
+31,31,Steap3,STEAP3 Metalloreductase,55240,,,,HT,31
+32,32,LIMS2,LIM Zinc Finger Domain Containing 2,55679,,,,HT,32
+33,33,NIFK,nucleolar protein interacting with the FHA domain of MKI67,84365,,,,HT,33
+34,34,TMEM177,Transmembrane protein 177,80775,,,,HT,34
+35,35,PARPBP,PARP1 binding protein,55010,,,,HT,35
+36,36,TALDO1,Transaldolase 1,6888,,,,HT,36
+37,37,CCDC148,Coiled-coil domain containing 148,130940,,,,HT,37
+38,38,TRIM28,Tripartite motif containing 28,10155,,,,HT,38
+39,39,MEMO1,Mediator of cell motility 1,51072,,,,HT,39
+40,40,EIF3CL,Eukaryotic translation initiation factor 3 subunit C like,728689,,,,HT,40
+41,41,HNRH1,Heterologous ribonucleoprotein H,3187,,,,HT,41
+42,42,SCML2,Scm polycomb group protein like,10389,,,,HT,42
+43,43,ATXN7L1,"Ataxin 7 like 1 (ATXN7L1),",222255,,,,HT,43
+44,44,GTF2H5,General transcription factor IIH subunit 5,404672,,,,HT,44
+45,45,TRIM23,Tripartite motif containing 23,373,,,,HT,45
+46,46,TMEM222,Transmembrane protein 222,84065,,,,HT,46
+47,47,RPL19,Ribosomal protein 19,6143,,,,HT,47
+48,48,APEX1,Apurinic/apyrimidinic endodeoxyribonuclease 1,328,,,,HT,48
+49,49,RPA2,Replication protein A2,6118,,,,HT,49
+50,50,PHC2,Polyhomeotic homolog 2,1912,,,,HT,50
+51,51,CDC20,CDC20,991,,,,HT,51
+52,52,Dhx15,DEAH box polypeptide 15,1665,,,,HT,52
+53,53,PSMC2,Proteasome 26S subunit 7,5701,,,,HT,53
+54,54,SLC25A5,ADP/ATP translocase 2,292,,,,HT,54
+55,55,ARHGAP21,Rho GTPase activating protein 21,57584,,,,HT,55
+56,56,PSME3,Proteasome activator subunit 3,10197,,,,HT,56
+57,57,RPS19BP1,Active regulator of SIRT1,91582,,,,HT,57
+58,58,SLC25A3,"Phosphate carrier protein, mitochondrial",5250,,,,HT,58
+59,59,CBFB,Core-binding factor subunit beta,865,,,,HT,59
+60,60,PANK2,Pantothenate kinase 2,80025,,,,HT,60
+61,61,TRMT61B,tRNA methyltransferase 61B,55006,,,,HT,61
+62,62,SPDYA,Speedy/RINGO cell cycle regulator family member A,245711,,,,HT,62
+63,63,PPP4C,Protein phosphatase 4 catalytic subunit,5531,,,,HT,63
+64,64,PDHB,Pyruvate dehydrogenase E1 beta subunit,5162,,,,HT,64
+65,65,STT3B,"STT3B, catalytic subunit of the oligosaccharyltransferase complex",201595,,,,HT,65
+66,66,MLH1,mutL homolog 1,4292,,,,HT,66
+67,67,LRRC41,Leucine rich repeat containing 41,10489,,,,HT,67
+68,68,MT1F,Metallothionein 1F,4494,,,,HT,68
+69,69,RPLS12,40S Ribosomal protein S12,6206,,,RNA binding,HT,69
+70,70,RBPJ,Recombination signal binding protein for immunoglobulin kappa J region,3516,,,DNA binding,HT,70
+71,71,PPIA,Peptidylprolyl isomerase A,5478,,,,HT,71
+72,72,TMEM33,Transmembrane protein 33,55161,,,,HT,72
+73,73,GABRA2,gamma-aminobutyric acid type A receptor alpha2 subunit,2555,,,,HT,73
+74,74,CEP135,Centrosomal protein 135,9662,,,,HT,74
+75,75,KIAA1217,KIAA1217,56243,,,,HT,75
+76,76,ENKUR,TRPC channel interacting protein,219670,,,,HT,76
+77,77,NPC2,NPC intracellular cholesterol transporter 2,10577,,,,HT,77
+78,78,TMED8,Transmembrane p24 trafficking protein family member 8,283578,,,,HT,78
+79,79,RANGAP1,Ran GTPase activating protein 1,5905,,,,HT,79
+80,80,TPM3,Tropomyosin 3,7170,,,,HT,80
+81,81,SENP8,"SUMO peptidase family member, NEDD8 specific",123228,,,,HT,81
+82,82,GPC6,Glypican 6,10082,,,,HT,82
+83,83,USPL1,Ubiquitin specific peptidase like 1,10208,,,,HT,83
+84,84,CRTAP,Cartilage associated protein,10491,,,,HT,84
+85,85,CMPK1,Cytidine/uridine monophosphate kinase 1,51727,,,,HT,85
+86,86,ABHD17C,Abhydrolase domain containing 17C,58489,,,,HT,86
+87,87,GDI2,GDP dissociation inhibitor 2,2665,,,,HT,87
+88,88,IRF2BP2,Interferon regulatory factor 2 binding protein 2,359948,,,,HT,88
+89,89,OCRL,Inositol polyphosphate-5-phosphatase F,4952,,,,HT,89
+90,90,GEN1,Holliday junction 5' flap endonuclease,348654,,,,HT,90
+91,91,EIF4B,Eukaryotic translation initiation factor 4B,1975,,,,HT,91
+92,92,TMX1,Thioredoxin related transmembrane protein 1,81542,,,,HT,92
+93,93,RAB6A,"RAB6A, member RAS oncogene family",5870,,,,HT,93
+94,94,CLNS1A,Chloride nucleotide-sensitive channel 1A,1207,,,,HT,94
+95,95,NXT2,Nuclear transport factor 2 like export factor 2,55916,,,,HT,95
+96,96,ARL6IP1,ADP ribosylation factor like GTPase 6 interacting protein 1,23204,,,,HT,96
+97,97,UQCRC2,Ubiquinol-cytochrome c reductase core protein 2,7385,,,,HT,97
+98,98,ALDOA,Fructose-bisphosphate A,226,,,,HT,98
+99,99,Rpl14,Ribosomal protein 14,9045,,,,HT,99
+100,100,RBMS1,RNA binding motif single stranded interacting protein 1 (RBMS1,5937,,,,HT,100
+101,101,HAUS2,AUS augmin like complex subunit 2,55142,,,,HT,101
+102,102,WDR48,WD repeat domain 48,57599,,,,HT,102
+103,103,CDC42,Cell division cycle 42,56882,,,,HT,103
+104,104,RLF,Rearranged L-myc fusion,6018,,,,HT,104
+105,105,HPDL,4-hydroxyphenylpyruvate dioxygenase like,84842,,,,HT,105
+106,106,MMP15,Matrix metallopeptidase 15 (MMP15),4324,,,,HT,106
+107,107,NFATC3,Nuclear factor of activated T cells 3,4775,,,,HT,107
+108,108,NIP7,Nucleolar pre-rRNA processing protein,51388,,,,HT,108
+109,109,TERF2,Telomeric repeat binding factor 2,7014,,,,HT,109
+110,110,PHF3,PHD finger protein 3 (PHF3),23469,,,,HT,110
+111,111,SRSF3,Serine and arginine rich splicing factor 3,6428,,,,HT,111
+112,112,ANAPC4,Anaphase promoting complex subunit 4,29945,,,,HT,112
+113,113,STX18,Syntaxin 18,53407,,,,HT,113
+114,114,TACC3,Transforming acidic coiled-coil containing protein 3,10460,,,,HT,114
+115,115,TAX1BP1,Tax1 binding protein 1,8887,,,,HT,115
+116,116,LAMP2,Lysosomal associated membrane protein 2,3920,,,,HT,116
+117,117,SEPT6,Septin 6,23157,,,,HT,117
+118,118,TAF9,TATA-box binding protein associated factor 9,6880,,,,HT,118
+119,119,OCIAD2,OCIA domain containing 2,132299,,,,HT,119
+120,120,MPHOSPH10,M-phase phosphoprotein 10,10199,,,,HT,120
+121,121,SNX5,Sorting nexin 5,27131,,,,HT,121
+122,122,PRDX3,Peroxiredoxin 3,10935,,,,HT,122
+123,123,OAT,Ornithine aminotransferase,4942,,,,HT,123
+124,124,ECHS1,Enoyl-CoA hydratase,1892,,,,HT,124
+125,125,NEK6,NIMA related kinase 6,10783,,,,HT,125
+126,126,SWI5,SWI5 homologous recombination repair protein,119392,,,,HT,126
+127,127,GLE1,RNA export mediator,2733,,,,HT,127
+128,128,ZNF410,Zinc finger protein 410,57862,,,,HT,128
+129,129,ZC3H14,Zinc finger CCCH-type containing 14,79882,,,,HT,129
+130,130,TMEM242,Transmembrane protein 242,729515,,,,HT,130
+131,131,WTAP,WT1 associated protein,9589,,,,HT,131
+132,132,FGFR1OP,FGFR1 oncogene partner,11116,,,,HT,132
+133,133,VMP1,Vacuole membrane protein 1,81671,,,,HT,133
+134,134,AKAP1,A-kinase anchoring protein 1,8165,,,,HT,134
+135,135,UTP18,"UTP18, small subunit processome component",51096,,,,HT,135
+136,136,CALCOCO2,Calcium binding and coiled-coil domain 2,10241,,,,HT,136
+137,137,CBX1,Chromobox 1,10951,,,,HT,137
+138,138,ERLEC1,Endoplasmic reticulum lectin 1,27248,,,,HT,138
+139,139,SPRED2,Sprouty related EVH1 domain containing 2,200734,,,,HT,139
+140,140,CCT7,Chaperonin containing TCP1 subunit 7,10574,,,,HT,140
+141,141,GCAT,Glycine C-acetyltransferase,23464,,,,HT,141
+142,142,ZNF512,Zinc finger protein 512,84450,,,,HT,142
+143,143,PREB,Prolactin regulatory element binding,10113,,,,HT,143
+144,144,RAB10,"RAB10, member RAS oncogene family",10890,,,,HT,144
+145,145,DDX1,"DEAD-box helicase 1 (DDX1), mRNA",1653,,,,HT,145
+146,146,CFL2,Cofilin 2,1073,,,,HT,146
+147,147,KTN1,Kinectin 1,3895,,,,HT,147
+148,148,PLEKHG3,Pleckstrin homology and RhoGEF domain containing G3,26030,,,,HT,148
+149,149,MRPL15,Mitochondrial ribosomal protein L1,29088,,,,HT,149
+150,150,RAB2A,"RAB2A, member RAS oncogene family",5862,,,,HT,150
+151,151,CLPB,"ClpB homolog, mitochondrial AAA ATPase chaperonin",81570,,,,HT,151
+152,152,PPME1,Protein phosphatase methylesterase 1,51400,,,,HT,152
+153,153,MORF4L2,Mortality factor 4 like 2,9643,,,,HT,153
+154,154,HSF2B,Heat shock transcription factor 2 binding protein,11077,,,,HT,154
+155,155,USP16,Ubiquitin specific peptidase 16,10600,,,,HT,155
+156,156,MARF1,Meiosis regulator and mRNA stability factor 1,9665,,,,HT,156
+157,157,IPO8,Importin 8,10526,,,,HT,157
+158,158,VAMP7,Vesicle associated membrane protein 7,6845,,,,HT,158
+159,159,SPARCL1,SPARC like 1,8404,,,,HT,159
+160,160,PES1,Pescadillo ribosomal biogenesis factor 1,23481,,,,HT,160
+161,161,UBE2G1,Ubiquitin conjugating enzyme E2 G1,7326,,,,HT,161
+162,162,NRBP1,Nuclear receptor binding protein 1,29959,,,,HT,162
+163,163,MRPS6,Mitochondrial ribosomal protein S6,64968,,,,HT,163
+164,0,HNRNPC,Heterogeneous nuclear ribonucleoprotein C,3183,,,Spliceosome,HPX,164
+165,1,STIL,STIL centriolar assembly protein,6491,,,,HPX,165
+166,2,SOCS5,Suppressor of cytokine signaling 5,9655,,,,HPX,166
+167,3,FH,Fumarate hydratase,2271,,,Citrate Cycle,HPX,167
+168,4,RAB18,"RAB18, member RAS oncogene family",22931,,,GTPase activity,HPX,168
+169,5,SARS,Seryl-tRNA synthetase,6301,,,Amino-acyl tRNA synthesis,HPX,169
+170,6,PRPF31,Pre-mRNA processing factor 31,26121,,,Spliceosome,HPX,170
+171,7,COX7C,Cytochrome c oxidase subunit 7C,1350,,,Oxidative phosphorylation,HPX,171
+172,8,PSMD14,"Proteasome 26S subunit, non-ATPase 14",10213,,,Proteasome binding,HPX,172
+173,9,R3HDM1,R3H domain containing 1,23518,,,RNA binding,HPX,173
+174,10,RALB,RAS like proto-oncogene B,5899,,,ATPase binding,HPX,174
+175,11,ACTR3,Actin related protein 3,10096,,,ATP binding,HPX,175
+176,12,GPM6B,Glycoprotein M6B,2824,,,Extracellular matrix assembly,HPX,176
+177,13,RBBP7,"RB binding protein 7, chromatin remodeling factor",5931,,,RNA binding,HPX,177
+178,14,RPL8,Ribosomal protein L8,6132,,,RNA binding,HPX,178
+179,15,VPS28,VPS28 subunit of ESCRT-I,51160,,,Macroautophagy,HPX,179
+180,16,ADCK5,aarF domain containing kinase 5,203054,,,Protein ser/thr kinase,HPX,180
+181,17,MAF1,"MAF1 homolog, negative regulator of RNA polymerase III",84232,,,RNA polymerase III DNA promoter binding,HPX,181
+182,18,PLEC,Plectin,5339,,,Actin binding,HPX,182
+183,19,EEF1D,Eukaryotic translation elongation factor 1 delta,1936,,,Activating transcription factor binding,HPX,183
+184,20,PTK2,Protein tyrosine kinase 2,5747,,,Protein kinase,HPX,184
+185,21,NDUFB9,NADH:ubiquinone oxidoreductase subunit B9,4715,,,Oxidative phosphorylation,HPX,185
+186,22,EMC2,ER membrane protein complex subunit 2,9694,,,Component of ER membrane complex,HPX,186
+187,23,RPL39L,Ribosomal protein L39-like,116832,,,Structural constituent of the ribosome,HPX,187
+188,24,MTDH,Protein LYRIC,92140,,,RNA binding,HPX,188
+189,25,NUSAP1,Nucleolar and spindle associated protein 1,51203,,,Microtubule binding,HPX,189
+190,26,ZNF106,Zinc finger protein 106,64397,,,RNA binding,HPX,190
+191,27,CCNDBP1,Cyclin D1 binding protein 1,23582,,,Cell cycle regulation,HPX,191
+192,28,PDIA3,Protein disulfide isomerase family A member 3,2923,,,Protein disulfide isomerase,HPX,192
+193,29,EID1,EP300 interacting inhibitor of differentiation 1,23741,,,Histone acetyltransferase activity,HPX,193
+194,30,COPS2,COP9 signalosome subunit 2,9318,,,DNA damage response,HPX,194
+195,31,RFC4,Replication factor C subunit 4,5984,,,DNA damage response,HPX,195
+196,32,GABPB1,GA binding protein transcription factor subunit beta 1,2553,,,DNA binding transcription factor activity,HPX,196
+197,33,TMOD2,Tropomodulin 2,29767,,,Actin binding,HPX,197
+198,34,LEO1,"LEO1 homolog, Paf1/RNA polymerase II complex component",123169,,,Regulation of transcription by RNA Pol II,HPX,198
+199,35,SLTM,SAFB like transcription modulator,79811,,,RNA binding,HPX,199
+200,36,SNX1,Sorting nexin 1,6642,,,Intracellular protein transport,HPX,200
+201,37,SNX22,Sorting nexin 22,79856,,,Intracellular protein transport,HPX,201
+202,38,RANBP1,RAN binding protein 1,5902,,,Ran GTPase activity,HPX,202
+203,39,OAZ2,Ornithine decarboxylase antizyme 2,4947,,,Ornithine decarboxylase inhibitor activity,HPX,203
+204,40,CSNK1G1,Casein kinase 1 gamma 1,53944,,,Protein ser/thr kinase,HPX,204
+205,41,PIAS1,E3 SUMO-protein Ligase,8554,,,SUMO ligase activity,HPX,205
+206,42,UACA,Uveal autoantigen with coiled-coil domains and ankyrin repeats,55075,,,Apoptotic signaling pathway,HPX,206
+207,43,PKM,Pyruvate kinase M1/2,5315,,,Glycolytic process,HPX,207
+208,44,CD276,CD276 molecule,80381,,,Signaling receptor binding,HPX,208
+209,45,CLK3,CDC like kinase 3,1198,,,Protein ser/thr kinase,HPX,209
+210,46,SCAPER,S-phase cyclin A associated protein in the ER,49855,,,,HPX,210
+211,47,UBE2Q2,Ubiquitin conjugating enzyme E2 Q2,92912,,,,HPX,211
+212,48,IDH3A,Isocitrate dehydrogenase 3 (NAD(+)) alpha,3419,,,,HPX,212
+213,49,TMCO3,Transmembrane and coiled-coil domains 3,55002,,,,HPX,213
+214,50,COL4A2,Collagen type IV alpha 2 chain,1284,,,,HPX,214
+215,51,PCCA,Propionyl-CoA carboxylase subunit alpha,5095,,,,HPX,215
+216,52,UGGT2,UDP-glucose glycoprotein glucosyltransferase 2,55757,,,,HPX,216
+217,53,DZIP1,DAZ interacting zinc finger protein 1,22873,,,,HPX,217
+218,54,OXSR1,Oxidative stress responsive kinase 1,9943,,,,HPX,218
+219,55,SLC22A14,Solute carrier family 22 member 14,9389,,,,HPX,219
+220,56,SLC22A13,Solute carrier family 22 member 13,9390,,,,HPX,220
+221,57,IPO5,Importin 5,3843,,,,HPX,221
+222,58,NALCN,"Sodium leak channel, non-selective",259232,,,,HPX,222
+223,59,TKT,Transketolase,7086,,,,HPX,223
+224,60,AK2,Adenylate kinase,204,,,,HPX,224
+225,61,HNRNPA2B1,Heterogeneous nuclear ribonucleoprotein A2/B1,3181,,,,HPX,225
+226,62,FAM45A,Family with sequence similarity 45 member A,404636,,,,HPX,226
+227,63,UBE2D3-AS1,UBE2D3 antisense RNA 1,,,,,HPX,227
+228,64,LDHA,Lactate dehydrogenase A,3939,,,,HPX,228
+229,65,RPL37A,Ribosomal protein L37a,6168,,,,HPX,229
+230,66,RPL24,Ribosomal protein L24,6152,,,,HPX,230
+231,67,MAGED1,MAGE family member D1,9500,,,,HPX,231
+232,68,VEGFD,Vascular endothelial growth factor D,2277,,,,HPX,232
+233,69,SIRT1,Sirtuin 1,23411,,,,HPX,233
+234,70,TMEM127,Transmembrane protein 127,55654,,,,HPX,234
+235,71,RASA2,RAS p21 protein activator 2,5922,,,,HPX,235
+236,72,DSCAM,Down syndrome adhesion molecule,1826,,,,HPX,236
+237,73,ppp1r3b,Protein Phosphatase 1 Regulatory Subunit 3B,79660,,,,HPX,237
+238,74,C6orf165,C6orf165,154313,,,,HPX,238
+239,75,CREBZF,CREB/ATF bZIP transcription factor,58487,,,,HPX,239
+240,76,ZBTB44,Zinc Finger And BTB Domain Containing 44,29068,,,,HPX,240
+241,77,AGBL1,Cytosolic carboxypeptidase 4,123624,,,,HPX,241
+242,78,ASAH1,Acid Ceramidase isoform C,427,,,,HPX,242
+243,79,CACB1,Voltage dependent L-type CaKam-a,782,,,,HPX,243
+244,80,DDX31,DEAD-box helicase 31,64794,,,,HPX,244
+245,81,SCN7A,Sodium Voltage-Gated Channel Alpha Subunit 7,6332,,,,HPX,245
+246,82,sgf29,SAGA associated factor 29,112869,,,,HPX,246
+247,83,C7orf57,C7orf57 homolog,136288,,,,HPX,247
+248,84,C14orf132,C14orf132 homolog,56967,,,,HPX,248
+249,85,NEMF,Nuclear export mediator factor,9147,,,,HPX,249
+250,86,Nmrk2,Nicotinamide Riboside Kinase 2,27231,,,,HPX,250
+251,87,ZNF200,Zinc finger protein 200,7752,,,,HPX,251
+252,88,BRD4,Bromodomain containing protein-4,23476,,,,HPX,252
+253,89,NF1,Neurofibromatosis-1,4763,,,,HPX,253
+254,90,PC,Pyruvate Carboxylase,5091,,,,HPX,254
+255,91,HDLBP,High density lipoprotein binding protein,3069,,,,HPX,255
+256,92,TMPO,Thymopoietin,7112,,,,HPX,256
+257,93,YWHAB,Tyrosine 3-monooxygenase/tryptophan 5-monooxygenase activation protein beta,7529,,,,HPX,257
+258,94,LRP6,LDL receptor related protein 6,4040,,,,HPX,258
+259,95,ZNF91,Zinc finger protein 91,7644,,,,HPX,259
+260,0,KIFC2,kinesin family member C2 (KIFC2),90990,,,,ROT,260
+261,1,ATPIF1,ATPase inhibitory factor 1 (Atpif1),93974,,,,ROT,261
+262,2,RPS10-NUDT3,RPS10-NUDT3,100529239,,,,ROT,262
+263,3,MAEA,"erythroblast attacher (MAEA), transcript variant 7",10296,,,,ROT,263
+264,4,POLD2,"DNA polymerase delta 2, accessory subunit (POLD2)",5425,,,,ROT,264
+265,5,HMGCS1,3-hydroxy-3-methylglutaryl-CoA synthase 1 (HMGCS1),3157,,,,ROT,265
+266,6,ISCA2,iron-sulfur cluster assembly 2 (ISCA2),122961,,,,ROT,266
+267,7,BUB3,BUB3 mitotic checkpoint protein (BUB3),9184,,,,ROT,267
+268,8,TCF4,transcription factor 4 (TCF4),6925,,,,ROT,268
+269,9,PRSS23,serine protease 23 (PRSS23),11098,,,,ROT,269
+270,10,CORO1A,coronin 1A (CORO1A),11151,,,,ROT,270
+271,11,GORASP2,golgi reassembly stacking protein 2 (GORASP2),26003,,,,ROT,271
+272,12,ATP5MC3,ATP synthase membrane subunit c locus 3 (ATP5MC3),518,,,,ROT,272
+273,13,TAF4,TATA-box binding protein associated factor 4 (TAF4),6874,,,,ROT,273
+274,14,DAB2,DAB adaptor protein 2 (DAB2),1601,,,,ROT,274
+275,15,IFT52,intraflagellar transport 52 (IFT52),51098,,,,ROT,275
+276,16,TMEM199,Transmembrane protein 199,147007,,,,ROT,276
+277,17,NSRP1,"nuclear speckle splicing regulatory protein 1 (NSRP1),",84081,,,,ROT,277
+278,18,PGK1,phosphoglycerate kinase 1 (PGK1),5230,,,,ROT,278
+279,19,NDUFB5,NADH:ubiquinone oxidoreductase subunit B5 (NDUFB5),4711,,,,ROT,279
+280,20,DNAJB2,DnaJ heat shock protein family (Hsp40) member B2 (DNAJB2),3300,,,,ROT,280
+281,21,CHRM1,cholinergic receptor muscarinic 1 (CHRM1),1128,,,,ROT,281
+282,22,ASNS,asparagine synthetase (glutamine-hydrolyzing) (ASNS),440,,,,ROT,282
+283,23,RPL36,ribosomal protein L36 (RPL36),25873,,,,ROT,283
+284,24,RAB11B,"RAB11B, member RAS oncogene family (RAB11B)",9230,,,,ROT,284
+285,25,MRPL58,mitochondrial ribosomal protein L58 (MRPL58),3396,,,,ROT,285
+286,26,NUP85,nucleoporin 85 (NUP85),79902,,,,ROT,286
+287,27,RPL26,"ribosomal protein L26 (RPL26),",6154,,,,ROT,287
+288,28,GSTP1,glutathione S-transferase pi 1 (GSTP1),2950,,,,ROT,288
+289,29,Malat1,metastasis associated lung adenocarcinoma transcript 1 (non-coding RNA) (Malat1),,,,,ROT,289
+290,30,CLEC2D,C-type lectin domain family 2 member D (CLEC2D),29121,,,,ROT,290
+291,31,Arvcf,"armadillo repeat gene deleted in velocardiofacial syndrome (Arvcf),",421,,,,ROT,291
+292,32,PARK7,Parkinsonism associated deglycase (PARK7),11315,,,,ROT,292
+293,33,ENO1,"enolase 1 (ENO1), transcript variant 1,",2023,,,,ROT,293
+294,34,TRAPPC2L,trafficking protein particle complex 2 like (TRAPPC2L),51693,,,,ROT,294
+295,35,RPS16,"Ribosomal protein S16 (RPS16),",6217,,,,ROT,295
+296,36,LIG1,"DNA ligase 1 (LIG1), transcript variant 6",3978,,,,ROT,296
+297,37,DYNLL1,dynein light chain LC8-type 1 (DYNLL1),8655,,,,ROT,297
+298,38,RPL6,"ribosomal protein L6 (RPL6),",6128,,,,ROT,298
+299,39,TUBB4B,tubulin beta 4B class IVb (TUBB4B),10383,,,,ROT,299
+300,40,RPL7A,Ribosomal protein L7a,6130,,,,ROT,300
+301,41,PSMC6,"Proteasome 26S subunit, ATPase 6",5706,,,,ROT,301
+302,42,MRPL52,Mitochondrial ribosomal protein L52,122704,,,,ROT,302
+303,43,TTC7B,Tetratricopeptide repeat domain 7B,145567,,,,ROT,303
+304,44,SUMO3,small ubiquitin like modifier 3 (SUMO3),6612,,,,ROT,304
+305,45,SLC6A10P,"Solute carrier family 6 member 10, pseudogene",386757,,,,ROT,305
+306,46,RPL34,ribosomal protein L34 (RPL34),6164,,,,ROT,306
+307,47,TPP1,Tripeptidyl peptidase 1 (TPP1),1200,,,,ROT,307
+308,48,CBR3-AS1,CBR3 antisense RNA 1,100506428,,,,ROT,308
+309,49,USP3,ubiquitin specific peptidase 3 (USP3),9960,,,,ROT,309
+310,50,AGO3,argonaute RISC catalytic component 3 (AGO3),192669,,,,ROT,310
+311,51,Oscp1,organic solute carrier partner 1 (Oscp1),127700,,,,ROT,311
+312,52,ATP6V0B,ATPase H+ transporting V0 subunit b (ATP6V0B,533,,,,ROT,312
+313,53,AKR1A1,aldo-keto reductase family 1 member A1 (AKR1A1),10327,,,,ROT,313
+314,54,NSUN4,NOP2/Sun RNA methyltransferase 4,387338,,,,ROT,314
+315,55,MT3,metallothionein 3 (MT3),4504,,,,ROT,315
+316,56,CMTM3,CKLF like MARVEL transmembrane domain containing 3,123920,,,,ROT,316
+317,57,TIPRL,"TOR signaling pathway regulator (TIPRL),",261726,,,,ROT,317
+318,58,IDH3B,isocitrate dehydrogenase 3 (NAD(+)) beta (IDH3B),3420,,,,ROT,318
+319,59,COQ6,"coenzyme Q6, monooxygenase (COQ6)",51004,,,,ROT,319
+320,60,CDK5RAP3,CDK5 regulatory subunit associated protein 3 (CDK5RAP3),80279,,,,ROT,320
+321,61,YPEL5,"yippee like 5 (YPEL5),",51646,,,,ROT,321
+322,62,EIF3L,"eukaryotic translation initiation factor 3 subunit L (EIF3L),",51386,,,,ROT,322
+323,63,PFDN5,prefoldin subunit 5 (PFDN5),5204,,,,ROT,323
+324,64,AAAS,aladin WD repeat nucleoporin (AAAS),8086,,,,ROT,324
+325,65,SLC4A2,solute carrier family 4 member 2 (SLC4A2),6522,,,,ROT,325
+326,66,S100A4,S100 calcium binding protein A4 (S100A4),6275,,,,ROT,326
+327,67,Rps29,ribosomal protein S29 (Rps29,6235,,,,ROT,327
+328,68,UBA52,Ubiquitin A-52 residue ribosomal protein fusion product 1 (UBA52),7311,,,,ROT,328
+329,69,NDUFV1,NADH:ubiquinone oxidoreductase core subunit V1 (NDUFV1),4723,,,,ROT,329
+330,70,NACA,nascent polypeptide associated complex subunit alpha (NACA),4666,,,,ROT,330
+331,71,DCTN2,dynactin subunit 2 (DCTN2),10540,,,,ROT,331
+332,72,C19orf53,chromosome 19 open reading frame 53 (C19orf53),28974,,,,ROT,332
+333,73,EMP3,epithelial membrane protein 3 (EMP3),2014,,,,ROT,333
+334,74,NOP10,NOP10 ribonucleoprotein (NOP10),55505,,,,ROT,334
+335,75,LAMTOR5,"late endosomal/lysosomal adaptor, MAPK and MTOR activator 5 (LAMTOR5)",10542,,,,ROT,335
+336,76,PHB2,"prohibitin 2 (PHB2), transcript variant 1",11331,,,,ROT,336
+337,77,DDHD2,"DDHD domain containing 2 (DDHD2), transcript variant 3",23259,,,,ROT,337
+338,78,Cox5b,cytochrome c oxidase subunit 5B (Cox5b),1329,,,,ROT,338
+339,79,COA5,cytochrome c oxidase assembly factor 5 (COA5),493753,,,,ROT,339
+340,80,Hsp90aa1,"heat shock protein 90, alpha (cytosolic), class A member 1 (Hsp90aa1)",3320,,,,ROT,340
+341,81,PTP4A1,protein tyrosine phosphatase 4A1 (PTP4A1),7803,,,,ROT,341
+342,82,Klf6,Kruppel-like factor 6 (Klf6) intron,1316,,,,ROT,342
+343,83,MTIF2,mitochondrial translational initiation factor 2 (MTIF2),4528,,,,ROT,343
+344,84,CYB561D2,cytochrome b561 family member D2 (CYB561D2),11068,,,,ROT,344
+345,85,PPP2R5A,protein phosphatase 2 regulatory subunit B'alpha (PPP2R5A),5525,,,,ROT,345
+346,86,TRA2B,transformer 2 beta homolog (TRA2B),6434,,,,ROT,346
+347,87,MRPS21,mitochondrial ribosomal protein S21 (MRPS21),54460,,,,ROT,347
+348,88,GPX4,glutathione peroxidase 4 (GPX4),2879,,,,ROT,348
+349,89,MRPS25,mitochondrial ribosomal protein S25 (MRPS25),64432,,,,ROT,349
+350,90,RPL41,"ribosomal protein L41 (RPL41),",6171,,,,ROT,350
+351,91,PPP2CA,protein phosphatase 2 catalytic subunit alpha (PPP2CA),5515,,,,ROT,351
+352,92,SLC44A2,solute carrier family 44 member 2 (SLC44A2),57153,,,,ROT,352
+353,93,RPL31,ribosomal protein L31 (RPL31),6160,,,,ROT,353
+354,94,SPSB2,SPRY containing SOCS box protein (SPSB2),84727,,,,ROT,354
+355,95,PSME2,proteasome activator subunit 2 (PSME2),5721,,,,ROT,355
+356,96,ARPC1B,actin related protein 2/3 complex subunit 1B (ARPC1B),10095,,,,ROT,356
+357,97,SLC6A8,solute carrier family 6 member 8 (SLC6A8),6535,,,,ROT,357
+358,98,NDUFS2,NADH:ubiquinone oxidoreductase core subunit S2 (NDUFS2),4720,,,,ROT,358
+359,0,FIP1L1,Factor interacting with PAPOLA and CPSF1,81608,,,mRNA surveillance,HT;ROT,359
+360,1,LUC7L3,LUC7 like 3 pre-mRNA splicing factor,51747,,,Nucleic acid binding,HT;ROT,360
+361,2,ALDOA,"Aldolase, fructose-bisphosphate A",226,,,Glycolysis/gluconeogenesis,HT;ROT,361
+362,3,YIPF3,Yip1 domain family member 3,25844,,,Cell differentiation,HT;ROT,362
+363,0,SERF2,Small EDRK-rich factor 2,10169,,,Protein destabilization,HPX;ROT,363
+364,1,ANXA2,Annexin A2,302,,,Membrane trafficking,HPX;ROT,364
+365,2,RPS21,Ribosomal protein S21,6227,,,Translation,HPX;ROT,365
+366,3,RPL4,Ribosomal protein L4,6124,,,Translation,HPX;ROT,366
+367,4,RPL24,Ribosomal protein L24,6152,,,Translation,HPX;ROT,367
+368,0,SLIRP,SRA stem-loop interacting RNA binding protein,81892,,,Nucleic Acid Binding,HT;HPX,368
+369,1,SLC35B2,Solute carrier family 35 member B2,347734,,,Transmembrane transporter activity,HT;HPX,369
+370,2,CAD,Carbamoyl-phosphate synthetase 2,790,,,Pyrimidine metabolism,HT;HPX,370
+371,3,SNAI2,Snail family transcriptional repressor 2,6591,,,Adherens junction,HT;HPX,371
+372,4,PIK3CA,"Phosphatidylinositol-4,5-bisphosphate 3-kinase catalytic subunit alpha",5290,,,AMPK signaling,HT;HPX,372
+373,5,LDHB,Lactate dehydrogenase B,3945,,,Glycolysis/Gluconeogenesis,HT;HPX,373
+374,6,MAP1A,Microtubule associated protein 1A,4130,,,Microtubule binding,HT;HPX,374
+375,7,FBXO32,F-box protein 32,114907,,,FoxO signaling,HT;HPX,375
+376,8,EHMT1,Euchromatic histone lysine methyltransferase 1,79813,,,,HT;HPX,376
+377,0,ATP5MC1,ATP synthase membrane subunit c locus 1,516,,Yes,Oxidative phosphorylation,HT;HPX;ROT,377
+378,1,MANF,Mesencephalic astrocyte derived neurotrophic factor,7873,,Yes,Endoplasmic reticulum protein processing,HT;HPX;ROT,378
+379,2,CALM1,Calmodulin-1,801,,No,Calcium signaling,HT;HPX;ROT,379

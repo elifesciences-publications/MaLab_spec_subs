@@ -1,0 +1,14 @@
+GO_HEMOGLOBIN_COMPLEX
+> An iron-containing, oxygen carrying complex. In vertebrates it is made up of two pairs of associated globin polypeptide chains, each chain carrying a noncovalently bound heme prosthetic group.
+AHSP
+CYB5R3
+HBA1
+HBA2
+HBB
+HBD
+HBE1
+HBG1
+HBG2
+HBM
+HBQ1
+HBZ

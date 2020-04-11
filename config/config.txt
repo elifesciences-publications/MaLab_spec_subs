@@ -1,0 +1,35 @@
+[DEFAULT]
+#OverWriteInput: Change to yes if you would like to redownload input #datasets (i.e. if you change your species list or gene list). 
+#IMPORTANT: If you run a subsequent analysis under the same RunName with this as 
+#"no" that uses a gene symbol for which input was previously downloaded, it will not 
+#update input files (important to note if you have updated your species list)
+
+OverwriteInput = no
+
+#ODBLevel: Code for NCBI Taxonomy level which encompasses all species listed in species file
+ODBLevel = 40674
+#ODBTestSpecies: Species in OrthoDB for which specific amino acid substitutions are desired
+ODBTestSpecies = Ictidomys tridecemlineatus
+
+#NCBITaxID corresponds to the species for which NCBI sequence data will be fetched and used for analysis.
+NCBITaxID = 9999
+#NCBIGeneIDField: Column name for Gene ID mapping for NCBI species 
+NCBIGeneIDField = ags_gene_id
+#NCBIProteinIDField: Column name for Protein ID(s) mapping for NCBI species
+NCBIProteinIDField = ags_protein_ids
+#NCBIAPIKey: Encouraged but optional to increase your requests per second limit on the 
+#NCBI REST API. More info on NCBI API Keys here: https://www.ncbi.nlm.nih.gov/books/NBK25497/
+NCBIAPIKey = 24a8e1dd4d64cf50b37f0bdd369af8274309
+
+#Currently
+#AlignProgram = KALIGN 
+#BackGround = BLOSUM62
+#LimitSpeciesDuplicates = yes
+
+#Config Files
+#SpeciesFilePath: txt file containing list of species for which OrthoDB sequence data will be fetched
+SpeciesFilePath = config/v10_0_species.txt
+#GenesFilePath: List of gene symbols for which 
+GenesFilePath = config/cDNA_screen_completelist.txt
+IDFilePath = config/cDNAscreen_geneIDs_clean.csv
+RunName = cDNAscreen_041020
