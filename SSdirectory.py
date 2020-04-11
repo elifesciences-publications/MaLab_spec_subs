@@ -1,4 +1,6 @@
-import os, os.path
+import os
+import glob
+import shutil
 
 """File and directory management functions"""
 
@@ -36,7 +38,7 @@ def write_run_params_file(config, spec_path, spec_hc):
     spec_path: file path for the input species list being used for analysis
     spec_hc: hashcode generated from species list.
     """
-    config_keys = ["RunName", "GenesFile", "odb_level"]
+    config_keys = ["RunName", "GenesFilePath", "ODBLevel"]
     run_name = config["RunName"]
     fpath = run_name + "/run_params/params.txt"
     params_f = open(fpath, 'wt')
