@@ -49,3 +49,29 @@ def write_run_params_file(config, spec_path, spec_hc):
     params_f.write("species_list: {0}\n".format(spec_path))
     params_f.write("species_hashcode: {0}\n".format(spec_hc))
     params_f.close()
+
+def convert_fname_uppercase(file_dir,pat):
+    """Converts file names in file_dir to upper case gene symbols (file extension will remain intact).
+
+    :param file_dir: directory in which file names will be converted to upper case
+    :param pat: regular expression string which has two groups, the gene symbol and the rest of the file name
+    :return: None
+    """
+    import re
+    for fname in os.listdir(file_dir):
+        match = re.search(pat,fname)
+        if match:
+            symbol = match.groups()[0]
+            file_ext = match.groups()[1]
+            if not symbol.upper() == symbol:
+                src_fpath = os.path.join(file_dir,fname)
+                target_fpath = os.path.join(file_dir,symbol.upper()+file_ext)
+                os.replace(src_fpath,target_fpath)
+
+
+# importlib.reload(SSdirectory)
+#run_name = "cDNAscreen_041020"
+# NCBI_pat = "(\w+)(\.fasta)"
+# ODB_pat = "(\w+)(\.fasta|\.tsv)"
+# SSdirectory.convert_fname_uppercase("{0}/input/NCBI/9999".format(run_name),NCBI_pat)
+# SSdirectory.convert_fname_uppercase("{0}/input/ODB".format(run_name),ODB_pat)

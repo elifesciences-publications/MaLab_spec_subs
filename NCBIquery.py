@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from SSerrors import RecordDataError,NCBIQueryError, write_errors, print_errors
+from SSerrors import RecordDataError,NCBIQueryError, write_errors, print_errors, load_errors
 import re
 
 def download_AGS_data(gene_id_df, config):
@@ -26,9 +26,9 @@ def download_AGS_data(gene_id_df, config):
     NCBI_errors_fpath = config["ErrorsFilePath"] #errors_tsv_fpath
 
     mapped_id_df = map_AGS_geneIDs(gene_id_df, filled_outpath, NCBI_errors_fpath,gene_field_name,NCBI_taxid)
-    ags_mapped_id_df = mapped_id_df.loc[~mapped_id_df[gene_field_name].isnull(), :]
-    ags_mapped_id_df = download_NCBI_records(ags_mapped_id_df, NCBI_input_dir,gene_field_name,protein_field_name,NCBI_API_key)
-    ags_mapped_id_df.to_csv(filled_outpath)
+    # ags_mapped_id_df = mapped_id_df.loc[~mapped_id_df[gene_field_name].isnull(), :]
+    ags_mapped_id_df = download_NCBI_records(mapped_id_df, NCBI_input_dir,gene_field_name,protein_field_name,NCBI_API_key)
+    ags_mapped_id_df.to_csv(filled_outpath,sep='\t')
     return ags_mapped_id_df
 
 def NCBI_ID_query(driver,id_df,idx,hgid, query_tax_id="9999",field_name=""):
@@ -63,7 +63,7 @@ def NCBI_ID_query(driver,id_df,idx,hgid, query_tax_id="9999",field_name=""):
         raise NCBIQueryError(1,error_msg)
 
 
-def map_AGS_geneIDs(id_df, results_outpath, errors_tsv_path, gene_field_name, query_tax_id):
+def map_AGS_geneIDs(id_df, results_outpath, errors_fpath, gene_field_name, query_tax_id):
     """Reads a csv file at specified path, generates a new DataFrame containing AGS Gene IDs when available.
 
     :param id_df: DataFrame containing gene symbol and NCBI Gene ID information. REQUIRED column human_gene_id,
@@ -90,13 +90,9 @@ def map_AGS_geneIDs(id_df, results_outpath, errors_tsv_path, gene_field_name, qu
     field_conv_dict = {"human_gene_id": str, gene_field_name: str}
     if os.path.exists(results_outpath):
         #If results df exists, will default to reading fields/ determining missing entries from there
-        id_df = pd.read_csv(results_outpath, dtype=field_conv_dict,index_col="overall_index")
-    if os.path.exists(errors_tsv_path):
-        errors_df = pd.read_csv(errors_tsv_path, delimiter='\t')
-        NCBI_errors_df = errors_df.loc[errors_df["error_type"] == "NCBIQueryError", :]
-        check_error_file = True
-    else:
-        check_error_file = False
+        out_id_df = pd.read_csv(results_outpath, dtype=field_conv_dict,index_col="overall_index",sep='\t')
+        id_df.loc[out_id_df.index,gene_field_name] = out_id_df[gene_field_name]
+    check_error_file, NCBI_errors_df = load_errors(errors_fpath, error_type="NCBIQueryError")
     #Determine rows missing gene_field_name and rows missing human_gene_id
     if gene_field_name not in id_df.columns:
         missing_AGS_gid = id_df
@@ -111,19 +107,19 @@ def map_AGS_geneIDs(id_df, results_outpath, errors_tsv_path, gene_field_name, qu
             print_errors(NCBI_errors_df,symbol)
         elif idx in missing_hgid.index:
             rd_error = RecordDataError(0,"No Human GeneID present in data")
-            write_errors(errors_tsv_path,symbol,rd_error)
+            write_errors(errors_fpath,symbol,rd_error)
             continue
         else:
             try:
                 NCBI_ID_query(driver,id_df,idx,hgid,query_tax_id,field_name=gene_field_name)
-                id_df.to_csv(results_outpath)
+                id_df.to_csv(results_outpath,sep='\t')
             except NCBIQueryError as ncbi_error:
-                write_errors(errors_tsv_path,symbol,ncbi_error)
+                write_errors(errors_fpath,symbol,ncbi_error)
 
     return id_df
 
 
-def download_NCBI_records(ags_mapped_id_df, NCBI_records_dirpath,gene_field_name, protein_field_name, NCBI_API_key):
+def download_NCBI_records(id_df, NCBI_records_dirpath,gene_field_name, protein_field_name, NCBI_API_key):
     """Downloads NCBI protein records for each NCBI Gene ID listed in ags_mapped_id_df.
 
     :param: ags_mapped_id_df: DataFrame object with required columns 'Gene Symbol' and 'AGS Gene ID.' Gene symbol
@@ -140,6 +136,7 @@ def download_NCBI_records(ags_mapped_id_df, NCBI_records_dirpath,gene_field_name
     """
     import subprocess
     import urllib.request
+    import requests
     import xml.etree.ElementTree as ET
 
     ENTREZ_BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
@@ -151,61 +148,63 @@ def download_NCBI_records(ags_mapped_id_df, NCBI_records_dirpath,gene_field_name
         #Default value will be empty string if NCBIAPIKey field is empty or absent in config file, defaults
         #to making API requests without API key
         api_key_url_ext = "&api_key={0}".format(NCBI_API_key)
+    ags_mapped_df = id_df.loc[~id_df[gene_field_name].isnull(), :]
     # Convert Gene ID to list of Protein IDs corresponding to transcript variant sequences
-    for idx, row in ags_mapped_id_df.iterrows():
+    for idx, row in ags_mapped_df.iterrows():
         symbol = row["gene_symbol"]
-        print("==={0}===".format(symbol))
         fasta_fpath = "{0}/{1}.fasta".format(NCBI_records_dirpath, symbol)
         if not os.path.exists(fasta_fpath) or symbol in OVERWRITE_FASTAS:
             AGS_gid = row[gene_field_name]
+            print("==={0}===".format(symbol))
             print("AGS Gene ID: {0}".format(AGS_gid))
             elink_req = "elink.fcgi?dbfrom=gene&db=protein&id={0}{1}".format(AGS_gid, api_key_url_ext)
             gp_elink_url = ENTREZ_BASE_URL + elink_req
 
-            file = urllib.request.urlopen(gp_elink_url)
-            xml_data = file.read()
-            file.close()
+            # file = urllib.request.urlopen(gp_elink_url)
+            elink_response = requests.get(gp_elink_url)
+            # file = elink_response.content
+            # xml_data = file.read()
+            # file.close()
+            xml_data = elink_response.content
 
             root = ET.fromstring(xml_data)
             # Check XML formatting of elink pages - update xpath accordingly if functionality breaks
             # Pulls Record IDs for Protein specifically; use gene_protein_refseq for Protein RefSeqs
             protein_IDs = [link.text for link in root.findall(".//LinkSetDb[LinkName='gene_protein']/Link/Id")]
             id_str = ','.join(protein_IDs)
-            ags_mapped_id_df.loc[idx, protein_field_name] = id_str
+            id_df.loc[idx, protein_field_name] = id_str
 
             efetch_req = "efetch.fcgi?db=protein&id={0}&rettype=fasta&retmode=text{1}".format(id_str,api_key_url_ext)
             efetch_url = ENTREZ_BASE_URL + efetch_req
             subprocess.run(args=['wget', efetch_url, '-O', fasta_fpath])
-    return ags_mapped_id_df
+    return id_df
 
 def test_NCBI_query():
     #Ignore me
     import SSconfig
     from IPython.display import display
     config, spec_list, gene_id_df, tax_table = SSconfig.config_initialization()
-    with pd.option_context('display.max_columns',None):
-        # display(gene_id_df)
+    with pd.option_context('display.max_columns',None, 'display.max_rows',5):
+        display(gene_id_df)
         pass
-    # run_name = config["RunName"]
-    # filled_outpath = "{0}/summary/cDNAscreen_geneIDs_complete.tsv".format(run_name)
-    i= 0
-    for idx,row in gene_id_df.iterrows():
-        if i == 0:
-            symbol = row["gene_symbol"]
-            hgid = row["human_gene_id"]
-            from selenium import webdriver
-            from selenium.webdriver.chrome.options import Options
-            chrome_options = Options()
-            chrome_options.add_argument("--headless")
-            WINDOW_SIZE = "1920,1080"
-            chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
-            driver = webdriver.Chrome(chrome_options=chrome_options)
-            driver.implicitly_wait(10)
-            try:
-                NCBI_ID_query(driver,gene_id_df,idx,hgid,"9999")
-                print(gene_id_df.loc[idx,"9999_gene_id"])
-                driver.quit()
-            except NCBIQueryError as ncbi_e:
-                print(driver.current_url)
-                driver.quit()
-        i+=1
+    row_generator = gene_id_df.iterrows()
+    idx,row = row_generator.__next__()
+    symbol = row["gene_symbol"]
+    hgid = row["human_gene_id"]
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    WINDOW_SIZE = "1920,1080"
+    chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.implicitly_wait(10)
+    try:
+        NCBI_ID_query(driver,gene_id_df,idx,hgid,"9999")
+        print(gene_id_df.loc[idx,"9999_gene_id"])
+        driver.quit()
+    except NCBIQueryError as ncbi_e:
+        print(driver.current_url)
+        print(ncbi_e)
+        driver.quit()
+

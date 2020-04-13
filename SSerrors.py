@@ -82,3 +82,24 @@ def print_errors(errors_df,gene_symbol):
     error_row = errors_df.loc[errors_df["gene"] == gene_symbol, :]
     genename, error_type, error_code, error_msg = error_row.values[0]
     print("{0}\t{1}\t{2}\t{3}".format(genename, error_type, error_code, error_msg))
+
+def load_errors(errors_fpath,error_type=""):
+    """Loads errors_df from specified file path. Used to prevent repeat operations that generate errors (ie failed
+    OrthoDB or NCBI queries, lack of available GeneCards alias data
+
+    :param errors_fpath: file path to errors.tsv which logs errors raised in acquisition/ analysis process. If path
+    doesn't exist, returns check_error_file as False and an empty DataFrame (which won't be accessed).
+    :param error_type: if provided, will only check against logged errors of given type
+    :return: check_error_file: boolean on whether errors_df exists
+    :return: errors_df: if check_error, returns file loaded from
+    """
+    if os.path.exists(errors_fpath):
+        errors_df = pd.read_csv(errors_fpath, delimiter='\t')
+        if error_type:
+            errors_df = errors_df.loc[errors_df["error_type"] == error_type, :]
+        check_error_file = True
+        return check_error_file, errors_df
+    else:
+        check_error_file = False
+        return check_error_file, pd.DataFrame()
+

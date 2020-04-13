@@ -3,7 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import re
-from SSerrors import GeneCardsError, write_errors
+import os
+from SSerrors import GeneCardsError, write_errors, load_errors, print_errors
 
 def format_odb_field(field):
     """Remove spaces, commas, and capitalization from alias/ odb fields to search for string matches.
@@ -45,8 +46,8 @@ def alias_GC_query(driver,gene_name):
 
 
     gene_cards_url = "https://www.genecards.org/cgi-bin/carddisp.pl?gene={0}".format(gene_name.upper())
-    aliases_fpath = "aliases_data/" + gene_name + "_aliases.txt"
-
+    # aliases_fpath = "aliases_data/" + gene_name + "_aliases.txt"
+    aliases_fpath = "aliases_data/{0}_aliases.txt".format(gene_name)
     list_xpath = "//ul[@class='list-unstyled list-spacious']/li"
     elem_xpaths = [list_xpath]
     driver.get(gene_cards_url)
@@ -54,7 +55,7 @@ def alias_GC_query(driver,gene_name):
     for xpath in elem_xpaths:
         elems = driver.find_elements_by_xpath(xpath)
         innerHTMLs = [elem.get_attribute("innerHTML") for elem in elems]
-        col_aliases = [BeautifulSoup(markup).find(text=True).strip() for markup in innerHTMLs]
+        col_aliases = [BeautifulSoup(markup,features="html5lib").find(text=True).strip() for markup in innerHTMLs]
         aliases.extend(col_aliases)
     if len(aliases) > 0:
         # Means gene_name query to GeneCards autoredirected to a single page - normal aliases scraping
@@ -65,7 +66,6 @@ def alias_GC_query(driver,gene_name):
             aliases.insert(0, gc_name)
         # Cache aliases to aliases_fpath
         write_aliases_f(aliases, aliases_fpath)
-        driver.quit()
     else:
         # Try search results page for gene_name; raise GeneCardsError if no results or check each page
         # for alias matching gene_name otherwise
@@ -73,27 +73,25 @@ def alias_GC_query(driver,gene_name):
         driver.get(query_url)
         links_xpath = "//td[@class='gc-gene-symbol gc-highlight symbol-col']/a"
         link_elems = driver.find_elements_by_xpath(links_xpath)
+        link_hrefs = [elem.get_attribute("href") for elem in link_elems]
         if link_elems:
-            for elem in link_elems:
-                elem_href = elem.get_attribute("href")
+            for elem_href in link_hrefs:
                 driver.get(elem_href)
-                query_url = driver.current_url
-                elem_gc_name = re.search("gene=([A-Z0-9]+)", query_url).groups()[0].strip()
+                link_url = driver.current_url
+                elem_gc_name = re.search("gene=([A-Z0-9]+)", link_url).groups()[0].strip()
                 elem_aliases = []
                 for xpath in elem_xpaths:
                     elems = driver.find_elements_by_xpath(xpath)
                     innerHTMLs = [elem.get_attribute("innerHTML") for elem in elems]
-                    col_aliases = [BeautifulSoup(markup).find(text=True).strip() for markup in innerHTMLs]
+                    col_aliases = [BeautifulSoup(markup,features="html5lib").find(text=True).strip() for markup in innerHTMLs]
                     elem_aliases.extend(col_aliases)
                 if gene_name in elem_aliases or gene_name == elem_gc_name:
                     # Found query result with gene_name
-                    driver.quit()
                     if elem_gc_name not in elem_aliases:
                         elem_aliases.insert(0, elem_gc_name)
                     write_aliases_f(elem_aliases, aliases_fpath)
                     return
         # If either no link_elems (empty search results page), or none correspond to gene_name:
-        driver.quit()
         raise GeneCardsError(0, "Could not automatically fetch alias data from GeneCards - consider searching manually")
 
 def download_alias_data(gene_list, config):
@@ -103,13 +101,43 @@ def download_alias_data(gene_list, config):
     chrome_options.add_argument("--window-size=%s" % window_size)
     driver = webdriver.Chrome(chrome_options=chrome_options)
     errors_fpath = config["ErrorsFilePath"]
+    check_error_file, gc_errors_df = load_errors(errors_fpath,"GeneCardsError")
     for gene_name in gene_list:
-        try:
-            alias_GC_query(driver, gene_name)
-        except GeneCardsError as gc_error:
-            write_errors(errors_fpath,gene_name,gc_error)
+        aliases_fpath = "aliases_data/{0}_aliases.txt".format(gene_name)
+        if not os.path.exists(aliases_fpath):
+            if check_error_file and gene_name in gc_errors_df["gene"].unique():
+                print_errors(gc_errors_df, gene_name)
+            else:
+                try:
+                    alias_GC_query(driver, gene_name)
+                except GeneCardsError as gc_error:
+                    write_errors(errors_fpath,gene_name,gc_error)
+    driver.quit()
 
+def clean_alias_data_dir(src_dir_path, target_dir_path, gene_symbols):
+    """Creates a new directory at target_dir_path, copies any _alias.txt files from src_dir_path to target_dir_path
+    if the corresponding gene symbol is in gene_symbols. Will not create directory if target_dir_path exists.
 
-from selenium import webdriver
-driver = webdriver.Chrome()
-driver.get("https://www.genecards.org/cgi-bin/carddisp.pl?gene=SLC4A2")
+    :param target_dir_path:
+    :param gene_symbols: iterable, must support check if gene symbol in gene_symbols (must provide .unique() for Pandas
+    Series)
+    :return count: number of files from src_dir_path copied to target_dir_path
+    """
+    try:
+        os.mkdir(target_dir_path)
+    except FileExistsError as fe:
+        print("target_dir_path {0} already exists. Provide different target directory".format(target_dir_path))
+        return
+    count = 0
+    for f_name in os.listdir(src_dir_path):
+        f_symbol_match = re.search("(\w+)_aliases.txt", f_name)
+        if f_symbol_match:
+            symbol = f_symbol_match.groups()[0]
+            if symbol in gene_symbols:
+                count += 1
+                src_fpath = os.path.join(src_dir_path, f_name)
+                target_fpath = os.path.join(target_dir_path, f_name)
+                if not os.path.exists(target_fpath):
+                    os.rename(src_fpath, target_fpath)
+    return count
+

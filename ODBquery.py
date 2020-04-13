@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from SSerrors import write_errors, OrthoDBQueryError, print_errors
+from SSerrors import write_errors, print_errors, load_errors, OrthoDBQueryError
 # Acquire input data via OrthoDB API
 def ODB_query(run_name, gene_name, level_str, spec_str):
     """Queries OrthoDB via the fasta and tab API for gene_name.
@@ -71,12 +71,13 @@ def download_ODB_input(gene_list, tax_table, config):
     failed_queries = []
     run_name = config["RunName"]
     errors_fpath = config["ErrorsFilePath"]
-    if os.path.exists(errors_fpath):
-        errors_df = pd.read_csv(errors_fpath, delimiter='\t')
-        ODB_errors_df = errors_df.loc[errors_df["error_type"] == "OrthoDBQueryError", :]
-        check_error_file = True
-    else:
-        check_error_file = False
+    check_error_file, ODB_errors_df = load_errors(errors_fpath,error_type="OrthoDBQueryError")
+    # if os.path.exists(errors_fpath):
+    #     errors_df = pd.read_csv(errors_fpath, delimiter='\t')
+    #     ODB_errors_df = errors_df.loc[errors_df["error_type"] == "OrthoDBQueryError", :]
+    #     check_error_file = True
+    # else:
+    #     check_error_file = False
     for gene_name in gene_list:
         fasta_path = "{0}/input/ODB/{1}.fasta".format(run_name, gene_name)
         if config.getboolean("OverwriteInput") or not os.path.exists(fasta_path):

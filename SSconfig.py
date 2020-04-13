@@ -41,7 +41,8 @@ def parse_species(species_path="config/v10_0_species.txt"):
 def read_geneID_file(csv_fpath):
     """Reads DataFrame from csv file stored at csv_path. The gene_symbol column will be used as the gene list for the
     run. human_gene_id will be used to fetch orthologs from the species specified by NCBITaxID in the config file
-    (Urocitellus parryii by default but can be changed to fit user's needs).
+    (Urocitellus parryii by default but can be changed to fit user's needs). gene_symbol will be converted to upper case
+    for file name consistency.
 
     :param csv_fpath: file path to table containing at least gene symbols and human gene IDs with mandatory column
     names gene_symbol and human_gene_id respectively
@@ -49,6 +50,8 @@ def read_geneID_file(csv_fpath):
     """
     field_conv_dict = {"human_gene_id":str}
     gene_id_df = pd.read_csv(csv_fpath, dtype=field_conv_dict,index_col='overall_index')
+    upper_symbol_srs = gene_id_df["gene_symbol"].str.upper()
+    gene_id_df["gene_symbol"] = upper_symbol_srs
     return gene_id_df
 
 
