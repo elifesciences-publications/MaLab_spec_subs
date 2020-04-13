@@ -96,13 +96,13 @@ def alias_GC_query(driver,gene_name):
         driver.quit()
         raise GeneCardsError(0, "Could not automatically fetch alias data from GeneCards - consider searching manually")
 
-def download_alias_data(gene_list, errors_fpath):
+def download_alias_data(gene_list, config):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     window_size = "1920,1080"
     chrome_options.add_argument("--window-size=%s" % window_size)
     driver = webdriver.Chrome(chrome_options=chrome_options)
-
+    errors_fpath = config["ErrorsFilePath"]
     for gene_name in gene_list:
         try:
             alias_GC_query(driver, gene_name)
@@ -110,3 +110,6 @@ def download_alias_data(gene_list, errors_fpath):
             write_errors(errors_fpath,gene_name,gc_error)
 
 
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get("https://www.genecards.org/cgi-bin/carddisp.pl?gene=SLC4A2")

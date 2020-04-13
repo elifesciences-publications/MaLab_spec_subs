@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from SSerrors import write_errors, OrthoDBQueryError
+from SSerrors import write_errors, OrthoDBQueryError, print_errors
 # Acquire input data via OrthoDB API
 def ODB_query(run_name, gene_name, level_str, spec_str):
     """Queries OrthoDB via the fasta and tab API for gene_name.
@@ -16,9 +16,9 @@ def ODB_query(run_name, gene_name, level_str, spec_str):
     BASE_URL = "https://v101.orthodb.org"
     query_str = "query={0}".format(gene_name)
     fasta_url = "{0}/fasta?{1}&{2}&{3}".format(BASE_URL, query_str, level_str, spec_str)
-    fasta_path = "{0}/input/{1}.fasta".format(run_name, gene_name)
+    fasta_path = "{0}/input/ODB/{1}.fasta".format(run_name, gene_name)
     tsv_url = "{0}/tab?{1}&{2}&{3}".format(BASE_URL, query_str, level_str, spec_str)
-    tsv_path = "{0}/input/{1}.tsv".format(run_name, gene_name)
+    tsv_path = "{0}/input/ODB/{1}.tsv".format(run_name, gene_name)
     # Obey OrthoDB download restrictions (one request per second) bc you're a good noodle
     t1 = time.process_time()
     fasta_proc = subprocess.run(args=['wget', fasta_url, '-O', fasta_path])
@@ -57,6 +57,12 @@ def download_ODB_input(gene_list, tax_table, config):
     number of species whose sequences can later be removed from the sequence set used for alignment/ analysis,
     allowing the same input file to serve different downstream analyses with smaller species sets.
 
+    :param gene_list: iterable (ie list or Pandas Series) containing gene symbols for which OrthoDB data
+    will be downloaded
+    :param tax_table: Table constructed from OrthoDB raw species table, contains species name, OrthoDB ID, and
+    assembly information.
+    :param config: configparser object constructed from config/config.txt, contains run parameters
+
     Returns the list of gene symbols from gene_list for which OrthoDB data was successfully downloaded
     and the list of gene symbols for which the OrthoDB queries failed"""
     tax_ids = tax_table["tax_id"].values.astype(str)
@@ -64,7 +70,7 @@ def download_ODB_input(gene_list, tax_table, config):
     level_str = "level=" + str(config["ODBLevel"])
     failed_queries = []
     run_name = config["RunName"]
-    errors_fpath = "{0}/summary/errors.tsv".format(run_name)
+    errors_fpath = config["ErrorsFilePath"]
     if os.path.exists(errors_fpath):
         errors_df = pd.read_csv(errors_fpath, delimiter='\t')
         ODB_errors_df = errors_df.loc[errors_df["error_type"] == "OrthoDBQueryError", :]
@@ -72,12 +78,10 @@ def download_ODB_input(gene_list, tax_table, config):
     else:
         check_error_file = False
     for gene_name in gene_list:
-        fasta_path = "{0}/input/{1}.fasta".format(run_name, gene_name)
+        fasta_path = "{0}/input/ODB/{1}.fasta".format(run_name, gene_name)
         if config.getboolean("OverwriteInput") or not os.path.exists(fasta_path):
             if check_error_file and gene_name in ODB_errors_df["gene"].unique():
-                ODB_error_row = ODB_errors_df.loc[ODB_errors_df["gene"] == gene_name, :]
-                genename, error_type, error_code, error_msg = ODB_error_row.values[0]
-                print("{0}\t{1}\t{2}\t{3}".format(genename, error_type, error_code, error_msg))
+                print_errors(ODB_errors_df,gene_name)
                 failed_queries.append(gene_name)
             else:
                 try:

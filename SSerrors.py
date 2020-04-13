@@ -20,6 +20,14 @@ class OrthoDBQueryError(Error):
         self.code = code
         self.message = message
 
+class RecordDataError(Error):
+    """Error class to be raised if NCBI query failed to generate input files"""
+    error_type = "RecordDataError"
+
+    def __init__(self, code, message):
+        self.code = code
+        self.message = message
+
 class NCBIQueryError(Error):
     """Error class to be raised if NCBI query failed to generate input files"""
     error_type = "NCBIQueryError"
@@ -69,3 +77,8 @@ def write_errors(errors_fpath, gene_name, error):
     errors_f.write(fline)
     print(fline)
     errors_f.close()
+
+def print_errors(errors_df,gene_symbol):
+    error_row = errors_df.loc[errors_df["gene"] == gene_symbol, :]
+    genename, error_type, error_code, error_msg = error_row.values[0]
+    print("{0}\t{1}\t{2}\t{3}".format(genename, error_type, error_code, error_msg))

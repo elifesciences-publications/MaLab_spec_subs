@@ -16,7 +16,13 @@ def parse_config(config_file="config/config.txt"):
 
 
 def parse_genes(genes_path="config/genes.txt"):
-    """Parses gene file into list of uppercase, whitespace trimmed gene names"""
+    """Parses gene file into list of uppercase, whitespace trimmed gene names.
+    Currently deprecated - use gene_symbol column from read_geneID_file instead to get gene symbols.
+
+    :param genes_path: file path to txt file list of gene symbols. Lines should be valid gene symbols or will
+    be logged downstream as errors when attempting to fetch OrthoDB data.
+    :return genes: list of gene symbols (capitalized and stripped of white space from genes_path)
+    """
     gene_flines = open(genes_path).readlines()
     genes = [gene.strip().upper() for gene in gene_flines]
     return genes
@@ -31,6 +37,20 @@ def parse_species(species_path="config/v10_0_species.txt"):
         concat = concat + spec
     hc = np.abs(hash(concat))
     return species, hc
+
+def read_geneID_file(csv_fpath):
+    """Reads DataFrame from csv file stored at csv_path. The gene_symbol column will be used as the gene list for the
+    run. human_gene_id will be used to fetch orthologs from the species specified by NCBITaxID in the config file
+    (Urocitellus parryii by default but can be changed to fit user's needs).
+
+    :param csv_fpath: file path to table containing at least gene symbols and human gene IDs with mandatory column
+    names gene_symbol and human_gene_id respectively
+    :return: gene_id_df: DataFrame object containing fields from file
+    """
+    field_conv_dict = {"human_gene_id":str}
+    gene_id_df = pd.read_csv(csv_fpath, dtype=field_conv_dict,index_col='overall_index')
+    return gene_id_df
+
 
 
 def odb_tablev9(species_list, table_path="odb9v1_raw/odb9v1_species.tab"):
@@ -71,24 +91,26 @@ def odb_tablev10(species_list, table_path="config/odb10v0_species.tab"):
 def config_initialization():
 # Read config files
     config = parse_config()
-
+    gene_id_fpath = config["IDFilePath"]
     species_path = "config/v10_0_species.txt"
     spec_list, hc = parse_species(species_path)
-    gene_list = parse_genes(config["GenesFilePath"])
+    gene_id_df = read_geneID_file(gene_id_fpath)
     tax_table = odb_tablev10(spec_list)
     run_name = config["RunName"]
     SSdirectory.create_run_directory(run_name)
-    return config, spec_list, gene_list, tax_table
+    return config, spec_list, gene_id_df, tax_table
 
 DISPLAY_PARAMS = False
 if DISPLAY_PARAMS:
-    config, spec_list, gene_list, tax_table = config_initialization()
+    config, spec_list, gene_id_df, tax_table = config_initialization()
     run_name = config["RunName"]
     test_species = config["ODBTestSpecies"]
     species_path = config["SpeciesFilePath"]
     print("Tax table for species list at {0}".format(species_path))
     with pd.option_context("display.max_columns", None):
         display(tax_table)
-    print("Gene list: " + str(gene_list))
+    print("Gene ID table")
+    # print(gene_id_df["gene_symbol"].values)
+    display(gene_id_df)
     print("Run Name: " + run_name)
     # Verify that species table, gene list, and run_name are correct
