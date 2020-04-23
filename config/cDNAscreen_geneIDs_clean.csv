@@ -3,7 +3,7 @@ overall_index,condition_index,gene_symbol,gene_name,human_gene_id,ags_gene_id,Co
 1,1,SCAMP2,Secretory carrier membrane protein 2,10066,,HT
 2,2,RCC2,Regulator of chromosome condensation 2,55920,,HT
 3,3,SRSF4,Serine and arginine rich splicing factor 4,6429,,HT
-4,4,TOIP1,Torsin-1A-interacting protein,26092,,HT
+4,4,TOR1AIP1,Torsin-1A-interacting protein,26092,,HT
 5,5,RPL35,Ribosomal protein L35,11224,,HT
 6,6,CSTF3,"Cleavage stimulation factor, 3' pre-RNA, subunit 3",1479,,HT
 7,7,ZNF207,Zinc finger protein 207,7756,,HT
@@ -40,7 +40,7 @@ overall_index,condition_index,gene_symbol,gene_name,human_gene_id,ags_gene_id,Co
 38,38,TRIM28,Tripartite motif containing 28,10155,,HT
 39,39,MEMO1,Mediator of cell motility 1,51072,,HT
 40,40,EIF3CL,Eukaryotic translation initiation factor 3 subunit C like,728689,,HT
-41,41,HNRH1,Heterologous ribonucleoprotein H,3187,,HT
+41,41,HNRNPH1,Heterologous ribonucleoprotein H,3187,,HT
 42,42,SCML2,Scm polycomb group protein like,10389,,HT
 43,43,ATXN7L1,"Ataxin 7 like 1 (ATXN7L1),",222255,,HT
 44,44,GTF2H5,General transcription factor IIH subunit 5,404672,,HT
@@ -68,7 +68,7 @@ overall_index,condition_index,gene_symbol,gene_name,human_gene_id,ags_gene_id,Co
 66,66,MLH1,mutL homolog 1,4292,,HT
 67,67,LRRC41,Leucine rich repeat containing 41,10489,,HT
 68,68,MT1F,Metallothionein 1F,4494,,HT
-69,69,RPLS12,40S Ribosomal protein S12,6206,,HT
+69,69,RPS12,40S Ribosomal protein S12,6206,,HT
 70,70,RBPJ,Recombination signal binding protein for immunoglobulin kappa J region,3516,,HT
 71,71,PPIA,Peptidylprolyl isomerase A,5478,,HT
 72,72,TMEM33,Transmembrane protein 33,55161,,HT
@@ -153,13 +153,13 @@ overall_index,condition_index,gene_symbol,gene_name,human_gene_id,ags_gene_id,Co
 151,151,CLPB,"ClpB homolog, mitochondrial AAA ATPase chaperonin",81570,,HT
 152,152,PPME1,Protein phosphatase methylesterase 1,51400,,HT
 153,153,MORF4L2,Mortality factor 4 like 2,9643,,HT
-154,154,HSF2B,Heat shock transcription factor 2 binding protein,11077,,HT
+154,154,HSF2BP,Heat shock transcription factor 2 binding protein,11077,,HT
 155,155,USP16,Ubiquitin specific peptidase 16,10600,,HT
 156,156,MARF1,Meiosis regulator and mRNA stability factor 1,9665,,HT
 157,157,IPO8,Importin 8,10526,,HT
 158,158,VAMP7,Vesicle associated membrane protein 7,6845,,HT
 159,159,SPARCL1,SPARC like 1,8404,,HT
-160,160,PES 1.00,Pescadillo ribosomal biogenesis factor 1,23481,,HT
+160,160,PES1,Pescadillo ribosomal biogenesis factor 1,23481,,HT
 161,161,UBE2G1,Ubiquitin conjugating enzyme E2 G1,7326,,HT
 162,162,NRBP1,Nuclear receptor binding protein 1,29959,,HT
 163,163,MRPS6,Mitochondrial ribosomal protein S6,64968,,HT
@@ -180,7 +180,7 @@ overall_index,condition_index,gene_symbol,gene_name,human_gene_id,ags_gene_id,Co
 178,14,RPL8,Ribosomal protein L8,6132,,HPX
 179,15,VPS28,VPS28 subunit of ESCRT-I,51160,,HPX
 180,16,ADCK5,aarF domain containing kinase 5,203054,,HPX
-181,17,MAF 1.00,"MAF1 homolog, negative regulator of RNA polymerase III",84232,,HPX
+181,17,MAF1,"MAF1 homolog, negative regulator of RNA polymerase III",84232,,HPX
 182,18,PLEC,Plectin,5339,,HPX
 183,19,EEF1D,Eukaryotic translation elongation factor 1 delta,1936,,HPX
 184,20,PTK2,Protein tyrosine kinase 2,5747,,HPX
@@ -277,7 +277,7 @@ overall_index,condition_index,gene_symbol,gene_name,human_gene_id,ags_gene_id,Co
 275,15,IFT52,intraflagellar transport 52 (IFT52),51098,,ROT
 276,16,TMEM199,Transmembrane protein 199,147007,,ROT
 277,17,NSRP1,"nuclear speckle splicing regulatory protein 1 (NSRP1),",84081,,ROT
-278,18,PGK 1.00,phosphoglycerate kinase 1 (PGK1),5230,,ROT
+278,18,PGK1,phosphoglycerate kinase 1 (PGK1),5230,,ROT
 279,19,NDUFB5,NADH:ubiquinone oxidoreductase subunit B5 (NDUFB5),4711,,ROT
 280,20,DNAJB2,DnaJ heat shock protein family (Hsp40) member B2 (DNAJB2),3300,,ROT
 281,21,CHRM1,cholinergic receptor muscarinic 1 (CHRM1),1128,,ROT

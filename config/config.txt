@@ -29,7 +29,10 @@ NCBIAPIKey = 24a8e1dd4d64cf50b37f0bdd369af8274309
 #Config Files
 #SpeciesFilePath: txt file containing list of species for which OrthoDB sequence data will be fetched
 SpeciesFilePath = config/v10_0_species.txt
-#GenesFilePath: List of gene symbols for which 
+#GenesFilePath: Text file list of gene symbols - CURRENTLY DEPRECATED use IDFilePath instead
 GenesFilePath = config/cDNA_screen_completelist.txt
 IDFilePath = config/cDNAscreen_geneIDs_clean.csv
+#RunName: Directory within spec_subs directory in which run input/ output/ summary will be stored. 
 RunName = cDNAscreen_041020
+#ErrorsFilePath: tsv file containing gene symbols for which data is unavailable/ analysis fails to produce output. Must point to an existing directory (script will not create one).  
+ErrorsFilePath = cDNAscreen_041020/errors.tsv
