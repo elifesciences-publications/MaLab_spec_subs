@@ -6,65 +6,35 @@ from collections import OrderedDict
 import pandas as pd
 import numpy as np
 import subprocess
-import SSfasta
+import warnings
+import os
+import SSerrors
 # Fasta file reading functions:
 # filter_fasta_infile reads input files and outputs all records corresponding to filtered_ids to a new file
 # Remaining functions provide conversions between fasta files, pandas Series, and pandas dataframes
 # having alignment positions as columns
 
-# def filter_fasta_infile(filtered_ids, infile_path, outfile_path=None, ordered=False):
-#     # If outfile_path is provided, write filtered fasta to outfile_path
-#     """Generates new fasta file to outfile_path using the subset of sequences in infile_path
-#     which have ids in filtered_ids
-#     ordered: if true, sequences will be returned/ written in order of filtered_ids
-#              if false, uses sequence order of sequences in infile_path
-#     """
-#
-#     def filtered_generator(filtered_ids, infile_path):
-#         fasta_seqs = SeqIO.parse(open(infile_path), 'fasta')
-#         for fasta in fasta_seqs:
-#             if fasta.id in filtered_ids:
-#                 yield fasta
-#
-#     def ordered_filtered_generator(filtered_ids, infile_path):
-#         for id_ in filtered_ids:
-#             fasta_seqs = SeqIO.parse(open(infile_path), 'fasta')
-#             for fasta in fasta_seqs:
-#                 if fasta.id == id_:
-#                     yield fasta
-#                     break
-#
-#     if outfile_path:
-#         if ordered:
-#             filtered = ordered_filtered_generator(filtered_ids, infile_path)
-#         else:
-#             filtered = filtered_generator(filtered_ids, infile_path)
-#         SeqIO.write(filtered, outfile_path, "fasta")
-#     if ordered:
-#         filtered = ordered_filtered_generator(filtered_ids, infile_path)
-#     else:
-#         filtered = filtered_generator(filtered_ids, infile_path)
-#     filtered_srs = pd.Series(index=filtered_ids)
-#     for fasta in filtered:
-#         filtered_srs[fasta.id] = str(fasta.seq)
-#     return filtered_srs
-def filtered_generator(filtered_ids, infile_path):
+def _filtered_generator(filtered_ids, infile_path):
     """Generator function, yields Bio.Seq fastas from infile_path in order of appearance in infile"""
-    fasta_seqs = SeqIO.parse(open(infile_path), 'fasta')
+    fasta_f = open(infile_path)
+    fasta_seqs = SeqIO.parse(fasta_f, 'fasta')
     for fasta in fasta_seqs:
         if fasta.id in filtered_ids:
             yield fasta
+    fasta_f.close()
 
-def ordered_filtered_generator(filtered_ids, infile_path):
+def _ordered_filtered_generator(filtered_ids, infile_path):
     """Generator function, yields Bio.Seq fastas from infile_path in order of appearance in filtered_ids"""
+    fasta_f = open(infile_path)
     for id_ in filtered_ids:
-        fasta_seqs = SeqIO.parse(open(infile_path), 'fasta')
+        fasta_seqs = SeqIO.parse(fasta_f, 'fasta')
         for fasta in fasta_seqs:
             if fasta.id == id_:
                 yield fasta
                 break
+    fasta_f.close()
 
-def generator_wrapper(filtered_ids, infile_path, ordered, missing_warning=False):
+def _generator_wrapper(filtered_ids, infile_path, ordered, missing_warning=False):
     """Wrapper function which generates appropriate generatoe object based on ordered. Issues warnings for missing
     values from filtered_ids if not present in infile_path if missing_warning is True.
 
@@ -76,15 +46,16 @@ def generator_wrapper(filtered_ids, infile_path, ordered, missing_warning=False)
     :return:
     """
     if missing_warning:
-        infile_ids = [fasta.id for fasta in SeqIO.parse(open(infile_path), 'fasta')]
-        for record_id in filtered_ids:
-            if record_id not in infile_ids:
-                msg = "Infile {0} is missing record id {1} from filtered_ids".format(infile_path, record_id)
-                warnings.warn(msg)
+        with open(infile_path) as infile_f:
+            infile_ids = [fasta.id for fasta in SeqIO.parse(infile_f, 'fasta')]
+            for record_id in filtered_ids:
+                if record_id not in infile_ids:
+                    msg = "Infile {0} is missing record id {1} from filtered_ids".format(infile_path, record_id)
+                    warnings.warn(msg)
     if ordered:
-        filtered = ordered_filtered_generator(filtered_ids, infile_path)
+        filtered = _ordered_filtered_generator(filtered_ids, infile_path)
     else:
-        filtered = filtered_generator(filtered_ids, infile_path)
+        filtered = _filtered_generator(filtered_ids, infile_path)
     return filtered
 def filter_fasta_infile(filtered_ids, infile_path, outfile_path=None, ordered=False):
     """Filters fasta_infile records from infile_path and returns a series of fasta records if id in filtered_ids
@@ -98,10 +69,10 @@ def filter_fasta_infile(filtered_ids, infile_path, outfile_path=None, ordered=Fa
     :return: Series of fasta sequences (index is fasta.id) for which id is present in filtered_ids
     """
     if outfile_path:
-        filtered = generator_wrapper(filtered_ids,infile_path,ordered)
+        filtered = _generator_wrapper(filtered_ids,infile_path,ordered)
         SeqIO.write(filtered, outfile_path, "fasta")
     with warnings.catch_warnings(record=True) as w:
-        filtered = generator_wrapper(filtered_ids, infile_path, ordered, True)
+        filtered = _generator_wrapper(filtered_ids, infile_path, ordered, True)
     filtered_srs = pd.Series(index=filtered_ids)
     for fasta in filtered:
         filtered_srs[fasta.id] = str(fasta.seq)
@@ -120,13 +91,14 @@ def srs_to_fasta(seq_srs, outfile_path):
 
 
 def fasta_to_srs(fasta_path):
-    fasta_seqs = SeqIO.parse(open(fasta_path), 'fasta')
-    id_seq_map = OrderedDict()
-    for fasta in fasta_seqs:
-        record_id = fasta.id
-        seq = str(fasta.seq)
-        id_seq_map[record_id] = seq
-    return pd.Series(name="seq", data=id_seq_map)
+    with open(fasta_path) as fasta_f:
+        fasta_seqs = SeqIO.parse(fasta_f, 'fasta')
+        id_seq_map = OrderedDict()
+        for fasta in fasta_seqs:
+            record_id = fasta.id
+            seq = str(fasta.seq)
+            id_seq_map[record_id] = seq
+        return pd.Series(name="seq", data=id_seq_map)
 
 
 def align_srs_to_df(align_srs):
@@ -175,10 +147,31 @@ def align_df_to_srs(align_df):
         align_srs[idx] = seq
     return align_srs
 
-### Distance Matrix Functions
+### Record DataFrame Functions
+def load_tsv_table(input_tsv_fpath,tax_subset=[],ODB_ID_index=True):
+    """Loads OrthoDB tsv data into a pandas DataFrame
+
+    :param input_tsv_fpath: File path to OrthoDB tsv.
+    :param (array-like) tax_subset: If provided, returned DataFrame only contains records which have organism_taxid
+    in tax_subset
+    :param (boolean) ODB_ID_index: If True, index on int_prot_id (OrthoDB record identifier string), else int-indexed
+    :return: tsv_df: DataFrame containing records from input_tsv_fpath with above filters.
+    """
+    if not os.path.exists(input_tsv_fpath):
+        raise SSerrors.RecordDataError(0,"Missing File at path: {0}".format(input_tsv_fpath))
+    tsv_df = pd.read_csv(input_tsv_fpath, delimiter='\t')
+    if ODB_ID_index:
+        tsv_df = tsv_df.set_index(keys="int_prot_id", drop=True)  # drop=False)
+    if len(tax_subset) > 0:
+        tsv_df = tsv_df.loc[tsv_df["organism_taxid"].isin(tax_subset), :]
+    return tsv_df
+
+
+    ### Distance Matrix Functions
 #construct_id_dm makes an np.ndarray for the identity distance matrix of sequences for which OrthoDB id is
 # in the index of seq_df; distance matrix rows will be ordered to the order in seq_fpath if ordered isFalse
-def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta", ordered=False):
+def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta", ordered=False,
+                    kalign_silent=True):
     """Constructs an np.ndarray corresponding to the identity distance matrix of records in seq_df
 
     :param seq_df: DataFrame of OrthoDB/ NCBI sequence records; should only contain records for which identity
@@ -197,12 +190,22 @@ def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta", ord
     # Filter records in seq_fpath to new fasta only containing records in seq_df.index
     # filtered_outpath = "tmp/iddm.fasta"
     filtered_fpath = "tmp/alias_matches.fasta"
-    SSfasta.filter_fasta_infile(seq_df.index, seq_fpath, outfile_path=filtered_fpath, ordered=ordered)
+    filter_fasta_infile(seq_df.index, seq_fpath, outfile_path=filtered_fpath, ordered=ordered)
     # KAlign sequences in filtered_outpath, write to align_outpath
     # n, ordered_ids, ka_dm, align_outfile = load_ka_distmat(filtered_outpath, align_outfile=align_outpath)
-    subprocess.run(args=["kalign", '-i', filtered_fpath, "-o", align_outpath, "-f", "fasta"])
-    align_srs = SSfasta.fasta_to_srs(align_outpath)
-    aln = AlignIO.read(open(align_outpath), 'fasta')
+    # proc = subprocess.run(args=["kalign", '-i', filtered_fpath, "-o", align_outpath, "-f", "fasta"])
+    #Use subprocess.Popen instead of subprocess.run for PyCharm compatability
+    from subprocess import Popen
+    with open(filtered_fpath,'r') as filtered_f, open(align_outpath,'wt',encoding='utf-8') as align_f:
+        args = ['kalign']
+        if kalign_silent:
+            subprocess.run(args=args, stdin=filtered_f, stdout=align_f, stderr=subprocess.PIPE, text=True)
+        else:
+            subprocess.run(args=args, stdin=filtered_f, stdout=align_f, text=True)
+
+    align_srs = fasta_to_srs(align_outpath)
+    with open(align_outpath) as aligned_f:
+        aln = AlignIO.read(aligned_f, 'fasta')
     calculator = DistanceCalculator('identity')
     id_dm_obj = calculator.get_distance(aln)
     # Convert AlignIO object to np.ndarray
