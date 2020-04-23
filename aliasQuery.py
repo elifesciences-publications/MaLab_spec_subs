@@ -6,18 +6,6 @@ import re
 import os
 from SSerrors import GeneCardsError, write_errors, load_errors, print_errors
 
-def format_odb_field(field):
-    """Remove spaces, commas, and capitalization from alias/ odb fields to search for string matches.
-    If field is empty (np.nan), return empty string"""
-    if (type(field)) == str:
-        field = field.replace(" ", "")
-        field = field.replace(",", "")
-        field = field.replace("\n", "")
-        return field.lower()
-    elif type(field) == float and np.isnan(field):
-        return ""
-
-
 def write_aliases_f(aliases, aliases_fpath):
     """Write aliases data from GeneCards to a txt file list at aliases_fpath"""
     aliases_f = open(aliases_fpath, 'wt')
@@ -60,7 +48,7 @@ def alias_GC_query(driver,gene_name):
     if len(aliases) > 0:
         # Means gene_name query to GeneCards autoredirected to a single page - normal aliases scraping
         # HTML parsing for GeneCards website - end result is list of trimmed alias strings
-        gc_re = re.search("gene=([A-Z0-9]+)", gene_cards_url)
+        gc_re = re.search("gene=([A-Z0-9\-]+)", driver.current_url)
         gc_name = gc_re.groups()[0].strip()
         if gc_name not in aliases:
             aliases.insert(0, gc_name)
@@ -78,7 +66,7 @@ def alias_GC_query(driver,gene_name):
             for elem_href in link_hrefs:
                 driver.get(elem_href)
                 link_url = driver.current_url
-                elem_gc_name = re.search("gene=([A-Z0-9]+)", link_url).groups()[0].strip()
+                elem_gc_name = re.search("gene=([A-Z0-9\-]+)", link_url).groups()[0].strip()
                 elem_aliases = []
                 for xpath in elem_xpaths:
                     elems = driver.find_elements_by_xpath(xpath)
@@ -100,6 +88,7 @@ def download_alias_data(gene_list, config):
     window_size = "1920,1080"
     chrome_options.add_argument("--window-size=%s" % window_size)
     driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.implicitly_wait(5)
     errors_fpath = config["ErrorsFilePath"]
     check_error_file, gc_errors_df = load_errors(errors_fpath,"GeneCardsError")
     for gene_name in gene_list:

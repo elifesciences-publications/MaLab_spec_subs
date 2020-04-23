@@ -106,7 +106,7 @@ def map_AGS_geneIDs(id_df, results_outpath, errors_fpath, gene_field_name, query
         if check_error_file and symbol in NCBI_errors_df["gene"].unique():
             print_errors(NCBI_errors_df,symbol)
         elif idx in missing_hgid.index:
-            rd_error = RecordDataError(0,"No Human GeneID present in data")
+            rd_error = RecordDataError(1,"No Human GeneID present in data")
             write_errors(errors_fpath,symbol,rd_error)
             continue
         else:
@@ -135,7 +135,6 @@ def download_NCBI_records(id_df, NCBI_records_dirpath,gene_field_name, protein_f
     corresponding Protein Sequences to files named by gene symbol into directory specified by NCBI_records_dirpath
     """
     import subprocess
-    import urllib.request
     import requests
     import xml.etree.ElementTree as ET
 
@@ -160,13 +159,8 @@ def download_NCBI_records(id_df, NCBI_records_dirpath,gene_field_name, protein_f
             elink_req = "elink.fcgi?dbfrom=gene&db=protein&id={0}{1}".format(AGS_gid, api_key_url_ext)
             gp_elink_url = ENTREZ_BASE_URL + elink_req
 
-            # file = urllib.request.urlopen(gp_elink_url)
             elink_response = requests.get(gp_elink_url)
-            # file = elink_response.content
-            # xml_data = file.read()
-            # file.close()
             xml_data = elink_response.content
-
             root = ET.fromstring(xml_data)
             # Check XML formatting of elink pages - update xpath accordingly if functionality breaks
             # Pulls Record IDs for Protein specifically; use gene_protein_refseq for Protein RefSeqs

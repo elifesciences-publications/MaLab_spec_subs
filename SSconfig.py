@@ -30,7 +30,9 @@ def parse_genes(genes_path="config/genes.txt"):
 
 def parse_species(species_path="config/v10_0_species.txt"):
     # Reads species list from file in config directory. Also returns a hashcode for the list of species used
-    spec_lines = open(species_path).readlines()
+    with open(species_path,'r') as spec_f:
+        spec_lines = spec_f.readlines()
+        spec_f.close()
     species = [spec.strip() for spec in spec_lines]
     concat = ""
     for spec in species:
@@ -103,17 +105,21 @@ def config_initialization():
     SSdirectory.create_run_directory(run_name)
     return config, spec_list, gene_id_df, tax_table
 
-DISPLAY_PARAMS = False
-if DISPLAY_PARAMS:
-    config, spec_list, gene_id_df, tax_table = config_initialization()
-    run_name = config["RunName"]
-    test_species = config["ODBTestSpecies"]
-    species_path = config["SpeciesFilePath"]
-    print("Tax table for species list at {0}".format(species_path))
-    with pd.option_context("display.max_columns", None):
-        display(tax_table)
-    print("Gene ID table")
-    # print(gene_id_df["gene_symbol"].values)
-    display(gene_id_df)
-    print("Run Name: " + run_name)
-    # Verify that species table, gene list, and run_name are correct
+def main():
+    DISPLAY_PARAMS = False
+    if DISPLAY_PARAMS:
+        config, spec_list, gene_id_df, tax_table = config_initialization()
+        run_name = config["RunName"]
+        test_species = config["ODBTestSpecies"]
+        species_path = config["SpeciesFilePath"]
+        print("Tax table for species list at {0}".format(species_path))
+        with pd.option_context("display.max_columns", None):
+            display(tax_table)
+        print("Gene ID table")
+        # print(gene_id_df["gene_symbol"].values)
+        display(gene_id_df)
+        print("Run Name: " + run_name)
+        # Verify that species table, gene list, and run_name are correct
+
+if __name__ == '__main__':
+    main()

@@ -21,7 +21,11 @@ class OrthoDBQueryError(Error):
         self.message = message
 
 class RecordDataError(Error):
-    """Error class to be raised if NCBI query failed to generate input files"""
+    """Error class to be raised if NCBI query failed to generate input files
+    Codes:
+    0 - Missing File
+    1 -  Missing human Gene ID from config["IDFilePath"]
+    """
     error_type = "RecordDataError"
 
     def __init__(self, code, message):
@@ -42,7 +46,6 @@ class GeneCardsError(Error):
     def __init__(self, code, message):
         self.code = code
         self.message = message
-
 
 class SequenceAnalysisError(Error):
     """Error class if JSD/ BLOSUM metrics analysis cannot be completed for a gene"""

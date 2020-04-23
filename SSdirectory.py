@@ -69,9 +69,12 @@ def convert_fname_uppercase(file_dir,pat):
                 os.replace(src_fpath,target_fpath)
 
 
-# importlib.reload(SSdirectory)
-#run_name = "cDNAscreen_041020"
-# NCBI_pat = "(\w+)(\.fasta)"
-# ODB_pat = "(\w+)(\.fasta|\.tsv)"
-# SSdirectory.convert_fname_uppercase("{0}/input/NCBI/9999".format(run_name),NCBI_pat)
-# SSdirectory.convert_fname_uppercase("{0}/input/ODB".format(run_name),ODB_pat)
+def main():
+    run_name = "cDNAscreen_041020"
+    NCBI_pat = r"(\w+)(\.fasta)"
+    ODB_pat = r"(\w+)(\.fasta|\.tsv)"
+    convert_fname_uppercase("{0}/input/NCBI/9999".format(run_name),NCBI_pat)
+    convert_fname_uppercase("{0}/input/ODB".format(run_name),ODB_pat)
+
+if __name__ == '__main__':
+    main()
