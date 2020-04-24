@@ -13,6 +13,7 @@ ODBTestSpecies = Ictidomys tridecemlineatus
 
 #NCBITaxID corresponds to the species for which NCBI sequence data will be fetched and used for analysis.
 NCBITaxID = 9999
+NCBITaxName = Urocitellus parryii
 #NCBIGeneIDField: Column name for Gene ID mapping for NCBI species 
 NCBIGeneIDField = ags_gene_id
 #NCBIProteinIDField: Column name for Protein ID(s) mapping for NCBI species
