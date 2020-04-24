@@ -17,6 +17,7 @@ class FilterFunctionTest(unittest.TestCase):
         for symbol in gene_symbols:
             alias_fpath = "aliases_data/{0}_aliases.txt".format(symbol)
             if not os.path.exists(alias_fpath):
+                print(alias_fpath)
                 continue
             with open(alias_fpath,'r') as alias_f:
                 aliases = [alias.strip() for alias in alias_f.readlines()]
@@ -24,6 +25,7 @@ class FilterFunctionTest(unittest.TestCase):
             if len(aliases) == 1:
                 print("symbol: {0} has only one alias".format(symbol))
             gc_names.append(aliases[0])
+        print(len(gc_names))
 
         self.assertTrue(len(gene_symbols) == 380)
         #Should be missing one entry for CACB1
@@ -162,6 +164,23 @@ class FilterFunctionTest(unittest.TestCase):
                                      'tmp/manual_record_selections.tsv'
                         self.assertIn(cached_msg,out_buf.getvalue())
                     print("Cached selection output found.")
+
+    def test_outgroup_selection(self):
+        import seqFilter
+        test_symbol_list = ['ATP5MC1', 'CALM1', 'ATPIF1', 'CD151']
+        tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
+        symbol = 'ATP5MC1'
+        errors_fpath = 'tmp/outgroup_errors.tsv'
+        ks_tids = ['10090_0', '43179_0', '9606_0']
+        tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
+        unfiltered_tsv = SSfasta.load_tsv_table(tsv_inpath, tax_subset=tax_subset)
+        unfiltered_fasta = "cDNAscreen_041020/input/ODB/{0}.fasta".format(symbol)
+        am_idx, exact_matches = seqFilter.find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
+        am_df = unfiltered_tsv.loc[am_idx]
+        em_df = seqFilter.exact_match_df(unfiltered_tsv, exact_matches)
+        final_ksr_df = seqFilter.select_known_species_records(symbol, em_df, am_df, ks_tids, unfiltered_fasta)
+
+        seqFilter.select_outgrup_records(em_df,am_df,ks_tids,final_ksr_df,unfiltered_fasta)
 
 if __name__ == '__main__':
     with warnings.catch_warnings():

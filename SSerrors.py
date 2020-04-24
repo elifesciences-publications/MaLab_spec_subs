@@ -56,35 +56,34 @@ class SequenceAnalysisError(Error):
         self.message = message
 
 
-def write_errors(errors_fpath, gene_name, error):
-    """Maintains a tsv file of gene symbols and errors generated during the run.
+def write_errors(errors_fpath,gene_symbol,error):
+    """Maintains a tsv/ DataFrame of gene symbols and errors generated during a run.
     """
-    error_type = error.error_type
-    error_code = error.code
-    error_msg = error.message
-    if not os.path.exists(errors_fpath):
-        errors_f = open(errors_fpath, 'wt')
-        errors_f.write("gene\terror_type\terror_code\terror_str\n")
-    else:
-        errors_df = pd.read_csv(errors_fpath, delimiter='\t')
-        if gene_name in errors_df["gene"].unique():
-            gene_error_df = errors_df.loc[errors_df["gene"] == gene_name, :]
-            if gene_error_df["error_str"].str.contains(error_msg).any():
-                #Checks if error has been logged already, prints to output instead of writing to file
-                error_row = gene_error_df.loc[gene_error_df["error_str"] == error_msg, :]
-                gene_name, error_type, error_code, error_msg = error_row.values[0]
-                print("{0}\t{1}\t{2}\t{3}".format(gene_name, error_type, error_code, error_msg))
+    etype,ecode,emsg = error.error_type,error.code,error.message
+    if os.path.exists(errors_fpath):
+        check_ef,errors_df = load_errors(errors_fpath)
+        if gene_symbol in errors_df['gene_symbol'].unique():
+            gene_error_df = errors_df.loc[errors_df['gene_symbol']==gene_symbol,:]
+            if gene_error_df['error_message'].str.contains(emsg).any():
+                print_errors(errors_df,gene_symbol,message=emsg)
                 return
-    errors_f = open(errors_fpath, 'at')
-    fline = "{0}\t{1}\t{2}\t{3}\n".format(gene_name, error_type, error_code, error_msg)
-    errors_f.write(fline)
-    print(fline)
-    errors_f.close()
+    else:
+        error_columns = ['gene_symbol','error_type','error_code','error_message']
+        errors_df = pd.DataFrame(columns=error_columns)
+    error_row = pd.Series({'gene_symbol':gene_symbol,'error_type':etype,'error_code':ecode,'error_message':emsg})
+    errors_df = errors_df.append(error_row,ignore_index=True)
+    print_errors(errors_df,gene_symbol,emsg)
+    errors_df.to_csv(errors_fpath,sep='\t')
 
-def print_errors(errors_df,gene_symbol):
-    error_row = errors_df.loc[errors_df["gene"] == gene_symbol, :]
-    genename, error_type, error_code, error_msg = error_row.values[0]
-    print("{0}\t{1}\t{2}\t{3}".format(genename, error_type, error_code, error_msg))
+def print_errors(errors_df,gene_symbol,message=None):
+    symbol_df = errors_df.loc[errors_df['gene_symbol']==gene_symbol,:]
+    if message and symbol_df['error_message'].str.contains(message).any():
+        error_rows = symbol_df.loc[symbol_df['error_message']==message,:]
+    else:
+        error_rows = symbol_df
+    for idx,error_row in error_rows.iterrows():
+        genename, error_type, error_code, error_msg = error_row.values
+        print("{0}\t{1}\t{2}\t{3}".format(genename, error_type, error_code, error_msg))
 
 def load_errors(errors_fpath,error_type=""):
     """Loads errors_df from specified file path. Used to prevent repeat operations that generate errors (ie failed
@@ -97,7 +96,7 @@ def load_errors(errors_fpath,error_type=""):
     :return: errors_df: if check_error, returns file loaded from
     """
     if os.path.exists(errors_fpath):
-        errors_df = pd.read_csv(errors_fpath, delimiter='\t')
+        errors_df = pd.read_csv(errors_fpath, delimiter='\t',index_col=0)
         if error_type:
             errors_df = errors_df.loc[errors_df["error_type"] == error_type, :]
         check_error_file = True
