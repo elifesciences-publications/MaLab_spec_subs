@@ -272,6 +272,53 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
     return final_ksr_df
 
 
+def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
+    # KS_TAXIDS = ["10090_0", "43179_0", "9606_0"]
+    # ks_taxids = final_ksr_df['organism_taxid'].uniques()
+    em_taxids = [tax_id for tax_id in em_df["organism_taxid"].unique() if tax_id not in ks_taxids]
+    am_taxids = [tax_id for tax_id in am_df["organism_taxid"].unique() if tax_id not in ks_taxids]
+
+    # Distance calculations for final set of known species records - check internal identity values
+    # Set identity threshold - other species sequences above this value will not be included
+    am_dm_fpath = "tmp/am_dm_ka.fasta"
+    am_id_dm,am_align_srs = SSfasta.construct_id_dm(am_df,seqs_fpath,am_dm_fpath)
+    ksr_pos = [am_align_srs.index.get_loc(record_id) for record_id in final_ksr_df.index]
+    n = len(ksr_pos)
+
+    ksr_sub_dm = am_id_dm[:,ksr_pos]
+    ksr_sub_dm = ksr_sub_dm[ksr_pos,:]
+    print(ksr_sub_dm)
+    non_diagonal_avg = ksr_sub_dm.sum(axis=0) / (n - 1)
+    #Ignore diagonal (0 values for record identity against itself)
+    # non_diagonal_avg = ksr_id_dm.sum(axis=0) /(n-1)
+    # max_dist = non_diagonal_avg.max()
+    # identity_threshold = 1.5*max_dist
+    identity_threshold = np.mean(non_diagonal_avg) * 1.5
+    final_df = final_ksr_df.copy()
+    for tax_id in am_taxids:
+        pass
+    #     try:
+    #         tax_df = am_df.loc[am_df["organism_taxid"] == tax_id]
+    #         tax_records = tax_df.index
+    #         # tax_dm_filtered_ids: list of record ids in final_ksr_df followed by all records corresponding to tax_id
+    #         tax_dm_filtered_ids = list(final_ksr_df.index)
+    #         tax_dm_filtered_ids.extend(tax_records)
+    #         tax_dm_df = am_df.loc[tax_dm_filtered_ids, :]
+    #         #             tax_dm_df.drop_duplicates(inplace=True)
+    #         tax_dm_df = tax_dm_df.loc[~tax_dm_df.index.duplicated(keep='first')]
+    #         tax_dm_fpath = "tmp/{0}_dm.fasta".format(tax_id)
+    #         n, tax_ordered_ids, tax_id_dm, tax_align_srs = construct_id_dm(tax_dm_df, seqs_fpath, tax_dm_fpath,
+    #                                                                        ordered=True)
+    #         md_row, min_dist = min_dist_spec_record(tax_id, tax_id_dm, tax_ordered_ids, final_ksr_df.index, tax_dm_df)
+    #         if min_dist <= identity_threshold:
+    #             final_df = final_df.append(md_row)
+    #     except ValueError as e:
+    #         # Debugging edge case for OrthoDB data error with duplicate entries (Irf2bp2)
+    #         print(e)
+    #         display(tax_dm_df)
+    #         raise SequenceDataError(5, "Duplicate Sequence Entry")
+    # return final_df
+
 
 def main():
     pass
