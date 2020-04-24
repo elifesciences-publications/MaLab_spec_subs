@@ -169,7 +169,8 @@ class FilterFunctionTest(unittest.TestCase):
         import seqFilter
         test_symbol_list = ['ATP5MC1', 'CALM1', 'ATPIF1', 'CD151']
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
-        symbol = 'ATP5MC1'
+        # symbol = 'ATP5MC1'
+        symbol = 'IRF2BP2'
         errors_fpath = 'tmp/outgroup_errors.tsv'
         ks_tids = ['10090_0', '43179_0', '9606_0']
         tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
@@ -180,7 +181,8 @@ class FilterFunctionTest(unittest.TestCase):
         em_df = seqFilter.exact_match_df(unfiltered_tsv, exact_matches)
         final_ksr_df = seqFilter.select_known_species_records(symbol, em_df, am_df, ks_tids, unfiltered_fasta)
 
-        seqFilter.select_outgrup_records(em_df,am_df,ks_tids,final_ksr_df,unfiltered_fasta)
+        final_df = seqFilter.select_outgrup_records(em_df,am_df,ks_tids,final_ksr_df,unfiltered_fasta)
+        assert(len(final_df) == len(tax_subset))
 
 if __name__ == '__main__':
     with warnings.catch_warnings():

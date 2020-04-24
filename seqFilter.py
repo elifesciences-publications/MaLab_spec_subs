@@ -195,13 +195,15 @@ def min_dist_spec_record(distmat,dm_record_ids,spec_record_ids,against_record_id
 def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs_fpath,
                                  manual_selections_fpath = 'tmp/manual_record_selections.tsv'):
     """Return a dataframe of at most one record per species in ks_taxids of representative sequences for species in
-    ks_taxids. Representative sequences are interpreted as being the only avialable record from a species or the sequence
+    ks_taxids. ks_taxids will by default be set to include well-annotated species (human/mouse) and the test species
+    from the config file (by default 13LGS).
+    Representative sequences are interpreted as being the only avialable record from a species or the sequence
     most similar (max identity) to other ks_taxids rep. sequences if a species has multiple records. Sequences which are
     not present in am_df (ie no alias matches) will not be returned even if present for a species in the unfiltered input.
     Sequences will be searched for first in em_df but in am_df if no records for that species are in em_df. If em_df or
     am_df have exactly one record per species, those records will be assumed to be correct and no distance calculations
     or filtering will be done. Returned DataFrame can possibly have no records present for test_species, in which case
-    the function calling selec_known_species_records must check for test_species record presence.
+    the function calling select_known_species_records must check for test_species record presence.
 
     :param gene_symbol: String HGNC identifier for gene of input data
     :param (DataFrame) em_df: DataFrame of exact symbol matched records
@@ -242,7 +244,8 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
         if len(tax_em_df) == 1:
             single_avail_ksr = single_avail_ksr.append(tax_em_df)
     if single_avail_ksr.empty:
-        #If no species have single record, take manual input (or read from cached selections if previously entered)
+        #If no species have single record, take manual input (or read from cached selections if previously entered),
+        #use selected record as seed input for determining best records from other species.
         selection_fapath = 'tmp/filtered_selection_intput.fasta'
         SSfasta.filter_fasta_infile(selection_df.index,ks_refseqs_fpath,selection_fapath)
         display_df = selection_df.copy().drop(columns=['pub_og_id','og_name','level_taxid'])
@@ -251,20 +254,26 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
         single_avail_ksr = single_avail_ksr.append(selection_row)
     sa_record_ids = single_avail_ksr.index
     sa_taxid_uniques = single_avail_ksr['organism_taxid'].unique()
+
+    am_id_dm, am_align_srs = SSfasta.construct_id_dm(ksr_am_df, ks_refseqs_fpath,ordered=False)
+
     for ks_id in ks_taxids:
         if ks_id not in sa_taxid_uniques:
             #Use em_df or am_df depending on if ks_id is present
             if ks_id in em_taxid_uniques:
-                dm_record_df = ksr_em_df
+                # dm_record_df = ksr_em_df
+                spec_record_ids = ksr_em_df.loc[ksr_em_df['organism_taxid'] == ks_id, :].index
             elif ks_id in ks_id in am_taxid_uniques:
-                dm_record_df = ksr_am_df
+                # dm_record_df = ksr_am_df
+                spec_record_ids = ksr_am_df.loc[ksr_am_df['organism_taxid'] == ks_id, :].index
             else:
                 #If no records for taxid in either em or ref dfs, skip ksr selection
                 continue
             # Maximum identity = minimum id_dm value based on AlignIO implementation
-            id_dm, align_srs = SSfasta.construct_id_dm(dm_record_df, ks_refseqs_fpath,ordered=False)
-            spec_record_ids = dm_record_df.loc[dm_record_df['organism_taxid']==ks_id,:].index
-            md_row, min_dist = min_dist_spec_record(id_dm, align_srs.index, spec_record_ids,sa_record_ids, dm_record_df)
+            # id_dm, align_srs = SSfasta.construct_id_dm(dm_record_df, ks_refseqs_fpath,ordered=False)
+            # spec_record_ids = dm_record_df.loc[dm_record_df['organism_taxid']==ks_id,:].index
+            md_row, min_dist = min_dist_spec_record(am_id_dm, am_align_srs.index, spec_record_ids,
+                                                    sa_record_ids, ksr_am_df)
             final_ksr_df = final_ksr_df.append(md_row)
         else:
             sa_row = single_avail_ksr.loc[single_avail_ksr['organism_taxid'] == ks_id, :]
@@ -273,52 +282,132 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
 
 
 def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
-    # KS_TAXIDS = ["10090_0", "43179_0", "9606_0"]
-    # ks_taxids = final_ksr_df['organism_taxid'].uniques()
-    em_taxids = [tax_id for tax_id in em_df["organism_taxid"].unique() if tax_id not in ks_taxids]
+    """Select records for remaining OrthoDB outgroup species in analysis that are not in ks_taxids.
+
+    Selection is based on maximum identity to accepted records in final_ksr_df (ie accepted human/mouse/13LGS); best
+    (max identity) alias-matched records for a species will still be dropped if they do not meet an identity threshold,
+    currently set to 1.5 * (average identity of sequences in final_lsr_df against each other).
+
+    :param (DataFrame) em_df: DataFrame of records with exact pub_gene_id match to accepted gene symbols
+    :param (DataFrame) am_df: DataFrame of records matching aliases for symbol
+    :param (array-like) ks_taxids: list of taxonomy ids to use as accepted species records
+    :param final_ksr_df: DataFrame of accepted records from well-annotated species (max one per species).
+    :param seqs_fpath: Fasta file path containing at least all records in am_df. Can be safely set to unfiltered
+    fasta input, records will be automatically filtered down appropriately using am_df.
+    :return: Final DataFrame containing all
+    """
     am_taxids = [tax_id for tax_id in am_df["organism_taxid"].unique() if tax_id not in ks_taxids]
 
     # Distance calculations for final set of known species records - check internal identity values
     # Set identity threshold - other species sequences above this value will not be included
     am_dm_fpath = "tmp/am_dm_ka.fasta"
     am_id_dm,am_align_srs = SSfasta.construct_id_dm(am_df,seqs_fpath,am_dm_fpath)
-    ksr_pos = [am_align_srs.index.get_loc(record_id) for record_id in final_ksr_df.index]
-    n = len(ksr_pos)
-
+    am_record_idx = am_align_srs.index
+    ksr_record_idx = final_ksr_df.index
+    ksr_pos = [am_record_idx.get_loc(record_id) for record_id in ksr_record_idx]
+    n_ksr = len(ksr_pos)
+    #ksr_sub_dm: n_ksr x n_ksr distance matrix consisting of values of ksr records against each other
     ksr_sub_dm = am_id_dm[:,ksr_pos]
     ksr_sub_dm = ksr_sub_dm[ksr_pos,:]
-    print(ksr_sub_dm)
-    non_diagonal_avg = ksr_sub_dm.sum(axis=0) / (n - 1)
-    #Ignore diagonal (0 values for record identity against itself)
-    # non_diagonal_avg = ksr_id_dm.sum(axis=0) /(n-1)
-    # max_dist = non_diagonal_avg.max()
-    # identity_threshold = 1.5*max_dist
+    # Ignore diagonal (0 values for record identity against itself); set identity threshold which is used to exclude
+    #dissimilar records
+    non_diagonal_avg = ksr_sub_dm.sum(axis=0) / (n_ksr - 1)
     identity_threshold = np.mean(non_diagonal_avg) * 1.5
     final_df = final_ksr_df.copy()
-    for tax_id in am_taxids:
-        pass
-    #     try:
-    #         tax_df = am_df.loc[am_df["organism_taxid"] == tax_id]
-    #         tax_records = tax_df.index
-    #         # tax_dm_filtered_ids: list of record ids in final_ksr_df followed by all records corresponding to tax_id
-    #         tax_dm_filtered_ids = list(final_ksr_df.index)
-    #         tax_dm_filtered_ids.extend(tax_records)
-    #         tax_dm_df = am_df.loc[tax_dm_filtered_ids, :]
-    #         #             tax_dm_df.drop_duplicates(inplace=True)
-    #         tax_dm_df = tax_dm_df.loc[~tax_dm_df.index.duplicated(keep='first')]
-    #         tax_dm_fpath = "tmp/{0}_dm.fasta".format(tax_id)
-    #         n, tax_ordered_ids, tax_id_dm, tax_align_srs = construct_id_dm(tax_dm_df, seqs_fpath, tax_dm_fpath,
-    #                                                                        ordered=True)
-    #         md_row, min_dist = min_dist_spec_record(tax_id, tax_id_dm, tax_ordered_ids, final_ksr_df.index, tax_dm_df)
-    #         if min_dist <= identity_threshold:
-    #             final_df = final_df.append(md_row)
-    #     except ValueError as e:
-    #         # Debugging edge case for OrthoDB data error with duplicate entries (Irf2bp2)
-    #         print(e)
-    #         display(tax_dm_df)
-    #         raise SequenceDataError(5, "Duplicate Sequence Entry")
-    # return final_df
+    for taxid in am_taxids:
+        tax_records = am_record_idx[am_record_idx.str.contains(taxid)]
+        tax_pos = [am_record_idx.get_loc(record_id) for record_id in tax_records]
+        md_row, md = min_dist_spec_record(am_id_dm,am_record_idx,tax_records,ksr_record_idx,am_df)
+        if md <= identity_threshold:
+            final_df = final_df.append(md_row)
+        else:
+            print("Min dist record for tax_id {0} does not meet distance threshold {1}".format(taxid,identity_threshold))
+    return final_df
 
+def final_ksr_df_QC(gene_name,matches,seq_qc_fpath,final_ksr_df,ks_taxids):
+    #Writes warnings about compiled final known species records (ie after select_known_species_records)
+    #to specified file path
+    if len(final_ksr_df) < len(ks_taxids):
+        for tax_id in ks_taxids:
+            if tax_id not in final_ksr_df["organism_taxid"].unique():
+                message_txt = "No reference sequence for tax_id: {0}".format(tax_id)
+                write_ref_seq_QC(seq_qc_fpath,gene_name,message_txt)
+    length_srs = final_ksr_df["length"]
+    median_len = length_srs.median()
+    for record_id in final_ksr_df.index:
+        id_len = length_srs[record_id]
+        if (np.abs(id_len-median_len)/median_len) >= 0.1:
+            message_txt = "Record_id {0} has length {1} which is greater than 10% different from the median ({2})".format(record_id,id_len,median_len)
+            write_ref_seq_QC(seq_qc_fpath,gene_name,message_txt)
+    upper_matches = [match.upper() for match in matches]
+    upper_matches = [match+"$|"+match+"[;]" for match in upper_matches]
+    pat = "|".join(upper_matches)
+    for record_id,pgid in final_ksr_df["pub_gene_id"].iteritems():
+        if not re.search(pat,pgid.upper()):
+            message_txt = "Record_id {0} has pub_gene_id {1} which doesn't match gene_name ({2})".format(record_id,pgid,gene_name)
+            write_ref_seq_QC(seq_qc_fpath,gene_name,message_txt)
+
+def write_ref_seq_QC(seq_qc_fpath,gene_symbol,message):
+    """Writes warning messages to seq_qc_fpath and prints (will not write duplicate entries)"""
+    if not os.path.exists(seq_qc_fpath):
+        seq_qc_df = pd.DataFrame(columns=['gene_symbol','message'])
+    else:
+        seq_qc_df = pd.read_csv(seq_qc_fpath,sep='\t',index_col=0)
+        if gene_symbol in seq_qc_df['gene_symbol'].unique():
+            symbol_df = seq_qc_df[seq_qc_df['gene_symbol']==gene_symbol]
+            for idx,row in symbol_df.iterrows():
+                row_symb, row_msg = row.values
+                print("{0}\t{1}".format(row_symb,row_msg))
+                return
+    seq_qc_df = seq_qc_df.append(pd.Series({'gene_symbol':gene_symbol,'message':message}),ignore_index=True)
+    seq_qc_df.to_csv(seq_qc_fpath)
+    print("{0}\t{1}".format(gene_symbol, message))
+
+
+def process_input(symbol,config):
+    # test_symbol_list = ['ATP5MC1', 'CALM1', 'ATPIF1', 'CD151']
+    # tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
+    # symbol = 'ATP5MC1'
+    run_name = config['']
+    errors_fpath = 'tmp/outgroup_errors.tsv'
+    ks_tids = ['10090_0', '43179_0', '9606_0']
+    tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
+    unfiltered_tsv = SSfasta.load_tsv_table(tsv_inpath, tax_subset=tax_subset)
+    unfiltered_fasta = "cDNAscreen_041020/input/ODB/{0}.fasta".format(symbol)
+    #Filter by alias matches, exact pub_gene_id matches
+    am_idx, exact_matches = seqFilter.find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
+    am_df = unfiltered_tsv.loc[am_idx]
+    em_df = seqFilter.exact_match_df(unfiltered_tsv, exact_matches)
+    final_ksr_df = seqFilter.select_known_species_records(symbol, em_df, am_df, ks_tids, unfiltered_fasta)
+
+
+def filter_ref_seqs4(gene_name, matches, ref_fasta_path, ref_df, seq_qc_fpath,
+                     known_spec_list=["10090_0", "9606_0", "43179_0"]):
+    ref_ids = list(ref_df.index)
+    #     ksr_tsv_df = ref_tsv.loc[ref_tsv["organism_taxid"].isin(known_spec_list)]
+    ksr_ref_df = ref_df.loc[ref_df["organism_taxid"].isin(known_spec_list)]
+    # Create new tmp fasta file with known species annotated records only
+    ks_refseqs_fpath = "tmp/ks_refseqs.fasta"
+    known_spec_records = SSfasta.filter_fasta_infile(ksr_ref_df.index, ref_fasta_path, outfile_path=ks_refseqs_fpath)
+
+    # Search ksr_full_df for pub_gene_id field matches to main aliases (matches)
+    upper_matches = ["{0}$|{0}[;]".format(match.upper()) for match in matches]
+    matches_pat = "|".join(upper_matches)
+    ksr_pgid_df = ksr_ref_df.loc[ksr_ref_df["pub_gene_id"].str.upper().str.contains(matches_pat)]
+    final_ksr_df = select_known_species_records(ksr_pgid_df, ksr_ref_df, ks_refseqs_fpath)
+    # Quality checking of final_ksr_df:
+    final_ksr_df_QC(gene_name, matches, seq_qc_fpath, final_ksr_df, known_spec_list)
+    ref_pgid_df = ref_df.loc[ref_df["pub_gene_id"].str.upper().str.contains(matches_pat)]
+    final_df = select_outgrup_records(ref_pgid_df, ref_df,ks_taxids,final_ksr_df, ref_fasta_path)
+    length_filter = True
+    if length_filter:
+        # Remove records whose length differs by more than 10% from the median (but keep representative seqs for
+        # human, mouse, GS)
+        med_len = final_df["length"].median()
+        len_filtered = final_df.loc[(np.abs((final_df["length"] - med_len) / med_len) < 0.1) | (
+        final_df["organism_taxid"].isin(known_spec_list)), :]
+        final_df = len_filtered
+    return final_df
 
 def main():
     pass

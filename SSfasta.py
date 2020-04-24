@@ -170,8 +170,8 @@ def load_tsv_table(input_tsv_fpath,tax_subset=[],ODB_ID_index=True):
     ### Distance Matrix Functions
 #construct_id_dm makes an np.ndarray for the identity distance matrix of sequences for which OrthoDB id is
 # in the index of seq_df; distance matrix rows will be ordered to the order in seq_fpath if ordered isFalse
-def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta", ordered=False,
-                    kalign_silent=True):
+def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta",
+                    ordered=False,aligned=False,kalign_silent=True):
     """Constructs an np.ndarray corresponding to the identity distance matrix of records in seq_df
 
     :param seq_df: DataFrame of OrthoDB/ NCBI sequence records; should only contain records for which identity
@@ -191,18 +191,16 @@ def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta", ord
     # filtered_outpath = "tmp/iddm.fasta"
     filtered_fpath = "tmp/alias_matches.fasta"
     filter_fasta_infile(seq_df.index, seq_fpath, outfile_path=filtered_fpath, ordered=ordered)
-    # KAlign sequences in filtered_outpath, write to align_outpath
-    # n, ordered_ids, ka_dm, align_outfile = load_ka_distmat(filtered_outpath, align_outfile=align_outpath)
-    # proc = subprocess.run(args=["kalign", '-i', filtered_fpath, "-o", align_outpath, "-f", "fasta"])
-    #Use subprocess.Popen instead of subprocess.run for PyCharm compatability
-    from subprocess import Popen
-    with open(filtered_fpath,'r') as filtered_f, open(align_outpath,'wt',encoding='utf-8') as align_f:
-        args = ['kalign']
-        if kalign_silent:
-            subprocess.run(args=args, stdin=filtered_f, stdout=align_f, stderr=subprocess.PIPE, text=True)
-        else:
-            subprocess.run(args=args, stdin=filtered_f, stdout=align_f, text=True)
-
+    if not aligned:
+        # KAlign sequences in filtered_outpath, write to align_outpath
+        with open(filtered_fpath,'r') as filtered_f, open(align_outpath,'wt',encoding='utf-8') as align_f:
+            args = ['kalign']
+            if kalign_silent:
+                subprocess.run(args=args, stdin=filtered_f, stdout=align_f, stderr=subprocess.PIPE, text=True)
+            else:
+                subprocess.run(args=args, stdin=filtered_f, stdout=align_f, text=True)
+    else:
+        align_outpath = filtered_fpath
     align_srs = fasta_to_srs(align_outpath)
     with open(align_outpath) as aligned_f:
         aln = AlignIO.read(aligned_f, 'fasta')
