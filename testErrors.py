@@ -6,6 +6,8 @@ from IPython.display import display
 
 import contextlib
 import io
+import pandas as pd
+import ODBfilter
 
 class SSErrorsTest(unittest.TestCase):
 
@@ -62,8 +64,22 @@ class SSErrorsTest(unittest.TestCase):
                 else:
                     self.assertFalse(out_line in output)
 
+    def test_qc_log(self):
+        test_fpath = 'tmp/qc_test.tsv'
+        #Write one entry
+        ODBfilter.write_ref_seq_QC(test_fpath,'CD151','a test message')
+        test_qc = pd.read_csv(test_fpath,sep='\t',index_col=0)
+        self.assertTrue(len(test_qc) == 1)
+        #Attempt rewriting same entry
+        ODBfilter.write_ref_seq_QC(test_fpath, 'CD151', 'a test message')
+        test_qc = pd.read_csv(test_fpath, sep='\t', index_col=0)
+        self.assertTrue(len(test_qc) == 1)
+        # Test new entry writing with same symbol identifier
+        ODBfilter.write_ref_seq_QC(test_fpath, 'CD151', 'a new test message!')
+        test_qc = pd.read_csv(test_fpath, sep='\t', index_col=0)
+        self.assertTrue(len(test_qc) == 2)
 
-    def tearDown(self):
-        SSdirectory.empty_directory("tmp")
+    # def tearDown(self):
+    #     SSdirectory.empty_directory("tmp")
 if __name__ == '__main__':
     unittest.main()

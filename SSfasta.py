@@ -215,10 +215,29 @@ def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta",
     return id_dm, align_srs
 
 def avg_dist_srs(index,distmat):
-    #index is a pandas Index object with entries corresponding to the distmat (i.e. lengths should be equal)
+    #index is a pandas Index object with entries corresponding to the distmat (i.e. lengths and order should be equal)
     #Calculate mean of non-self record distances (diagonal distances generally force-set to 0, so
     #sum functions as intended)
     n = len(distmat)
     avg_dists = np.sum(distmat, axis=1)/(n-1)
     dist_srs = pd.Series(data=avg_dists,index=index,name="dist")
     return dist_srs
+
+def length_srs(fasta_fpath,id_subset=[]):
+    """Load length series corresponding to sequences in fasta_fpath, limited to id_subset if provided
+
+    :param fasta_fpath: File path to fasta of sequences to load length information for
+    :param id_subset: if provided, returned series will only contain records in id_subset.
+    :return: Series indexed on fasta ids where values are length of record sequences
+    """
+    fasta_f = open(fasta_fpath)
+    fasta_records = SeqIO.parse(fasta_f,'fasta')
+    length_dict = {}
+    for fasta in fasta_records:
+        fasta_id = fasta.id
+        if (len(id_subset) == 0) or \
+            (len(id_subset) > 0 and fasta_id in id_subset):
+            length_dict[fasta_id] = len(str(fasta.seq))
+    lengths = pd.Series(data=length_dict,name='length')
+    fasta_f.close()
+    return lengths

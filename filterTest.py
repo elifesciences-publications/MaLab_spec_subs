@@ -7,7 +7,23 @@ from IPython.display import display
 import warnings
 import subprocess
 
-class FilterFunctionTest(unittest.TestCase):
+class SSfastaTest(unittest.TestCase):
+
+    def test_length_load(self):
+        test_fpath = "cDNAscreen_041020/input/ODB/{0}.fasta".format('ATP5MC1')
+        unfiltered_lens = SSfasta.length_srs(test_fpath)
+        self.assertTrue(136 in unfiltered_lens.unique())
+        self.assertTrue(138 in unfiltered_lens.unique())
+        self.assertTrue('9544_0:0008ab' in unfiltered_lens.index)
+        self.assertTrue(len(unfiltered_lens) == 29)
+        filtered_ids = ['10090_0:0034c4','43179_0:00103c','9606_0:00415a']
+        filtered_lens = SSfasta.length_srs(test_fpath,filtered_ids)
+        self.assertTrue(136 in filtered_lens.unique())
+        self.assertFalse(138 in filtered_lens.unique())
+        self.assertFalse('9544_0:0008ab' in filtered_lens.index)
+        self.assertTrue(len(filtered_lens) == 3)
+
+class ODBFilterFunctionTest(unittest.TestCase):
     def test_alias_loading(self):
         import SSconfig
         config, spec_list, gene_id_df, tax_table = SSconfig.config_initialization()
@@ -36,7 +52,7 @@ class FilterFunctionTest(unittest.TestCase):
     
     
     def test_alias_pattern_match(self):
-        from seqFilter import format_odb_field, odb_field_to_re
+        from ODBfilter import format_odb_field, odb_field_to_re
         import re
         alias_fpath = "aliases_data/ISPD_aliases.txt"
         alias_f = open(alias_fpath,'rt')
@@ -62,7 +78,7 @@ class FilterFunctionTest(unittest.TestCase):
                 raise e
     
     def test_alias_df_filter(self):
-        from seqFilter import find_alias_matches
+        from ODBfilter import find_alias_matches
         pre_lengths = [31,29,312]
         post_lengths = [31,29,27]
         symbol_list = ["ISPD","ATP5MC1","APEX1"]
@@ -99,7 +115,7 @@ class FilterFunctionTest(unittest.TestCase):
 
 
     def test_exact_match_df(self):
-        from seqFilter import exact_match_df
+        from ODBfilter import exact_match_df
         test_input_path = "cDNAscreen_041020/input/ODB/ATP5MC1.tsv"
         tsv_df = SSfasta.load_tsv_table(test_input_path)
         unfiltered_uniques = tsv_df['pub_gene_id'].unique()
@@ -117,7 +133,7 @@ class FilterFunctionTest(unittest.TestCase):
 
     # @unittest.skip("broken")
     def test_ksr_record_select(self):
-        import seqFilter
+        import ODBfilter
         test_symbol_list = ['ATP5MC1','CALM1','ATPIF1','CD151']
         tax_subset = ['10090_0','43179_0','9606_0','10116_0','42254_0','9601_0']
         errors_fpath =  "cDNAscreen_041020/summary/errors.tsv"
@@ -130,15 +146,15 @@ class FilterFunctionTest(unittest.TestCase):
                 tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
                 unfiltered_tsv = SSfasta.load_tsv_table(tsv_inpath,tax_subset=tax_subset)
                 unfiltered_fasta = "cDNAscreen_041020/input/ODB/{0}.fasta".format(symbol)
-                am_idx,exact_matches = seqFilter.find_alias_matches(symbol,unfiltered_tsv,errors_fpath)
+                am_idx,exact_matches = ODBfilter.find_alias_matches(symbol,unfiltered_tsv,errors_fpath)
                 am_df = unfiltered_tsv.loc[am_idx]
-                em_df = seqFilter.exact_match_df(unfiltered_tsv,exact_matches)
+                em_df = ODBfilter.exact_match_df(unfiltered_tsv,exact_matches)
                 if display_match_data:
                     print("alias_match")
                     display(am_df)
                     print("exact_match")
                     display(em_df)
-                final_ksr_df = seqFilter.select_known_species_records(symbol,em_df,am_df,ks_tids,unfiltered_fasta)
+                final_ksr_df = ODBfilter.select_known_species_records(symbol,em_df,am_df,ks_tids,unfiltered_fasta)
                 if display_ksr:
                     print("Final known species records: ")
                     display(final_ksr_df)
@@ -158,7 +174,7 @@ class FilterFunctionTest(unittest.TestCase):
                     print("Checking for cached selection output...")
                     with contextlib.redirect_stdout(out_buf):
 
-                        final_ksr_df = seqFilter.select_known_species_records(symbol, em_df, am_df, ks_tids,
+                        final_ksr_df = ODBfilter.select_known_species_records(symbol, em_df, am_df, ks_tids,
                                                                               unfiltered_fasta)
                         cached_msg = 'To clear selections, either delete corresponding row in file at ' \
                                      'tmp/manual_record_selections.tsv'
@@ -166,7 +182,7 @@ class FilterFunctionTest(unittest.TestCase):
                     print("Cached selection output found.")
 
     def test_outgroup_selection(self):
-        import seqFilter
+        import ODBfilter
         test_symbol_list = ['ATP5MC1', 'CALM1', 'ATPIF1', 'CD151']
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
         # symbol = 'ATP5MC1'
@@ -176,13 +192,42 @@ class FilterFunctionTest(unittest.TestCase):
         tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
         unfiltered_tsv = SSfasta.load_tsv_table(tsv_inpath, tax_subset=tax_subset)
         unfiltered_fasta = "cDNAscreen_041020/input/ODB/{0}.fasta".format(symbol)
-        am_idx, exact_matches = seqFilter.find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
+        am_idx, exact_matches = ODBfilter.find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
         am_df = unfiltered_tsv.loc[am_idx]
-        em_df = seqFilter.exact_match_df(unfiltered_tsv, exact_matches)
-        final_ksr_df = seqFilter.select_known_species_records(symbol, em_df, am_df, ks_tids, unfiltered_fasta)
+        em_df = ODBfilter.exact_match_df(unfiltered_tsv, exact_matches)
+        final_ksr_df = ODBfilter.select_known_species_records(symbol, em_df, am_df, ks_tids, unfiltered_fasta)
 
-        final_df = seqFilter.select_outgrup_records(em_df,am_df,ks_tids,final_ksr_df,unfiltered_fasta)
+        final_df, dist_srs = ODBfilter.select_outgrup_records(em_df,am_df,ks_tids,final_ksr_df,unfiltered_fasta)
         assert(len(final_df) == len(tax_subset))
+
+class NCBIFilterFunctionTest(unittest.TestCase):
+
+    def test_NCBI_load(self):
+        from NCBIfilter import load_NCBI_fasta_df
+
+        test_fpath = "cDNAscreen_041020/input/NCBI/9999/ATP5MC1.fasta"
+        taxid_dict = {'Urocitellus parryii':9999}
+        ncbi_df = load_NCBI_fasta_df(test_fpath,taxid_dict)
+        with pd.option_context('display.max_columns',None):
+            self.assertTrue('XP_026242723.1' in ncbi_df.index)
+            self.assertTrue('XP_026242723.1' in ncbi_df['NCBI_id'].unique())
+            self.assertTrue(9999 in ncbi_df['organism_taxid'].unique())
+
+    def test_select_NCBI_record(self):
+        from NCBIfilter import select_NCBI_record
+        from ODBfilter import process_input
+        import SSconfig
+        test_odb_path = "cDNAscreen_041020/input/ODB/ATP5MC1.fasta"
+        test_ncbi_path = "cDNAscreen_041020/input/NCBI/9999/ATP5MC1.fasta"
+
+        config, spec_list, gene_id_df, tax_table = SSconfig.config_initialization()
+        tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
+        final_odb = process_input('ATP5MC1',config,tax_subset)
+        taxid_dict = {config['NCBITaxName']:config['NCBITaxID']}
+        final_combined = select_NCBI_record(test_odb_path,test_ncbi_path,taxid_dict,final_odb,['43179_0'])
+        with pd.option_context('display.max_columns', None):
+            display(final_combined)
+
 
 if __name__ == '__main__':
     with warnings.catch_warnings():
