@@ -1,4 +1,4 @@
-from SSerrors import load_errors, SequenceDataError
+from SSerrors import load_errors, SequenceDataError, write_errors
 import numpy as np
 import pandas as pd
 import os
@@ -85,6 +85,9 @@ def find_alias_matches(symbol, tsv_df, errors_fpath):
             if idx not in am_ids and re.search(aliases_pat,formatted_field):
                 am_ids.append(idx)
     # exact_matches contains only IDFile stored gene symbols or GeneCards primary aliases
+    if len(am_ids) == 0:
+        msg = 'No alias matched sequences could be found in OrthoDB input for gene symbol {0}'.format(symbol)
+        raise SequenceDataError(0,msg)
     return am_ids, exact_matches
 
 def exact_match_df(unfiltered_df,exact_matches):
@@ -232,7 +235,7 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
     #Set selection df to be the smallest available set for which at least one record present from ks_taxids species
     if ksr_em_df.empty:
         if ksr_am_df.empty:
-            raise SequenceDataError(2, "No GeneCards alias matched sequence records for human/mouse/test species")
+            raise SequenceDataError(1, "No GeneCards alias matched sequence records for human/mouse/test species")
         else:
             selection_df = ksr_am_df
     else:
@@ -290,7 +293,8 @@ def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
     :param final_ksr_df: DataFrame of accepted records from well-annotated species (max one per species).
     :param seqs_fpath: Fasta file path containing at least all records in am_df. Can be safely set to unfiltered
     fasta input, records will be automatically filtered down appropriately using am_df.
-    :return: Final DataFrame containing all
+    :return final_df: DataFrame containing all selected records (final_ksr_df records first)
+    :return dist_srs: Series indexed on record_id and containing average distance information against rest of input set.
     """
     am_non_ksr_taxids = [tax_id for tax_id in am_df["organism_taxid"].unique() if tax_id not in ks_taxids]
 
@@ -319,30 +323,48 @@ def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
             final_df = final_df.append(md_row)
         else:
             print("Min dist record for tax_id {0} does not meet distance threshold {1}".format(taxid,identity_threshold))
-    return final_df
 
-def final_ksr_df_QC(gene_symbol,matches,seq_qc_fpath,final_ksr_df,ks_taxids):
-    """
+    #Reorder and filter distmat down to final_df records order, calculate non-diagonal avg distances
+    dm_pos = [am_record_idx.get_loc(final_idx) for final_idx in final_df.index]
+    final_ordered_dm = am_id_dm[dm_pos,:]
+    final_ordered_dm = final_ordered_dm[:,dm_pos]
+    dist_srs = SSfasta.avg_dist_srs(final_df.index,final_ordered_dm)
 
-    :param gene_symbol:
-    :param matches:
-    :param seq_qc_fpath:
-    :param final_ksr_df:
-    :param ks_taxids:
-    :return:
+    return final_df, dist_srs
+
+def final_ksr_df_QC(gene_symbol,matches,final_ksr_df,ks_taxids,ts_taxid,
+                    seq_qc_fpath,seq_fpath,length_warning=False):
+    """Log quality checks on final accepted record sequences for species in ks_taxids.
+
+    Entries which fail QC checks will still be run in analysis, but the quality checks for sequence consistency logged
+    may serve as warnings by which the user can elect to remove results for those gene symbols. The only QC which will
+    prevent analysis is absence of test species tax_id in the final accepted records dataframe.
+
+    :param gene_symbol: Gene symbol for which data is being used
+    :param matches: List of acceptable exact symbol matches for gene_symbol
+    :param seq_qc_fpath: Log file for quality checks
+    :param seq_fpath: Path to fasta with sequences
+    :param final_ksr_df: DataFrame returned by select_known_species_records
+    :param ks_taxids: list of tax_ids expected to be in final_ksr_df
+    :return: N/A
     """
     if len(final_ksr_df) < len(ks_taxids):
+        if ts_taxid not in final_ksr_df["organism_taxid"].unique():
+            msg = "No alias matched sequence could be found for test species (taxid: {0})".format(ts_taxid)
+            raise SequenceDataError(2,msg)
         for tax_id in ks_taxids:
             if tax_id not in final_ksr_df["organism_taxid"].unique():
                 message_txt = "No reference sequence for tax_id: {0}".format(tax_id)
                 write_ref_seq_QC(seq_qc_fpath,gene_symbol,message_txt)
-    length_srs = final_ksr_df["length"]
-    median_len = length_srs.median()
-    for record_id in final_ksr_df.index:
-        id_len = length_srs[record_id]
-        if (np.abs(id_len-median_len)/median_len) >= 0.1:
-            message_txt = "Record_id {0} has length {1} which is greater than 10% different from the median ({2})".format(record_id,id_len,median_len)
-            write_ref_seq_QC(seq_qc_fpath,gene_symbol,message_txt)
+    if length_warning:
+        # length_srs = final_ksr_df["length"]
+        length_srs = SSfasta.length_srs(seq_fpath,final_ksr_df.index)
+        median_len = length_srs.median()
+        for record_id in final_ksr_df.index:
+            id_len = length_srs[record_id]
+            if (np.abs(id_len-median_len)/median_len) >= 0.1:
+                message_txt = "Record_id {0} has length {1} which is greater than 10% different from the median ({2})".format(record_id,id_len,median_len)
+                write_ref_seq_QC(seq_qc_fpath,gene_symbol,message_txt)
     upper_matches = [match.upper() for match in matches]
     upper_matches = [match+"$|"+match+"[;]" for match in upper_matches]
     pat = "|".join(upper_matches)
@@ -352,9 +374,9 @@ def final_ksr_df_QC(gene_symbol,matches,seq_qc_fpath,final_ksr_df,ks_taxids):
             write_ref_seq_QC(seq_qc_fpath,gene_symbol,message_txt)
 
 def write_ref_seq_QC(seq_qc_fpath,gene_symbol,message):
-    """Writes warning messages to seq_qc_fpath and prints (will not write duplicate entries)
+    """Writes warning messages to seq_qc_fpath and prints (will not write duplicate message entries)
 
-    :param seq_qc_fpath:
+    :param seq_qc_fpath: Log file for quality check messages
     :param gene_symbol:
     :param message:
     :return:
@@ -367,34 +389,48 @@ def write_ref_seq_QC(seq_qc_fpath,gene_symbol,message):
             symbol_df = seq_qc_df[seq_qc_df['gene_symbol']==gene_symbol]
             for idx,row in symbol_df.iterrows():
                 row_symb, row_msg = row.values
-                print("{0}\t{1}".format(row_symb,row_msg))
-                return
+                if row_msg == message:
+                    print("{0}\t{1}".format(row_symb,row_msg))
+                    return
     seq_qc_df = seq_qc_df.append(pd.Series({'gene_symbol':gene_symbol,'message':message}),ignore_index=True)
-    seq_qc_df.to_csv(seq_qc_fpath)
+    seq_qc_df.to_csv(seq_qc_fpath,sep='\t')
     print("{0}\t{1}".format(gene_symbol, message))
 
 
 def process_input(symbol,config,tax_subset):
+    """Return final
 
-    run_name = config['RunName']
+    :param symbol:
+    :param config:
+    :param tax_subset:
+    :return:
+    """
+
+    run_name, test_tid = config['RunName'], config['ODBTestTaxID']
     raw_tsv_fpath,raw_fa_fpath = "{0}/input/ODB/{1}.tsv".format(run_name,symbol),\
                                  "{0}/input/ODB/{1}.fasta".format(run_name,symbol)
-
+    seq_qc_fpath = '{0}/summary/accepted_record_QC.tsv'.format(run_name)
     errors_fpath = '{0}/summary/error.tsv'.format(run_name)
-    ks_tids = ['10090_0', '43179_0', '9606_0']
+    ks_taxids = ['10090_0', '43179_0', '9606_0']
     # tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
     unfiltered_tsv = SSfasta.load_tsv_table(raw_tsv_fpath, tax_subset=tax_subset)
     #Filter by alias matches, exact pub_gene_id matches
-    am_idx, exact_matches = find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
-    am_df = unfiltered_tsv.loc[am_idx]
-    em_df = exact_match_df(unfiltered_tsv, exact_matches)
-    final_ksr_df = select_known_species_records(symbol, em_df, am_df, ks_tids, raw_fa_fpath)
-    final_input_df = select_outgrup_records(em_df,am_df,ks_tids,final_ksr_df,raw_fa_fpath)
+    try:
+        am_ids, exact_matches = find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
+        am_df = unfiltered_tsv.loc[am_ids]
+        em_df = exact_match_df(unfiltered_tsv, exact_matches)
+        final_ksr_df = select_known_species_records(symbol, em_df, am_df, ks_taxids, raw_fa_fpath)
+        final_ksr_df_QC(symbol,exact_matches,final_ksr_df,ks_taxids,test_tid,seq_qc_fpath,raw_fa_fpath)
+        final_input_df, dist_srs = select_outgrup_records(em_df, am_df, ks_taxids, final_ksr_df, raw_fa_fpath)
+    except SequenceDataError as sde:
+        #Log errors, raise error for handling in calling function
+        write_errors(errors_fpath,symbol,sde)
+        raise sde
     return final_input_df
 
 
 def main():
     pass
 
-if ____ == "__main__":
+if __name__ == "__main__":
     main()
