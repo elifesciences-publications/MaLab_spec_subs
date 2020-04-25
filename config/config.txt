@@ -10,6 +10,7 @@ OverwriteInput = no
 ODBLevel = 40674
 #ODBTestSpecies: Species in OrthoDB for which specific amino acid substitutions are desired
 ODBTestSpecies = Ictidomys tridecemlineatus
+ODBTestTaxID = 43179_0
 
 #NCBITaxID corresponds to the species for which NCBI sequence data will be fetched and used for analysis.
 NCBITaxID = 9999
