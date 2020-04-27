@@ -1,16 +1,23 @@
 import os
+os.chdir("..")
 
 import pandas as pd
 import unittest
-import SSfasta, SSconfig
+from SSutility import SSfasta, SSconfig
 from IPython.display import display
 import warnings
 import subprocess
+from SSfilter import ODBfilter, NCBIfilter
+
+test_data_dir = "test/test_data"
+test_tmp_dir = "test/tmp"
+
+ 
 
 class SSfastaTest(unittest.TestCase):
 
     def test_length_load(self):
-        test_fpath = "cDNAscreen_041020/input/ODB/{0}.fasta".format('ATP5MC1')
+        test_fpath = "{0}/ODB/{1}.fasta".format(test_data_dir,'ATP5MC1')
         unfiltered_seqs, unfiltered_lens = SSfasta.length_srs(test_fpath)
         self.assertTrue(136 in unfiltered_lens.unique())
         self.assertTrue(138 in unfiltered_lens.unique())
@@ -23,15 +30,37 @@ class SSfastaTest(unittest.TestCase):
         self.assertFalse('9544_0:0008ab' in filtered_lens.index)
         self.assertTrue(len(filtered_lens) == 3)
 
+    def test_filter_infile(self):
+        from Bio import SeqIO
+        test_fpath = "{0}/ODB/{1}.fasta".format(test_data_dir,'ATP5MC1')
+        ordered_test_ids = ["10090_0:0034c4","43179_0:00103c","9606_0:00415a","10116_0:00386d","42254_0:001ba2",
+                            "9986_0:0033f5"]
+
+        unordered_fpath = "{0}/ATP5MC1_unordered.fasta".format(test_tmp_dir)
+        ordered_fpath = "{0}/ATP5MC1_ordered.fasta".format(test_tmp_dir)
+        SSfasta.filter_fasta_infile(ordered_test_ids,test_fpath,outfile_path=unordered_fpath,ordered=False)
+        SSfasta.filter_fasta_infile(ordered_test_ids, test_fpath, outfile_path=ordered_fpath, ordered=True)
+
+        unordered = SeqIO.parse(unordered_fpath, 'fasta')
+        ordered = SeqIO.parse(ordered_fpath,'fasta')
+        #Check order
+        unordered_test_ids = [ordered_test_ids[i] for i in [0, 3, 4, 1, 2, 5]]
+        for i,fasta in enumerate(unordered):
+            self.assertTrue(fasta.id == unordered_test_ids[i])
+
+        for i,fasta in enumerate(ordered):
+            self.assertTrue(fasta.id == ordered_test_ids[i])
+
+
 class ODBFilterFunctionTest(unittest.TestCase):
     def test_alias_loading(self):
-        config, spec_list, tax_subset, gene_id_df, tax_table = SSconfig.config_initialization()
-        gene_id_df = SSconfig.read_geneID_file("config/cDNAscreen_geneIDs_clean.csv")
+        gene_id_df = SSconfig.read_geneID_file("{0}/cDNAscreen_geneIDs_clean.csv".format(test_data_dir))
         gene_symbols = gene_id_df["gene_symbol"]
         gc_names = []
         for symbol in gene_symbols:
             alias_fpath = "aliases_data/{0}_aliases.txt".format(symbol)
             if not os.path.exists(alias_fpath):
+                print("Non-existent alias data file path")
                 print(alias_fpath)
                 continue
             with open(alias_fpath,'r') as alias_f:
@@ -47,11 +76,11 @@ class ODBFilterFunctionTest(unittest.TestCase):
         self.assertTrue(len(gc_names) == 379)
         self.assertTrue(sum([symbol in gc_names for symbol in gene_symbols]) == 370)
         mismatch_symbols = [symbol for symbol in gene_symbols if symbol not in gc_names]
-        self.assertTrue('ATPIF1' in mismatch_symbols and 'ISPD' in mismatch_symbols)
+        self.assertTrue("ATPIF1" in mismatch_symbols and "ISPD" in mismatch_symbols)
     
     
     def test_alias_pattern_match(self):
-        from ODBfilter import format_odb_field, odb_field_to_re
+        from SSfilter.ODBfilter import format_odb_field, odb_field_to_re
         import re
         alias_fpath = "aliases_data/ISPD_aliases.txt"
         alias_f = open(alias_fpath,'rt')
@@ -77,16 +106,16 @@ class ODBFilterFunctionTest(unittest.TestCase):
                 raise e
 
     def test_alias_df_filter(self):
-        from ODBfilter import find_alias_matches
+        from SSfilter.ODBfilter import find_alias_matches
         pre_lengths = [31,29,312,179]
         post_lengths = [31,29,27,125]
         symbol_list = ["ISPD","ATP5MC1","APEX1","CALM1"]
         try:
             for i,symbol in enumerate(symbol_list):
-                test_tsv = pd.read_csv("cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol),sep='\t',index_col='int_prot_id')
+                test_tsv = pd.read_csv("{0}/ODB/{1}.tsv".format(test_data_dir,symbol),sep='\t',index_col='int_prot_id')
 
                 self.assertTrue(len(test_tsv) == pre_lengths[i])
-                am_ids, exact_matches = find_alias_matches(symbol,test_tsv,"tmp/errors.tsv")
+                am_ids, exact_matches = find_alias_matches(symbol,test_tsv,"{0}/errors.tsv".format(test_tmp_dir))
 
                 self.assertTrue(len(am_ids) == post_lengths[i])
                 print("Passed {0}/{1}".format(i+1,len(symbol_list)))
@@ -99,15 +128,14 @@ class ODBFilterFunctionTest(unittest.TestCase):
 
 
     def test_kalign(self):
-        test_inpath = "cDNAscreen_041020/input/ODB/ATP5MC1.fasta"
-        test_outpath = "tmp/test_aln.fasta"
+        test_inpath = "{0}/ODB/ATP5MC1.fasta".format(test_data_dir)
+        test_outpath = "{0}/test_aln.fasta".format(test_tmp_dir)
         print("Current kalign bin: ")
-        subprocess.run(args=['which', 'kalign'])
+        subprocess.run(args=["which", "kalign"])
         print("Testing KALIGN output files. ")
         self.assertTrue(os.path.exists(test_inpath))
         from subprocess import Popen, PIPE
-        # full_args = ['kalign','-i',test_inpath,'-o',test_outpath,'-f','fasta'] #deprecated due to PyCharm inconsistencies
-        no_args = ['kalign']
+        no_args = ["kalign"]
         with open(test_inpath,'r') as test_in, open(test_outpath,'wt',encoding='utf-8') as test_out:
             proc = subprocess.run(args=no_args,stdin=test_in,stdout=test_out,text=True)
         self.assertTrue(os.path.exists(test_outpath))
@@ -116,8 +144,8 @@ class ODBFilterFunctionTest(unittest.TestCase):
 
 
     def test_exact_match_df(self):
-        from ODBfilter import exact_match_df
-        test_input_path = "cDNAscreen_041020/input/ODB/ATP5MC1.tsv"
+        from SSfilter.ODBfilter import exact_match_df
+        test_input_path = "{0}/ODB/ATP5MC1.tsv".format(test_data_dir)
         tsv_df = SSfasta.load_tsv_table(test_input_path)
         unfiltered_uniques = tsv_df['pub_gene_id'].unique()
         self.assertTrue('ATP5G1;ATP5MC1' in unfiltered_uniques)
@@ -134,7 +162,7 @@ class ODBFilterFunctionTest(unittest.TestCase):
 
     # @unittest.skip("broken")
     def test_ksr_record_select(self):
-        import ODBfilter
+        import SSfilter.ODBfilter
         test_symbol_list = ['ATP5MC1','CALM1','ATPIF1','CD151']
         tax_subset = ['10090_0','43179_0','9606_0','10116_0','42254_0','9601_0']
         errors_fpath =  "cDNAscreen_041020/summary/errors.tsv"
@@ -143,13 +171,13 @@ class ODBFilterFunctionTest(unittest.TestCase):
         display_match_data = False
         display_ksr = True
 
-        tmp_manual_selections = "tmp/manual_record_selections.tsv"
+        tmp_manual_selections = "{0}/manual_record_selections.tsv".format(test_tmp_dir)
 
         with pd.option_context('display.max_columns',None,'display.max_colwidth',500):
             for symbol in test_symbol_list:
-                tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
+                tsv_inpath = "{0}/ODB/{1}.tsv".format(test_data_dir,symbol)
                 unfiltered_tsv = SSfasta.load_tsv_table(tsv_inpath,tax_subset=tax_subset)
-                unfiltered_fasta = "cDNAscreen_041020/input/ODB/{0}.fasta".format(symbol)
+                unfiltered_fasta = "{0}/ODB/{1}.fasta".format(test_data_dir,symbol)
                 am_idx,exact_matches = ODBfilter.find_alias_matches(symbol,unfiltered_tsv,errors_fpath)
                 am_df = unfiltered_tsv.loc[am_idx]
                 em_df = ODBfilter.exact_match_df(unfiltered_tsv,exact_matches)
@@ -183,21 +211,21 @@ class ODBFilterFunctionTest(unittest.TestCase):
                                                                               unfiltered_fasta,
                                                                               manual_selections_fpath=tmp_manual_selections)
                         cached_msg = 'To clear selections, either delete corresponding row in file at ' \
-                                     'tmp/manual_record_selections.tsv'
+                                     '{0}'.format(tmp_manual_selections)
                         self.assertIn(cached_msg,out_buf.getvalue())
                     print("Cached selection output found.")
 
     def test_outgroup_selection(self):
-        import ODBfilter
+        import SSfilter.ODBfilter
         test_symbol_list = ['ATP5MC1', 'CALM1', 'ATPIF1', 'CD151']
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
         # symbol = 'ATP5MC1'
         symbol = 'IRF2BP2'
-        errors_fpath = 'tmp/outgroup_errors.tsv'
+        errors_fpath = "{0}/outgroup_errors.tsv".format(test_tmp_dir)
         ks_tids = ['10090_0', '43179_0', '9606_0']
-        tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
+        tsv_inpath = "{0}/ODB/{1}.tsv".format(test_data_dir,symbol)
         unfiltered_tsv = SSfasta.load_tsv_table(tsv_inpath, tax_subset=tax_subset)
-        unfiltered_fasta = "cDNAscreen_041020/input/ODB/{0}.fasta".format(symbol)
+        unfiltered_fasta = "{0}/ODB/{1}.fasta".format(test_data_dir,symbol)
         am_idx, exact_matches = ODBfilter.find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
         am_df = unfiltered_tsv.loc[am_idx]
         em_df = ODBfilter.exact_match_df(unfiltered_tsv, exact_matches)
@@ -210,9 +238,9 @@ class ODBFilterFunctionTest(unittest.TestCase):
 class NCBIFilterFunctionTest(unittest.TestCase):
 
     def test_NCBI_load(self):
-        from NCBIfilter import load_NCBI_fasta_df
+        from SSfilter.NCBIfilter import load_NCBI_fasta_df
 
-        test_fpath = "cDNAscreen_041020/input/NCBI/9999/ATP5MC1.fasta"
+        test_fpath = "{0}/NCBI/9999/ATP5MC1.fasta".format(test_data_dir)
         taxid_dict = {'Urocitellus parryii':9999}
         ncbi_df = load_NCBI_fasta_df(test_fpath,taxid_dict)
         with pd.option_context('display.max_columns',None):
@@ -220,12 +248,12 @@ class NCBIFilterFunctionTest(unittest.TestCase):
             self.assertTrue(9999 in ncbi_df['organism_taxid'].unique())
 
     def test_select_NCBI_record(self):
-        from NCBIfilter import select_NCBI_record
-        from ODBfilter import process_input
-        test_odb_path = "cDNAscreen_041020/input/ODB/ATP5MC1.fasta"
-        test_ncbi_path = "cDNAscreen_041020/input/NCBI/9999/ATP5MC1.fasta"
+        from SSfilter.NCBIfilter import select_NCBI_record
+        from SSfilter.ODBfilter import process_input
+        test_odb_path = "{0}/ODB/ATP5MC1.fasta".format(test_data_dir)
+        test_ncbi_path = "{0}/NCBI/9999/ATP5MC1.fasta".format(test_data_dir)
 
-        config, spec_list, tax_subset, gene_id_df, tax_table = SSconfig.config_initialization()
+        from SSutility import config, spec_list, tax_subet, gene_id_df, tax_table
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
         results = process_input('ATP5MC1',config,tax_subset)
         final_odb = results['final_df']
@@ -238,14 +266,14 @@ class NCBIFilterFunctionTest(unittest.TestCase):
             self.assertTrue('XP_026242723.1' in final_combined.index)
 
     def test_process_combined(self):
-        from NCBIfilter import select_NCBI_record, combined_records_processing
-        from ODBfilter import process_input
+        from SSfilter.NCBIfilter import select_NCBI_record, combined_records_processing
+        from SSfilter.ODBfilter import process_input
         from Bio import SeqIO,Seq
 
         test_symbol = "CALM1"
 
-        test_odb_path = "cDNAscreen_041020/input/ODB/{0}.fasta".format(test_symbol)
-        test_ncbi_path = "cDNAscreen_041020/input/NCBI/9999/{0}.fasta".format(test_symbol)
+        test_odb_path = "{0}/ODB/{1}.fasta".format(test_data_dir,test_symbol)
+        test_ncbi_path = "{0}/NCBI/9999/{1}.fasta".format(test_data_dir,test_symbol)
 
         config, spec_list, tax_subset, gene_id_df, tax_table = SSconfig.config_initialization()
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
@@ -255,9 +283,9 @@ class NCBIFilterFunctionTest(unittest.TestCase):
 
         final_combined = select_NCBI_record(test_odb_path, test_ncbi_path, taxid_dict, final_odb, ['43179_0'])
 
-        test_unaln = "tmp/{0}_combined.fasta".format(test_symbol)
-        test_aln = "tmp/{0}_aligned.fasta".format(test_symbol)
-        test_records = "tmp/{0}_records.tsv".format(test_symbol)
+        test_unaln = "{0}/{1}_combined.fasta".format(test_tmp_dir,test_symbol)
+        test_aln = "{0}/{1}_aligned.fasta".format(test_tmp_dir,test_symbol)
+        test_records = "{0}/{1}_records.tsv".format(test_tmp_dir,test_symbol)
 
         comb_proc = combined_records_processing(config,am_df,em_df,final_combined,test_symbol,
                                     out_unaln_fasta=test_unaln,out_aln_fasta=test_aln,
@@ -286,6 +314,11 @@ class NCBIFilterFunctionTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+
+    from SSutility.SSdirectory import create_directory,empty_directory
+    create_directory(test_tmp_dir)
+    empty_directory(test_tmp_dir)
+
     with warnings.catch_warnings():
         warnings.simplefilter('ignore', category=[ImportWarning,DeprecationWarning])
         unittest.main(buffer=False)

@@ -1,0 +1,25 @@
+pub_og_id	og_name	level_taxid	organism_taxid	organism_name	int_prot_id	pub_gene_id	description
+212481at40674	Mitochondrial ATPase inhibitor	40674	10090_0	Mus musculus	10090_0:00148b	Atpif1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	10116_0	Rattus norvegicus	10116_0:002358	Atpif1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	13616_0	Monodelphis domestica	13616_0:002e80	ATPIF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	246437_0	Tupaia chinensis	246437_0:003f98	ATP5IF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	42254_0	Sorex araneus	42254_0:000ad6	ATP5IF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00064a	ATPIF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	43346_0	Bison bison	43346_0:004cdd	ATPIF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	74533_0	Panthera tigris	74533_0:00453e	ATPIF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9365_0	Erinaceus europaeus	9365_0:001bec	ATPIF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9483_0	Callithrix jacchus	9483_0:001e72	ATPIF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	9544_0	Macaca mulatta	9544_0:000036	ATPIF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	9598_0	Pan troglodytes	9598_0:0007a7	ATP5IF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	9601_0	Pongo abelii	9601_0:000503	ATP5IF1;ATPIF1	ATPIF1 isoform 3
+212481at40674	Mitochondrial ATPase inhibitor	40674	9606_0	Homo sapiens	9606_0:000832	ATPIF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9646_0	Ailuropoda melanoleuca	9646_0:0003fa	ATP5IF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9685_0	Felis catus	9685_0:0023e1	ATPIF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	9785_0	Loxodonta africana	9785_0:002dbb	ATPIF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	9796_0	Equus caballus	9796_0:000a10	ATP5IF1	ATP synthase inhibitory factor subunit 1
+212481at40674	Mitochondrial ATPase inhibitor	40674	9823_0	Sus scrofa	9823_0:001e51	ATPIF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9913_0	Bos taurus	9913_0:0004bc	ATPIF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9925_0	Capra hircus	9925_0:000600	ATP5IF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9938_0	Ovis aries musimon	9938_0:00148a	LOC101110916	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9986_0	Oryctolagus cuniculus	9986_0:002246	ATP5IF1	ATPase inhibitor, mitochondrial
+212481at40674	Mitochondrial ATPase inhibitor	40674	9986_0	Oryctolagus cuniculus	9986_0:002639	LOC100339409	LOC100339409
