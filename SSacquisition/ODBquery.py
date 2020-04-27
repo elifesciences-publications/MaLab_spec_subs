@@ -76,7 +76,7 @@ def download_ODB_input(gene_list, tax_table, config):
     for gene_name in gene_list:
         fasta_path = "{0}/input/ODB/{1}.fasta".format(run_name, gene_name)
         if run_config.getboolean("OverwriteInput") or not os.path.exists(fasta_path):
-            if check_error_file and gene_name in ODB_errors_df["gene"].unique():
+            if check_error_file and gene_name in ODB_errors_df["gene_symbol"].unique():
                 print_errors(ODB_errors_df,gene_name)
                 failed_queries.append(gene_name)
             else:

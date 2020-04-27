@@ -32,7 +32,7 @@ def download_AGS_data(gene_id_df, config):
     specified in the config file by NCBIGeneIDField and NCBIProteinIDField with values populated by map_AGS_geneIDs
     and download_NCBI_records respectively.
     """
-    from SSdirectory import create_directory
+    from SSutility.SSdirectory import create_directory
     run_config, ncbi_config = config['RUN'],config['NCBI']
     run_name,NCBI_errors_fpath = run_config['RunName'], run_config['ErrorsFilePath']
     NCBI_taxid,NCBI_spec_name = ncbi_config["NCBITaxID"], ncbi_config['NCBITaxName']
@@ -45,7 +45,7 @@ def download_AGS_data(gene_id_df, config):
 
     tax_dict = {'gid_column':gene_field_name,'pid_column':protein_field_name,
                 'spec_name':NCBI_spec_name,'taxid':NCBI_taxid}
-    mapped_id_df = map_AGS_geneIDs(gene_id_df, filled_outpath, NCBI_errors_fpath,gene_field_name,tax_dict)
+    mapped_id_df = map_AGS_geneIDs(gene_id_df, filled_outpath, NCBI_errors_fpath,tax_dict)
     ags_mapped_id_df = download_NCBI_records(mapped_id_df, NCBI_input_dir,tax_dict,NCBI_API_key,
                                              pid_outpath=filled_outpath)
     return ags_mapped_id_df
@@ -127,8 +127,6 @@ def map_AGS_geneIDs(id_df, results_outpath, errors_fpath, tax_dict,
     else:
         out_id_df = id_df.copy()
         out_id_df.insert(loc=len(out_id_df.columns),column=gene_field_name)
-        import IPython.display
-        IPython.display.display(out_id_df)
     check_error_file, NCBI_errors_df = load_errors(errors_fpath, error_type="NCBIQueryError")
     #Determine rows missing gene_field_name and rows missing human_gene_id
     # if gene_field_name not in out_id_df.columns:
@@ -142,7 +140,7 @@ def map_AGS_geneIDs(id_df, results_outpath, errors_fpath, tax_dict,
         hgid = row["human_gene_id"]
         #Query if force overwrite of data using overwrite_gid or if missing
         if symbol in overwrite_gid or idx in missing_spec_gid.index:
-            if check_error_file and symbol in NCBI_errors_df["gene"].unique():
+            if check_error_file and symbol in NCBI_errors_df["gene_symbol"].unique():
                 print_errors(NCBI_errors_df,symbol)
             elif idx in missing_hgid.index:
                 rd_error = RecordDataError(1,"No Human GeneID present in data")

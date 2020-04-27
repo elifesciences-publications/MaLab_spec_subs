@@ -94,7 +94,7 @@ def download_alias_data(gene_list, config):
     for gene_name in gene_list:
         aliases_fpath = "aliases_data/{0}_aliases.txt".format(gene_name)
         if not os.path.exists(aliases_fpath):
-            if check_error_file and gene_name in gc_errors_df["gene"].unique():
+            if check_error_file and gene_name in gc_errors_df["gene_symbol"].unique():
                 print_errors(gc_errors_df, gene_name)
             else:
                 try:
@@ -103,7 +103,7 @@ def download_alias_data(gene_list, config):
                     write_errors(errors_fpath,gene_name,gc_error)
     driver.quit()
 
-def clean_alias_data_dir(src_dir_path, target_dir_path, gene_symbols):
+def __clean_alias_data_dir(src_dir_path, target_dir_path, gene_symbols):
     """Creates a new directory at target_dir_path, copies any _alias.txt files from src_dir_path to target_dir_path
     if the corresponding gene symbol is in gene_symbols. Will not create directory if target_dir_path exists.
 
