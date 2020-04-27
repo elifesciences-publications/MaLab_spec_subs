@@ -71,7 +71,9 @@ def download_ODB_input(gene_list, tax_table, config):
     run_config, odb_config = config['RUN'],config['ODB']
     level_str = "level=" + str(odb_config["ODBLevel"])
     failed_queries = []
-    run_name,errors_fpath = run_config["RunName"],run_config["ErrorsFilePath"]
+    run_name,errors_fname = run_config["RunName"],run_config["ErrorsFileName"]
+    errors_fpath = "{0}/{1}".format(run_name,errors_fname)
+
     check_error_file, ODB_errors_df = load_errors(errors_fpath,error_type="OrthoDBQueryError")
     for gene_name in gene_list:
         fasta_path = "{0}/input/ODB/{1}.fasta".format(run_name, gene_name)

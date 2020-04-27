@@ -34,7 +34,8 @@ def download_AGS_data(gene_id_df, config):
     """
     from SSutility.SSdirectory import create_directory
     run_config, ncbi_config = config['RUN'],config['NCBI']
-    run_name,NCBI_errors_fpath = run_config['RunName'], run_config['ErrorsFilePath']
+    run_name, errors_fname = config['RUN']['RunName'], config['RUN']['ErrorsFileName']
+    errors_fpath = "{0}/{1}".format(run_name, errors_fname)
     NCBI_taxid,NCBI_spec_name = ncbi_config["NCBITaxID"], ncbi_config['NCBITaxName']
     gene_field_name, protein_field_name = ncbi_config['NCBIGeneIDField'],ncbi_config['NCBIProteinIDField']
     NCBI_API_key = ncbi_config.get("NCBIAPIKey","")
@@ -45,7 +46,7 @@ def download_AGS_data(gene_id_df, config):
 
     tax_dict = {'gid_column':gene_field_name,'pid_column':protein_field_name,
                 'spec_name':NCBI_spec_name,'taxid':NCBI_taxid}
-    mapped_id_df = map_AGS_geneIDs(gene_id_df, filled_outpath, NCBI_errors_fpath,tax_dict)
+    mapped_id_df = map_AGS_geneIDs(gene_id_df, filled_outpath, errors_fpath,tax_dict)
     ags_mapped_id_df = download_NCBI_records(mapped_id_df, NCBI_input_dir,tax_dict,NCBI_API_key,
                                              pid_outpath=filled_outpath)
     return ags_mapped_id_df
