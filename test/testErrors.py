@@ -85,7 +85,8 @@ class SSErrorsTest(unittest.TestCase):
         #Checks file path for
         from SSutility import config
         from IPython.display import display
-        errors_fpath = config['RUN']['ErrorsFilePath']
+        run_name, errors_fname = config['RUN']['RunName'], config['RUN']['ErrorsFileName']
+        errors_fpath = "{0}/{1}".format(run_name, errors_fname)
         print(errors_fpath)
         check, errors_df = SSerrors.load_errors(errors_fpath)
         display(errors_df)

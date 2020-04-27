@@ -249,13 +249,13 @@ class NCBIFilterFunctionTest(unittest.TestCase):
 
     def test_select_NCBI_record(self):
         from SSfilter.NCBIfilter import select_NCBI_record
-        from SSfilter.ODBfilter import process_input
+        from SSfilter.ODBfilter import process_ODB_input
         test_odb_path = "{0}/ODB/ATP5MC1.fasta".format(test_data_dir)
         test_ncbi_path = "{0}/NCBI/9999/ATP5MC1.fasta".format(test_data_dir)
 
-        from SSutility import config, spec_list, tax_subet, gene_id_df, tax_table
+        from SSutility import config, tax_subset, gene_id_df, tax_table
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
-        results = process_input('ATP5MC1',config,tax_subset)
+        results = process_ODB_input('ATP5MC1',config,tax_subset)
         final_odb = results['final_df']
         taxid_dict = {config['NCBI']['NCBITaxName']:config['NCBI']['NCBITaxID']}
         final_combined = select_NCBI_record(test_odb_path,test_ncbi_path,taxid_dict,final_odb,['43179_0'])
@@ -267,7 +267,7 @@ class NCBIFilterFunctionTest(unittest.TestCase):
 
     def test_process_combined(self):
         from SSfilter.NCBIfilter import select_NCBI_record, combined_records_processing
-        from SSfilter.ODBfilter import process_input
+        from SSfilter.ODBfilter import process_ODB_input
         from Bio import SeqIO,Seq
 
         test_symbol = "CALM1"
@@ -275,9 +275,9 @@ class NCBIFilterFunctionTest(unittest.TestCase):
         test_odb_path = "{0}/ODB/{1}.fasta".format(test_data_dir,test_symbol)
         test_ncbi_path = "{0}/NCBI/9999/{1}.fasta".format(test_data_dir,test_symbol)
 
-        config, spec_list, tax_subset, gene_id_df, tax_table = SSconfig.config_initialization()
+        config, tax_subset, gene_id_df, tax_table = SSconfig.config_initialization()
         tax_subset = ['10090_0', '43179_0', '9606_0', '10116_0', '42254_0', '9601_0']
-        results = process_input(test_symbol, config, tax_subset)
+        results = process_ODB_input(test_symbol, config, tax_subset)
         final_odb,em_df,am_df = results['final_df'],results['em_df'],results['am_df']
         taxid_dict = {config['NCBI']['NCBITaxName']: config['NCBI']['NCBITaxID']}
 
