@@ -76,12 +76,21 @@ def write_errors(errors_fpath,gene_symbol,error):
     print_errors(errors_df,gene_symbol,emsg)
     errors_df.to_csv(errors_fpath,sep='\t')
 
-def print_errors(errors_df,gene_symbol,message=None):
+def print_errors(errors_df,gene_symbol,message=None,error_type=None):
+    """
+
+    :param errors_df: DataFrame of errors information
+    :param gene_symbol: symbol string used to filter errors_df
+    :param message: Optional, if provided only prints errors with text matching message
+    :param error_type: Optional, if provided, only prints errors of specified error_type
+    :return: N/A. Writes error information to output
+    """
     symbol_df = errors_df.loc[errors_df['gene_symbol']==gene_symbol,:]
-    if message and symbol_df['error_message'].str.contains(message).any():
-        error_rows = symbol_df.loc[symbol_df['error_message']==message,:]
-    else:
-        error_rows = symbol_df
+    error_rows = symbol_df
+    if message and error_rows['error_message'].str.contains(message).any():
+        error_rows = error_rows.loc[error_rows['error_message']==message,:]
+    elif error_type and error_rows['error_type'].str.contains(error_type).any():
+        error_rows = error_rows.loc[error_rows['error_type'] == error_type, :]
     for idx,error_row in error_rows.iterrows():
         genename, error_type, error_code, error_msg = error_row.values
         print("{0}\t{1}\t{2}\t{3}".format(genename, error_type, error_code, error_msg))

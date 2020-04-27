@@ -81,7 +81,7 @@ def odb_tablev10(species_list, table_path="config/odb10v0_species.tab"):
     5.	total count of clustered genes in this species
     6.	total count of the OGs it participates
     7.	mapping type, clustered(C) or mapped(M)
-    Reads above file into a DataFrame used for tax_id/ species name information
+    Reads above file into a DataFrame used for tax_id/ species name information, limited to species in species_list
     """
     odb = pd.read_csv(table_path, delimiter="\t", header=None,
                       names=['tax_id', 'odb_id', 'spec_name', 'assembly_id', 'clustered_genes', 'ortho_groups',
@@ -98,7 +98,7 @@ def config_initialization():
 # Read config files
     config = parse_config()
     run_config = config['RUN']
-    tax_subset = config['AnalysisODBTaxSubset']
+    tax_subset = list(config['AnalysisODBTaxSubset'].keys())
     gene_id_fpath = run_config['IDFilePath']
     species_path = run_config['SpeciesFilePath']
     spec_list, hc = parse_species(species_path)
@@ -106,7 +106,7 @@ def config_initialization():
     tax_table = odb_tablev10(spec_list)
     run_name = run_config['RunName']
     SSdirectory.create_run_directory(run_name)
-    return config, spec_list, tax_subset, gene_id_df, tax_table
+    return config, tax_subset, gene_id_df, tax_table
 
 def main():
     DISPLAY_PARAMS = False
