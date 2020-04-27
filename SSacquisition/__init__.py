@@ -1,1 +1,0 @@
-all = ['aliasQuery','NCBIquery','ODBquery']
