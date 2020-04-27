@@ -64,7 +64,8 @@ def write_errors(errors_fpath,gene_symbol,error):
         check_ef,errors_df = load_errors(errors_fpath)
         if gene_symbol in errors_df['gene_symbol'].unique():
             gene_error_df = errors_df.loc[errors_df['gene_symbol']==gene_symbol,:]
-            if gene_error_df['error_message'].str.contains(emsg).any():
+            if gene_error_df['error_message'].str.contains(emsg).any() or \
+                (etype == 'SequenceDataError' and gene_error_df['error_type'].str.contains(etype).any()):
                 print_errors(errors_df,gene_symbol,message=emsg)
                 return
     else:
@@ -103,5 +104,5 @@ def load_errors(errors_fpath,error_type=""):
         return check_error_file, errors_df
     else:
         check_error_file = False
-        return check_error_file, pd.DataFrame()
+        return check_error_file, pd.DataFrame(columns=['gene_symbol','error_type','error_code','error_message'])
 

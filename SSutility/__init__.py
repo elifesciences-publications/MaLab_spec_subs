@@ -1,4 +1,4 @@
-# all = ['SSconfig','SSdirectory','SSerrors','SSfasta']
+all = ['SSconfig','SSdirectory','SSerrors','SSfasta']
 
 import SSutility.SSconfig
 

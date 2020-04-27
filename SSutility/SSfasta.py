@@ -14,27 +14,70 @@ from SSutility import SSerrors
 # Remaining functions provide conversions between fasta files, pandas Series, and pandas dataframes
 # having alignment positions as columns
 
-def _filtered_generator(filtered_ids, infile_path):
-    """Generator function, yields Bio.Seq fastas from infile_path in order of appearance in infile"""
-    fasta_f = open(infile_path)
-    fasta_seqs = SeqIO.parse(fasta_f, 'fasta')
-    for fasta in fasta_seqs:
-        if fasta.id in filtered_ids:
-            yield fasta
-    fasta_f.close()
+def ordered_record_generator(fpath,ordered_ids):
+    """Generates Seq records from fpath, limited to ordered_ids if provided. Generator order is order in ordered_ids.
+    Internally tracks yielded record ids to eliminate duplicates.
+    :param fpath: Fasta file path
+    :param ordered_ids: array-like containing ordered record ids
+    :return:
+    """
+    yielded = set()
+    for id in ordered_ids:
+        with open(fpath) as fasta_f:
+            fastas = SeqIO.parse(fasta_f,'fasta')
+            for fasta in fastas:
+                if fasta.id == id and fasta.id not in yielded:
+                    yielded.add(fasta.id)
+                    yield fasta
+                    break
 
-def _ordered_filtered_generator(filtered_ids, infile_path):
-    """Generator function, yields Bio.Seq fastas from infile_path in order of appearance in filtered_ids"""
-    fasta_f = open(infile_path)
-    for id_ in filtered_ids:
-        fasta_seqs = SeqIO.parse(fasta_f, 'fasta')
-        for fasta in fasta_seqs:
-            if fasta.id == id_:
+def record_generator(fpath,ids=[]):
+    """Generates Seq records from fpath, limited to ids if provided. Ordered as in fpath
+    :param fpath: Fasta file path
+    :param ids: If provided, only yield records corresponding to record ids provided. Default value causes all records
+    to be present in generator
+    :return: generator object
+    """
+    yielded = set()
+    with open(fpath) as fasta_f:
+        fastas = SeqIO.parse(fasta_f, 'fasta')
+        for fasta in fastas:
+            if ((len(ids)>0 and fasta.id in ids) or \
+                    (len(ids)==0)) and fasta.id not in yielded:
+                yielded.add(fasta.id)
                 yield fasta
-                break
-    fasta_f.close()
 
-def _generator_wrapper(filtered_ids, infile_path, ordered, missing_warning=False):
+def ODB_NCBI_generator(ODB_fpath,NCBI_fpath,odb_subset=[],ncbi_subset=[],ordered=False):
+    """Generator object that yields all Bio.Seq objects in ODB_fpath and then NCBI_fpath, filtered down with optional
+    parameters odb_subset and ncbi_subset.
+
+    :param ODB_fpath: file path to OrthoDB fasta
+    :param NCBI_fpath: file path to NCBI fasta
+    :param odb_subset: If provided, only ODB records present in odb_subset will be provided by generator. Else all
+    records will be provided
+    :param ncbi_subset: If provided, only NCBI records present in ncbi_subset will be provided by generator. Else all
+    records will be provided
+    :param ordered: If true, odb_subset and ncbi_subset must be provided. Causes records to be returned in order they
+    are present in odb_subset and ncbi_subset.
+    :return: Generator object which provides Bio.Seq objects filtered and ordered as described above.
+    """
+
+    if ordered:
+        if len(odb_subset) == 0 or len(ncbi_subset)==0:
+            raise ValueError("Both odb_subset and ncbi_subset must be provided if ordered is True.")
+        else:
+            odb_generator = ordered_record_generator(ODB_fpath,odb_subset)
+            ncbi_generator = ordered_record_generator(NCBI_fpath,ncbi_subset)
+    else:
+        odb_generator = record_generator(ODB_fpath, odb_subset)
+        ncbi_generator = record_generator(NCBI_fpath, ncbi_subset)
+
+    for fasta in odb_generator:
+        yield fasta
+    for fasta in ncbi_generator:
+        yield fasta
+
+def filtered_generator_wrapper(filtered_ids, infile_path, ordered, missing_warning=False):
     """Wrapper function which generates appropriate generatoe object based on ordered. Issues warnings for missing
     values from filtered_ids if not present in infile_path if missing_warning is True.
 
@@ -53,9 +96,11 @@ def _generator_wrapper(filtered_ids, infile_path, ordered, missing_warning=False
                     msg = "Infile {0} is missing record id {1} from filtered_ids".format(infile_path, record_id)
                     warnings.warn(msg)
     if ordered:
-        filtered = _ordered_filtered_generator(filtered_ids, infile_path)
+        # filtered = _ordered_filtered_generator(filtered_ids, infile_path)
+        filtered = ordered_record_generator(infile_path,filtered_ids)
     else:
-        filtered = _filtered_generator(filtered_ids, infile_path)
+        filtered = record_generator(infile_path, filtered_ids)
+        # filtered = _filtered_generator(filtered_ids, infile_path)
     return filtered
 def filter_fasta_infile(filtered_ids, infile_path, outfile_path=None, ordered=False):
     """Filters fasta_infile records from infile_path and returns a series of fasta records if id in filtered_ids
@@ -69,10 +114,10 @@ def filter_fasta_infile(filtered_ids, infile_path, outfile_path=None, ordered=Fa
     :return: Series of fasta sequences (index is fasta.id) for which id is present in filtered_ids
     """
     if outfile_path:
-        filtered = _generator_wrapper(filtered_ids,infile_path,ordered)
+        filtered = filtered_generator_wrapper(filtered_ids,infile_path,ordered)
         SeqIO.write(filtered, outfile_path, "fasta")
     with warnings.catch_warnings(record=True) as w:
-        filtered = _generator_wrapper(filtered_ids, infile_path, ordered, True)
+        filtered = filtered_generator_wrapper(filtered_ids, infile_path, ordered, True)
     filtered_srs = pd.Series(index=filtered_ids)
     for fasta in filtered:
         filtered_srs[fasta.id] = str(fasta.seq)
@@ -164,6 +209,7 @@ def load_tsv_table(input_tsv_fpath,tax_subset=[],ODB_ID_index=True):
         tsv_df = tsv_df.set_index(keys="int_prot_id", drop=True)  # drop=False)
     if len(tax_subset) > 0:
         tsv_df = tsv_df.loc[tsv_df["organism_taxid"].isin(tax_subset), :]
+    tsv_df.drop_duplicates(inplace=True)
     return tsv_df
 
 
