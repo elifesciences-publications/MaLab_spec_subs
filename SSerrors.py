@@ -98,7 +98,7 @@ def load_errors(errors_fpath,error_type=""):
     if os.path.exists(errors_fpath):
         errors_df = pd.read_csv(errors_fpath, delimiter='\t',index_col=0)
         if error_type:
-            errors_df = errors_df.loc[errors_df["error_type"] == error_type, :]
+            errors_df = errors_df.loc[errors_df['error_type'] == error_type, :]
         check_error_file = True
         return check_error_file, errors_df
     else:

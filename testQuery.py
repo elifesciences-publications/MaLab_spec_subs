@@ -3,7 +3,39 @@ import pandas as pd
 import os
 
 import SSdirectory, SSconfig, SSfasta, SSerrors
+import ODBquery
 import NCBIquery
+
+class testODBQuery(unittest.TestCase):
+
+    def setUp(self):
+        SSdirectory.create_directory("tmp/input/ODB")
+
+    def test_ODB_Query(self):
+        test_spec_str = "species=9606,43179,9601,10090,10161"
+        test_level_str = "level=40674"
+        #Invalid ODB query
+        with self.assertRaises(SSerrors.OrthoDBQueryError):
+            ODBquery.ODB_query("tmp","jsakdh",test_level_str,test_spec_str)
+        #ODB Query valid gene symbol no results
+        with self.assertRaises(SSerrors.OrthoDBQueryError):
+            ODBquery.ODB_query("tmp","CBR3-AS1",test_level_str,test_spec_str)
+        #ODB query valid gene symbol too many clusters
+        with self.assertRaises(SSerrors.OrthoDBQueryError):
+            ODBquery.ODB_query("tmp","CDC42",test_level_str,test_spec_str)
+        #Valid ODB query
+        ODBquery.ODB_query("tmp", "ATP5MC1", test_level_str, test_spec_str)
+
+        cbr_tsv_path = "tmp/input/ODB/CBR3-AS1.tsv"
+        cdc42_tsv_path = "tmp/input/ODB/CDC42.tsv"
+        atp5mc1_tsv_path = "tmp/input/ODB/ATP5MC1.tsv"
+        #Check that bad ODB queries clear attempted input files
+        self.assertFalse(os.path.exists(cbr_tsv_path))
+        self.assertFalse(os.path.exists(cdc42_tsv_path))
+        self.assertTrue(os.path.exists(atp5mc1_tsv_path))
+        #Check downloaded data formatted correctly
+        test_tsv = SSfasta.load_tsv_table(atp5mc1_tsv_path)
+        self.assertTrue("43179_0" in test_tsv['organism_taxid'].unique())
 
 class testNCBIQuery(unittest.TestCase):
 

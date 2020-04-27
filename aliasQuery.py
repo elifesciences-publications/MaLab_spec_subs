@@ -88,8 +88,8 @@ def download_alias_data(gene_list, config):
     window_size = "1920,1080"
     chrome_options.add_argument("--window-size=%s" % window_size)
     driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.implicitly_wait(5)
-    errors_fpath = config["ErrorsFilePath"]
+    # driver.implicitly_wait(5)
+    errors_fpath = config['RUN']['ErrorsFilePath']
     check_error_file, gc_errors_df = load_errors(errors_fpath,"GeneCardsError")
     for gene_name in gene_list:
         aliases_fpath = "aliases_data/{0}_aliases.txt".format(gene_name)

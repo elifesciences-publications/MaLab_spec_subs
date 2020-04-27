@@ -22,25 +22,26 @@ def ODB_query(run_name, gene_name, level_str, spec_str):
     # Obey OrthoDB download restrictions (one request per second) bc you're a good noodle
     t1 = time.process_time()
     fasta_proc = subprocess.run(args=['wget', fasta_url, '-O', fasta_path])
-    if (time.process_time() - t1) < 1:
-        time.sleep(0.5)
+    # if (time.process_time() - t1) < 1:
+    #     time.sleep(0.5)
+    time.sleep(1-(time.process_time()-t1))
     t1 = time.process_time()
     tsv_proc = subprocess.run(args=['wget', tsv_url, '-O', tsv_path])
-    if (time.process_time() - t1) < 1:
-        time.sleep(0.5)
+    time.sleep(1 - (time.process_time() - t1))
     try:
         # JSON format returned if no results for query string - try opening downloaded data as JSON, if
         # successful, raise an OrthoDBQueryError
-        tsv_json = json.load(open(tsv_path))
-        os.remove(fasta_path)
-        os.remove(tsv_path)
+        with open(tsv_path) as tsv_f:
+            tsv_json = json.load(tsv_f)
+            os.remove(fasta_path)
+            os.remove(tsv_path)
         raise OrthoDBQueryError(0, "No OrthoDB results for query")
     except JSONDecodeError:
         # Check if html syntax present in file (result of too many clusters returned to be downloaded);
         # if not, query was successful and run_name/input should now have ODB formatted .fasta and .tsv files
         file_txt = ""
         with open(fasta_path, "rt") as fasta_f:
-            for i in range(10):
+            for i in range(4):
                 file_txt = file_txt + fasta_f.readline()
             if bool(BeautifulSoup(file_txt, "html.parser").find()):
                 os.remove(fasta_path)
@@ -67,20 +68,14 @@ def download_ODB_input(gene_list, tax_table, config):
     and the list of gene symbols for which the OrthoDB queries failed"""
     tax_ids = tax_table["tax_id"].values.astype(str)
     spec_str = "species=" + ",".join(tax_ids)
-    level_str = "level=" + str(config["ODBLevel"])
+    run_config, odb_config = config['RUN'],config['ODB']
+    level_str = "level=" + str(odb_config["ODBLevel"])
     failed_queries = []
-    run_name = config["RunName"]
-    errors_fpath = config["ErrorsFilePath"]
+    run_name,errors_fpath = run_config["RunName"],run_config["ErrorsFilePath"]
     check_error_file, ODB_errors_df = load_errors(errors_fpath,error_type="OrthoDBQueryError")
-    # if os.path.exists(errors_fpath):
-    #     errors_df = pd.read_csv(errors_fpath, delimiter='\t')
-    #     ODB_errors_df = errors_df.loc[errors_df["error_type"] == "OrthoDBQueryError", :]
-    #     check_error_file = True
-    # else:
-    #     check_error_file = False
     for gene_name in gene_list:
         fasta_path = "{0}/input/ODB/{1}.fasta".format(run_name, gene_name)
-        if config.getboolean("OverwriteInput") or not os.path.exists(fasta_path):
+        if run_config.getboolean("OverwriteInput") or not os.path.exists(fasta_path):
             if check_error_file and gene_name in ODB_errors_df["gene"].unique():
                 print_errors(ODB_errors_df,gene_name)
                 failed_queries.append(gene_name)

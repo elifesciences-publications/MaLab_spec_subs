@@ -224,7 +224,7 @@ def avg_dist_srs(index,distmat):
     return dist_srs
 
 def length_srs(fasta_fpath,id_subset=[]):
-    """Load length series corresponding to sequences in fasta_fpath, limited to id_subset if provided
+    """Load sequence and length series corresponding to sequences in fasta_fpath, limited to id_subset if provided
 
     :param fasta_fpath: File path to fasta of sequences to load length information for
     :param id_subset: if provided, returned series will only contain records in id_subset.
@@ -233,11 +233,14 @@ def length_srs(fasta_fpath,id_subset=[]):
     fasta_f = open(fasta_fpath)
     fasta_records = SeqIO.parse(fasta_f,'fasta')
     length_dict = {}
+    seq_dict = {}
     for fasta in fasta_records:
         fasta_id = fasta.id
         if (len(id_subset) == 0) or \
             (len(id_subset) > 0 and fasta_id in id_subset):
             length_dict[fasta_id] = len(str(fasta.seq))
+            seq_dict[fasta_id] = str(fasta.seq)
     lengths = pd.Series(data=length_dict,name='length')
+    seqs = pd.Series(data=seq_dict,name='seq')
     fasta_f.close()
-    return lengths
+    return seqs,lengths

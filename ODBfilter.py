@@ -33,7 +33,7 @@ def find_alias_matches(symbol, tsv_df, errors_fpath):
     These reference sequences are defined as records with pub_gene_id, og_, or description having a
     text match to either symbol or one of the GeneCards listed aliases for symbol.
     Alias data is fetched from GeneCards automatically and stored in the aliases directory as text file lists.
-    :param symbol: Gene symbol from config["IDFilePath]
+    :param symbol: Gene symbol from IDFilePath in config
     :param tsv_df: Unfiltered DataFrame of records from OrthoDB Query tsv for symbol (because function will only be
     called with a valid tsv_df, this function does not do error handling for failed OrthoDB queries)
     :param errors_fpath: File path for error log for run (used to check for failed alias downloads)
@@ -102,20 +102,13 @@ def exact_match_df(unfiltered_df,exact_matches):
     #Upper matches: exact matches reg. exps matching entries in exact_matches followed only by end of string or non
     #alpha-numeric ([^\w]) characters to prevent partial matching against different gene symbols
     upper_matches = [match.upper() for match in exact_matches]
-    # upper_matches = [match+"$|"+match+"[^\w]" for match in upper_matches]
     upper_matches = [r'{0}$|{0}[^\w]'.format(match) for match in upper_matches]
     pat = "|".join(upper_matches)
-    pg_id_df = unfiltered_df.loc[unfiltered_df["pub_gene_id"].str.upper().str.contains(pat)]
+    em_df = unfiltered_df.loc[unfiltered_df["pub_gene_id"].str.upper().str.contains(pat)]
     #Filtering for any species with more than one sequence
-    final_df = pd.DataFrame(columns=pg_id_df.columns)
-    for unique_tax in pg_id_df["organism_taxid"].unique():
-        spec_df = pg_id_df.loc[pg_id_df["organism_taxid"] == unique_tax]
-        # if len(spec_df) > 1:
-        #     min_dist_idx = spec_df["dist"].values.argmin()
-        #     min_dist_row = spec_df.iloc[min_dist_idx,:]
-        #     final_df = final_df.append(min_dist_row)
-        # else:
-        #     final_df = final_df.append(spec_df)
+    final_df = pd.DataFrame(columns=em_df.columns)
+    for unique_tax in em_df["organism_taxid"].unique():
+        spec_df = em_df.loc[em_df["organism_taxid"] == unique_tax]
         final_df = final_df.append(spec_df)
     return final_df
 
@@ -280,7 +273,7 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
     return final_ksr_df
 
 
-def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
+def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath,provide_dist_srs=False):
     """Select records for remaining OrthoDB outgroup species in analysis that are not in ks_taxids.
 
     Selection is based on maximum identity to accepted records in final_ksr_df (ie accepted human/mouse/13LGS); best
@@ -293,8 +286,11 @@ def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
     :param final_ksr_df: DataFrame of accepted records from well-annotated species (max one per species).
     :param seqs_fpath: Fasta file path containing at least all records in am_df. Can be safely set to unfiltered
     fasta input, records will be automatically filtered down appropriately using am_df.
-    :return final_df: DataFrame containing all selected records (final_ksr_df records first)
-    :return dist_srs: Series indexed on record_id and containing average distance information against rest of input set.
+    :param (boolean) provide_dist_srs: If true, calculates internal average distances of each record against rest of
+    input records, maps to a Series indexed on record_id, and stores in returned final_dict.
+    :return final_dict: Dictionary mapping 'final_df' to final_df (DataFrame containing all selected OrthoDB records
+    with final_ksr_df records first) and optionally 'dist_srs' to a Series of average distances of each record
+    against rest of input set
     """
     am_non_ksr_taxids = [tax_id for tax_id in am_df["organism_taxid"].unique() if tax_id not in ks_taxids]
 
@@ -323,14 +319,19 @@ def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath):
             final_df = final_df.append(md_row)
         else:
             print("Min dist record for tax_id {0} does not meet distance threshold {1}".format(taxid,identity_threshold))
+            print("Skipping records for this species.")
 
-    #Reorder and filter distmat down to final_df records order, calculate non-diagonal avg distances
-    dm_pos = [am_record_idx.get_loc(final_idx) for final_idx in final_df.index]
-    final_ordered_dm = am_id_dm[dm_pos,:]
-    final_ordered_dm = final_ordered_dm[:,dm_pos]
-    dist_srs = SSfasta.avg_dist_srs(final_df.index,final_ordered_dm)
+    final_dict = {}
+    final_dict['final_df']=final_df
+    if provide_dist_srs:
+        #Reorder and filter distmat down to final_df records order, calculate non-diagonal avg distances
+        dm_pos = [am_record_idx.get_loc(final_idx) for final_idx in final_df.index]
+        final_ordered_dm = am_id_dm[dm_pos,:]
+        final_ordered_dm = final_ordered_dm[:,dm_pos]
+        dist_srs = SSfasta.avg_dist_srs(final_df.index,final_ordered_dm)
+        final_dict['dist_srs'] = dist_srs
+    return final_dict
 
-    return final_df, dist_srs
 
 def final_ksr_df_QC(gene_symbol,matches,final_ksr_df,ks_taxids,ts_taxid,
                     seq_qc_fpath,seq_fpath,length_warning=False):
@@ -398,35 +399,47 @@ def write_ref_seq_QC(seq_qc_fpath,gene_symbol,message):
 
 
 def process_input(symbol,config,tax_subset):
-    """Return final
+    """Return final ODB input record dataframe.
 
-    :param symbol:
-    :param config:
-    :param tax_subset:
-    :return:
+    :param symbol: Gene symbol. Used to find appropriate ODB input files (fasta/ tsv)
+    :param config: Contains run info (specifically run_name and ODB test species tax id)
+    :param tax_subset: Subset of IDs from species list file, used to limit analyzed sequences to only taxids present in
+    tax_subset
+    :return (dictionary) results: Contains final_df, em_df, am_df. final_df: Final ODB input record dataframe.
+    Contains columns from tsv_files (indexed on int_prot_id OrthoDB internal record IDs), as well as record length
+    and sequence information. em_df, am_df as returned by find_alias_matches and exact_match_df
+
     """
-
-    run_name, test_tid = config['RunName'], config['ODBTestTaxID']
+    run_config, odb_config = config['RUN'],config['ODB']
+    run_name, test_tid = run_config['RunName'], odb_config['ODBTestTaxID']
     raw_tsv_fpath,raw_fa_fpath = "{0}/input/ODB/{1}.tsv".format(run_name,symbol),\
                                  "{0}/input/ODB/{1}.fasta".format(run_name,symbol)
     seq_qc_fpath = '{0}/summary/accepted_record_QC.tsv'.format(run_name)
-    errors_fpath = '{0}/summary/error.tsv'.format(run_name)
+    errors_fpath = '{0}/summary/errors.tsv'.format(run_name)
+    manual_selections_fpath = "{0}/manual_record_selections.tsv".format(run_name)
     ks_taxids = ['10090_0', '43179_0', '9606_0']
-    # tsv_inpath = "cDNAscreen_041020/input/ODB/{0}.tsv".format(symbol)
     unfiltered_tsv = SSfasta.load_tsv_table(raw_tsv_fpath, tax_subset=tax_subset)
     #Filter by alias matches, exact pub_gene_id matches
     try:
+        results = {}
         am_ids, exact_matches = find_alias_matches(symbol, unfiltered_tsv, errors_fpath)
         am_df = unfiltered_tsv.loc[am_ids]
         em_df = exact_match_df(unfiltered_tsv, exact_matches)
-        final_ksr_df = select_known_species_records(symbol, em_df, am_df, ks_taxids, raw_fa_fpath)
+        final_ksr_df = select_known_species_records(symbol, em_df, am_df, ks_taxids, raw_fa_fpath,
+                                                    manual_selections_fpath=manual_selections_fpath)
         final_ksr_df_QC(symbol,exact_matches,final_ksr_df,ks_taxids,test_tid,seq_qc_fpath,raw_fa_fpath)
-        final_input_df, dist_srs = select_outgrup_records(em_df, am_df, ks_taxids, final_ksr_df, raw_fa_fpath)
+        final_dict = select_outgrup_records(em_df, am_df, ks_taxids, final_ksr_df, raw_fa_fpath)
+        final_input_df = final_dict['final_df']
+        seq_srs, length_srs = SSfasta.length_srs(raw_fa_fpath,final_input_df.index)
+        final_input_df['length'] = length_srs
+        final_input_df['seq'] = seq_srs
+        results['final_df'],results['em_df'], results['am_df'] = final_input_df,em_df,am_df
     except SequenceDataError as sde:
         #Log errors, raise error for handling in calling function
         write_errors(errors_fpath,symbol,sde)
         raise sde
-    return final_input_df
+    return results
+    # return final_input_df
 
 
 def main():

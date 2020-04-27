@@ -12,7 +12,7 @@ def parse_config(config_file="config/config.txt"):
     import configparser
     config = configparser.ConfigParser()
     config.read(config_file)
-    return config["DEFAULT"]
+    return config
 
 
 def parse_genes(genes_path="config/genes.txt"):
@@ -52,8 +52,8 @@ def read_geneID_file(csv_fpath):
     """
     field_conv_dict = {"human_gene_id":str}
     gene_id_df = pd.read_csv(csv_fpath, dtype=field_conv_dict,index_col='overall_index')
-    upper_symbol_srs = gene_id_df["gene_symbol"].str.upper()
-    gene_id_df["gene_symbol"] = upper_symbol_srs
+    upper_symbol_srs = gene_id_df['gene_symbol'].str.upper()
+    gene_id_df['gene_symbol'] = upper_symbol_srs
     return gene_id_df
 
 
@@ -63,12 +63,12 @@ def odb_tablev9(species_list, table_path="odb9v1_raw/odb9v1_species.tab"):
         Mainly used for taxid <-> species name conversions
     """
     odb = pd.read_csv(table_path, delimiter="\t", header=None,
-                      names=["tax_id", "odb_id", "spec_name", "clustered_genes", "ortho_groups", "mapping_type"])
+                      names=['tax_id", "odb_id", "spec_name", "clustered_genes", "ortho_groups", "mapping_type'])
     filtered = pd.DataFrame(columns=odb.columns)
     for spec in species_list:
-        row = odb[odb["spec_name"] == spec]
+        row = odb[odb['spec_name'] == spec]
         filtered = filtered.append(row)
-    filtered.drop(columns=["clustered_genes", "ortho_groups", "mapping_type"], inplace=True)
+    filtered.drop(columns=['clustered_genes", "ortho_groups", "mapping_type'], inplace=True)
     return filtered
 
 
@@ -84,39 +84,44 @@ def odb_tablev10(species_list, table_path="config/odb10v0_species.tab"):
     Reads above file into a DataFrame used for tax_id/ species name information
     """
     odb = pd.read_csv(table_path, delimiter="\t", header=None,
-                      names=["tax_id", "odb_id", "spec_name", "assembly_id", "clustered_genes", "ortho_groups",
-                             "mapping_type"])
+                      names=['tax_id', 'odb_id', 'spec_name', 'assembly_id', 'clustered_genes', 'ortho_groups',
+                             'mapping_type'])
     filtered = pd.DataFrame(columns=odb.columns)
     for spec in species_list:
-        row = odb[odb["spec_name"] == spec]
+        row = odb[odb['spec_name'] == spec]
         filtered = filtered.append(row)
-    filtered.drop(columns=["clustered_genes", "ortho_groups", "mapping_type"], inplace=True)
+    filtered.drop(columns=['clustered_genes', 'ortho_groups', 'mapping_type'], inplace=True)
+    filtered = filtered.sort_values(by='tax_id')
     return filtered
 
 def config_initialization():
 # Read config files
     config = parse_config()
-    gene_id_fpath = config["IDFilePath"]
-    species_path = "config/v10_0_species.txt"
+    run_config = config['RUN']
+    tax_subset = config['AnalysisODBTaxSubset']
+    gene_id_fpath = run_config['IDFilePath']
+    species_path = run_config['SpeciesFilePath']
     spec_list, hc = parse_species(species_path)
     gene_id_df = read_geneID_file(gene_id_fpath)
     tax_table = odb_tablev10(spec_list)
-    run_name = config["RunName"]
+    run_name = run_config['RunName']
     SSdirectory.create_run_directory(run_name)
-    return config, spec_list, gene_id_df, tax_table
+    return config, spec_list, tax_subset, gene_id_df, tax_table
 
 def main():
     DISPLAY_PARAMS = False
     if DISPLAY_PARAMS:
-        config, spec_list, gene_id_df, tax_table = config_initialization()
-        run_name = config["RunName"]
-        test_species = config["ODBTestSpecies"]
-        species_path = config["SpeciesFilePath"]
+        config, spec_list, tax_subset, gene_id_df, tax_table = config_initialization()
+        run_config, odb_config = config['RUN'], config['ODB']
+        run_name = run_config['RunName']
+        test_species = odb_config['ODBTestSpecies']
+        species_path = run_config['SpeciesFilePath']
         print("Tax table for species list at {0}".format(species_path))
         with pd.option_context("display.max_columns", None):
             display(tax_table)
+        print("Analysis taxonomy subset: {0}".format(list(tax_subset.keys())))
         print("Gene ID table")
-        # print(gene_id_df["gene_symbol"].values)
+        # print(gene_id_df['gene_symbol'].values)
         display(gene_id_df)
         print("Run Name: " + run_name)
         # Verify that species table, gene list, and run_name are correct

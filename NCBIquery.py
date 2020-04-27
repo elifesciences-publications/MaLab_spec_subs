@@ -33,17 +33,15 @@ def download_AGS_data(gene_id_df, config):
     and download_NCBI_records respectively.
     """
     from SSdirectory import create_directory
-    run_name = config["RunName"]
-    NCBI_taxid = config["NCBITaxID"]
-    NCBI_spec_name = config["NCBITaxName"]
-    gene_field_name = config["NCBIGeneIDField"]
-    protein_field_name = config["NCBIProteinIDField"]
-    NCBI_API_key = config.get("NCBIAPIKey","")
+    run_config, ncbi_config = config['RUN'],config['NCBI']
+    run_name,NCBI_errors_fpath = run_config['RunName'], run_config['ErrorsFilePath']
+    NCBI_taxid,NCBI_spec_name = ncbi_config["NCBITaxID"], ncbi_config['NCBITaxName']
+    gene_field_name, protein_field_name = ncbi_config['NCBIGeneIDField'],ncbi_config['NCBIProteinIDField']
+    NCBI_API_key = ncbi_config.get("NCBIAPIKey","")
     NCBI_input_dir = "{0}/input/NCBI/{1}".format(run_name,NCBI_taxid)
     create_directory(NCBI_input_dir)
 
     filled_outpath = "{0}/summary/cDNAscreen_geneIDs_complete.tsv".format(run_name)
-    NCBI_errors_fpath = config["ErrorsFilePath"] #errors_tsv_fpath
 
     tax_dict = {'gid_column':gene_field_name,'pid_column':protein_field_name,
                 'spec_name':NCBI_spec_name,'taxid':NCBI_taxid}
