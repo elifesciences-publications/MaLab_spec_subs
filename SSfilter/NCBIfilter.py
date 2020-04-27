@@ -7,7 +7,7 @@ from SSutility import SSfasta, SSdirectory
 from IPython.display import display
 import warnings
 from Bio import SeqIO,Seq
-from SSfilter.ODBfilter import min_dist_spec_record, select_known_species_records
+from SSfilter.ODBfilter import min_dist_spec_record, process_ODB_input
 
 def load_NCBI_fasta_df(NCBI_fasta_fpath,taxid_dict):
     """Reads NCBI fasta into DataFrame, extracting available fields into appropritate columns
@@ -46,7 +46,6 @@ def select_NCBI_record(ODB_fasta_fpath,NCBI_fasta_fpath,taxid_dict,ODB_final_inp
     :return: combined_df, DataFrame containing rows from ODB_final_input and the minimu, distance row from
     NCBI_fasta_fpath
     """
-    
     ncbi_df = load_NCBI_fasta_df(NCBI_fasta_fpath,taxid_dict)
     if len(ncbi_df) > 1:
         #Align all unfiltered NCBI records against ODB_final_input records
@@ -180,3 +179,24 @@ def combined_records_processing(config,am_df,em_df,combined_df,
     #write records table to file
     combined_processed.to_csv(out_tsv_fpath,sep='\t')
     return combined_processed
+
+def final_combined_input(config,symbol,tax_subset):
+    """Processes raw OrthoDB and NCBI record data into final input set, written to [run_name]/output/symbol.
+
+    :param config: configparser object from config/config.txt
+    :param symbol: gene symbol string used for file paths
+    :param tax_subset: subset of taxonomy IDs which will be used to filter raw OrthoDB input
+    :return: N/A. Writes output files to [run_name]/output subdirectories or raises SequenceDataError (handled in
+    spec_subs_main.py)
+    """
+    run_name,ncbi_taxid,ncbi_name = config['RUN']['RunName'],config['NCBI']['NCBITaxID'],config['NCBI']['NCBITaxName']
+    odb_test_taxid = config['ODB']['ODBTestTaxID']
+    taxid_dict = {ncbi_name: ncbi_taxid}
+
+    odb_fpath = "{0}/input/ODB/{1}.fasta".format(run_name, symbol)
+    ncbi_fpath = "{0}/input/NCBI/{1}/{2}.fasta".format(run_name, ncbi_taxid, symbol)
+    results = process_ODB_input(symbol, config, tax_subset)
+    final_odb, em_df, am_df = results['final_df'], results['em_df'], results['am_df']
+    final_combined = select_NCBI_record(odb_fpath, ncbi_fpath, taxid_dict,
+                                                   final_odb, [odb_test_taxid])
+    combined_records_processing(config, am_df, em_df, final_combined, symbol)

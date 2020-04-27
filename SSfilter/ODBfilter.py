@@ -400,7 +400,7 @@ def write_ref_seq_QC(seq_qc_fpath,gene_symbol,message):
     print("{0}\t{1}".format(gene_symbol, message))
 
 
-def process_input(symbol,config,tax_subset):
+def process_ODB_input(symbol,config,tax_subset):
     """Return final ODB input record dataframe.
 
     :param symbol: Gene symbol. Used to find appropriate ODB input files (fasta/ tsv)
@@ -416,8 +416,9 @@ def process_input(symbol,config,tax_subset):
     run_name, test_tid = run_config['RunName'], odb_config['ODBTestTaxID']
     raw_tsv_fpath,raw_fa_fpath = "{0}/input/ODB/{1}.tsv".format(run_name,symbol),\
                                  "{0}/input/ODB/{1}.fasta".format(run_name,symbol)
-    seq_qc_fpath = '{0}/summary/accepted_record_QC.tsv'.format(run_name)
-    errors_fpath = '{0}/errors.tsv'.format(run_name)
+    seq_qc_fname,error_fname = config['RUN']['QCFileName'],config['RUN']['ErrorsFileName']
+    seq_qc_fpath = "{0}/{1}".format(run_name,seq_qc_fname)
+    errors_fpath = "{0}/{1}".format(run_name, error_fname)
     manual_selections_fpath = "{0}/manual_record_selections.tsv".format(run_name)
     ks_taxids = ['10090_0', '43179_0', '9606_0']
     unfiltered_tsv = SSfasta.load_tsv_table(raw_tsv_fpath, tax_subset=tax_subset)
