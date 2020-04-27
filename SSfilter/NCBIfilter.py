@@ -1,72 +1,13 @@
-from SSerrors import load_errors, SequenceDataError
+from SSutility.SSerrors import load_errors, SequenceDataError
 import numpy as np
 import pandas as pd
 import os
 import re
-import SSfasta
+from SSutility import SSfasta, SSdirectory
 from IPython.display import display
 import warnings
 from Bio import SeqIO,Seq
-import SSdirectory
-
-from ODBfilter import min_dist_spec_record, select_known_species_records
-
-def ordered_record_generator(fpath,ordered_ids):
-    """Generates Seq records from fpath, limited to ids if provided. Generator order is order in ordered_ids.
-    :param fpath: Fasta file path
-    :param ordered_ids: array-like containing ordered record ids
-    :return:
-    """
-    for id in ordered_ids:
-        with open(fpath) as fasta_f:
-            fastas = SeqIO.parse(fasta_f,'fasta')
-            for fasta in fastas:
-                if fasta.id == id:
-                    yield fasta
-                    break
-
-def record_generator(fpath,ids=[]):
-    """Generates Seq records from fpath, limited to ids if provided. Ordered as in fpath
-    :param fpath: Fasta file path
-    :param ids: If provided, only yield records corresponding to record ids provided. Default value causes all records
-    to be present in generator
-    :return: generator object
-    """
-    with open(fpath) as fasta_f:
-        fastas = SeqIO.parse(fasta_f, 'fasta')
-        for fasta in fastas:
-            if (len(ids)>0 and fasta.id in ids) or \
-                    (len(ids)==0):
-                yield fasta
-
-def ODB_NCBI_generator(ODB_fpath,NCBI_fpath,odb_subset=[],ncbi_subset=[],ordered=False):
-    """
-
-    :param ODB_fpath: file path to OrthoDB fasta
-    :param NCBI_fpath: file path to NCBI fasta
-    :param odb_subset: If provided, only ODB records present in odb_subset will be provided by generator. Else all
-    records will be provided
-    :param ncbi_subset: If provided, only NCBI records present in ncbi_subset will be provided by generator. Else all
-    records will be provided
-    :param ordered: If true, odb_subset and ncbi_subset must be provided. Causes records to be returned in order they
-    are present in odb_subset and ncbi_subset.
-    :return: Generator object which provides Bio.Seq objects filtered and ordered as described above.
-    """
-
-    if ordered:
-        if len(odb_subset) == 0 or len(ncbi_subset)==0:
-            raise ValueError("Both odb_subset and ncbi_subset must be provided if ordered is True.")
-        else:
-            odb_generator = ordered_record_generator(ODB_fpath,odb_subset)
-            ncbi_generator = ordered_record_generator(NCBI_fpath,ncbi_subset)
-    else:
-        odb_generator = record_generator(ODB_fpath, odb_subset)
-        ncbi_generator = record_generator(NCBI_fpath, ncbi_subset)
-
-    for fasta in odb_generator:
-        yield fasta
-    for fasta in ncbi_generator:
-        yield fasta
+from SSfilter.ODBfilter import min_dist_spec_record, select_known_species_records
 
 def load_NCBI_fasta_df(NCBI_fasta_fpath,taxid_dict):
     """Reads NCBI fasta into DataFrame, extracting available fields into appropritate columns
@@ -110,7 +51,7 @@ def select_NCBI_record(ODB_fasta_fpath,NCBI_fasta_fpath,taxid_dict,ODB_final_inp
     if len(ncbi_df) > 1:
         #Align all unfiltered NCBI records against ODB_final_input records
         combined_unaln_fpath,combined_aln_fpath = "tmp/ODB_NCBI_unaln.fasta","tmp/ODB_NCBI_aln.fasta"
-        unaln_generator = ODB_NCBI_generator(ODB_fasta_fpath,NCBI_fasta_fpath,odb_subset=ODB_final_input_df.index)
+        unaln_generator = SSfasta.ODB_NCBI_generator(ODB_fasta_fpath,NCBI_fasta_fpath,odb_subset=ODB_final_input_df.index)
         SeqIO.write(unaln_generator, combined_unaln_fpath, "fasta")
         combined_df = ODB_final_input_df.append(ncbi_df,sort=False)
         # display(combined_df)
@@ -226,7 +167,7 @@ def combined_records_processing(config,am_df,em_df,combined_df,
     #Final unaligned and aligned Fasta writing
     odb_records_idx = combined_df.index[combined_df.index.isin(am_df.index)]
     ncbi_records_idx = combined_df.index[~combined_df.index.isin(am_df.index)]
-    combined_records = ODB_NCBI_generator(odb_fasta,ncbi_fasta,odb_subset=odb_records_idx,
+    combined_records = SSfasta.ODB_NCBI_generator(odb_fasta,ncbi_fasta,odb_subset=odb_records_idx,
                                           ncbi_subset=ncbi_records_idx,ordered=True)
     SeqIO.write(combined_records, out_unaln_fasta, 'fasta')
     #Internal distance calculation

@@ -1,9 +1,9 @@
-from SSerrors import load_errors, SequenceDataError, write_errors
+from SSutility.SSerrors import load_errors, SequenceDataError, write_errors
 import numpy as np
 import pandas as pd
 import os
 import re
-import SSfasta
+from SSutility import SSfasta
 from IPython.display import display
 import warnings
 
@@ -46,7 +46,7 @@ def find_alias_matches(symbol, tsv_df, errors_fpath):
     am_ids = []
     aliases_fpath = "{0}/{1}_aliases.txt".format(aliases_dir,symbol)
     check_errors_file, gc_errors_df = load_errors(errors_fpath,"GeneCardsError")
-    if (check_errors_file and symbol in gc_errors_df["gene"].unique()) or not os.path.exists(aliases_fpath):
+    if (check_errors_file and symbol in gc_errors_df["gene_symbol"].unique()) or not os.path.exists(aliases_fpath):
         #No supplementary GeneCards alias informationl; matches only against symbol
         aliases = [symbol]
         exact_matches = [symbol]
@@ -273,7 +273,8 @@ def select_known_species_records(gene_symbol,em_df, am_df, ks_taxids, ks_refseqs
     return final_ksr_df
 
 
-def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath,provide_dist_srs=False):
+def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath,provide_dist_srs=False,
+                           print_skips=False):
     """Select records for remaining OrthoDB outgroup species in analysis that are not in ks_taxids.
 
     Selection is based on maximum identity to accepted records in final_ksr_df (ie accepted human/mouse/13LGS); best
@@ -318,8 +319,9 @@ def select_outgrup_records(em_df, am_df, ks_taxids,final_ksr_df, seqs_fpath,prov
         if md <= identity_threshold:
             final_df = final_df.append(md_row)
         else:
-            print("Min dist record for tax_id {0} does not meet distance threshold {1}".format(taxid,identity_threshold))
-            print("Skipping records for this species.")
+            if print_skips:
+                print("Min dist record for tax_id {0} does not meet distance threshold {1}".format(taxid,identity_threshold))
+                print("Skipping records for this species.")
 
     final_dict = {}
     final_dict['final_df']=final_df
@@ -351,7 +353,7 @@ def final_ksr_df_QC(gene_symbol,matches,final_ksr_df,ks_taxids,ts_taxid,
     """
     if len(final_ksr_df) < len(ks_taxids):
         if ts_taxid not in final_ksr_df["organism_taxid"].unique():
-            msg = "No alias matched sequence could be found for test species (taxid: {0})".format(ts_taxid)
+            msg = "No alias matched sequence could be found for test species taxid: {0}".format(ts_taxid)
             raise SequenceDataError(2,msg)
         for tax_id in ks_taxids:
             if tax_id not in final_ksr_df["organism_taxid"].unique():
@@ -415,7 +417,7 @@ def process_input(symbol,config,tax_subset):
     raw_tsv_fpath,raw_fa_fpath = "{0}/input/ODB/{1}.tsv".format(run_name,symbol),\
                                  "{0}/input/ODB/{1}.fasta".format(run_name,symbol)
     seq_qc_fpath = '{0}/summary/accepted_record_QC.tsv'.format(run_name)
-    errors_fpath = '{0}/summary/errors.tsv'.format(run_name)
+    errors_fpath = '{0}/errors.tsv'.format(run_name)
     manual_selections_fpath = "{0}/manual_record_selections.tsv".format(run_name)
     ks_taxids = ['10090_0', '43179_0', '9606_0']
     unfiltered_tsv = SSfasta.load_tsv_table(raw_tsv_fpath, tax_subset=tax_subset)
@@ -438,6 +440,12 @@ def process_input(symbol,config,tax_subset):
         #Log errors, raise error for handling in calling function
         write_errors(errors_fpath,symbol,sde)
         raise sde
+    except ValueError as e:
+        print("=====")
+        print(symbol)
+        display(unfiltered_tsv)
+        raise e
+
     return results
     # return final_input_df
 
