@@ -66,6 +66,18 @@ def ss_filter(config, tax_subset, gene_id_df):
         for i,row in qc_df.loc[qc_df['gene_symbol']==qc_symbol,:].iterrows():
             print("{0}\t{1}".format(row.values[0],row.values[1]))
 
+def ss_analysis():
+    """Calculates jensen-shannon divergence, BLOSUM62 scores, and various other alignment metrics for the filtered
+    dataset. JSD calculation code is modified from the below paper and accompanying code and is found in
+    SSanalysis/JSDcalc.py
+
+    John A. Capra, Mona Singh, Predicting functionally important residues from sequence conservation, Bioinformatics,
+    Volume 23, Issue 15, August 2007, Pages 1875–1882, https://doi.org/10.1093/bioinformatics/btm270
+    https://compbio.cs.princeton.edu/conservation/
+    :return:
+    """
+    pass
+
 
 def main():
     import SSutility

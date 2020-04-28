@@ -29,6 +29,7 @@ def create_run_directory(run_name):
         create_directory(formatted)
     create_directory("tmp")
     empty_directory("tmp")
+    create_directory("alias_data")
 
 
 def convert_fname_uppercase(file_dir,pat):

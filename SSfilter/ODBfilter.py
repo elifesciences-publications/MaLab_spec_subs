@@ -42,7 +42,7 @@ def find_alias_matches(symbol, tsv_df, errors_fpath):
     :return exact_matches: list containing accepted gene symbol exact matches for symbol. Contains symbol and optionally
     GeneCards primary alias if different from symbol
     """
-    aliases_dir = "aliases_data"
+    aliases_dir = "alias_data"
     am_ids = []
     aliases_fpath = "{0}/{1}_aliases.txt".format(aliases_dir,symbol)
     check_errors_file, gc_errors_df = load_errors(errors_fpath,"GeneCardsError")

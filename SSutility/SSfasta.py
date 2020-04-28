@@ -9,10 +9,8 @@ import subprocess
 import warnings
 import os
 from SSutility import SSerrors
-# Fasta file reading functions:
-# filter_fasta_infile reads input files and outputs all records corresponding to filtered_ids to a new file
-# Remaining functions provide conversions between fasta files, pandas Series, and pandas dataframes
-# having alignment positions as columns
+
+###Record filtering functions###
 
 def ordered_record_generator(fpath,ordered_ids):
     """Generates Seq records from fpath, limited to ordered_ids if provided. Generator order is order in ordered_ids.
@@ -123,9 +121,11 @@ def filter_fasta_infile(filtered_ids, infile_path, outfile_path=None, ordered=Fa
         filtered_srs[fasta.id] = str(fasta.seq)
     return filtered_srs
 
+###Series, fasta, align_df functions###
 
 def srs_to_fasta(seq_srs, outfile_path):
     # Write records in seq_srs to outfile_path in fasta format
+    #Deprecated; use record generator functions to write sequence data (maintains description/ other non-sequence info)
     def record_generator(seq_srs):
         for idx, seq in seq_srs.iteritems():
             record = SeqRecord(Seq(seq, IUPAC.protein), id=idx)
@@ -134,8 +134,8 @@ def srs_to_fasta(seq_srs, outfile_path):
     records = record_generator(seq_srs)
     SeqIO.write(records, outfile_path, "fasta")
 
-
 def fasta_to_srs(fasta_path):
+    #Creates series mapping record id to sequence from fasta_path
     with open(fasta_path) as fasta_f:
         fasta_seqs = SeqIO.parse(fasta_f, 'fasta')
         id_seq_map = OrderedDict()
@@ -145,13 +145,9 @@ def fasta_to_srs(fasta_path):
             id_seq_map[record_id] = seq
         return pd.Series(name="seq", data=id_seq_map)
 
-
 def align_srs_to_df(align_srs):
-    # Returns DataFrame object from series of aligned sequences; columns are 1-indexed positions
-    # Values are characters in alignment, index is ODB sequence IDs
-    n_seq = len(align_srs)
-    #     display(align_srs)
-    #     display(align_srs.iloc[0])
+    """Returns DataFrame object from series of aligned sequences; columns are 1-indexed positions
+    Values are characters in alignment, indexed on record_ids"""
     seq_len = len(align_srs.iloc[0])
     align_df = pd.DataFrame(index=align_srs.index, columns=range(seq_len))
     for idx, seq in align_srs.iteritems():
@@ -159,6 +155,10 @@ def align_srs_to_df(align_srs):
     align_df.columns += 1
     return align_df
 
+def align_fasta_to_df(fasta_path):
+    align_srs = fasta_to_srs(fasta_path)
+    align_df = align_srs_to_df(align_srs)
+    return align_df
 
 def seq_srs_to_align_df(seq_srs, align_in_fpath, align_out_fpath):
     """Transform seq_srs (pandas Series containing sequence texts) to a DataFrame for which each column
@@ -167,13 +167,11 @@ def seq_srs_to_align_df(seq_srs, align_in_fpath, align_out_fpath):
     srs_to_fasta(seq_srs, align_in_fpath)
     n, ordered_ids, id_dm, align_srs = construct_id_dm(seq_srs, align_in_fpath, align_out_fpath)
     align_df = align_srs_to_df(align_srs)
-    # dist_srs = avg_dist_srs(align_srs.index, id_dm)
-    return align_df#, dist_srs
-
+    return align_df
 
 def align_srs_to_seq_srs(align_srs, outfile_path=None):
-    # Return new Series (same index) of sequences with gap characters dropped
-    # If outfile_path is provided, write un-aligned record seqs to new fasta file
+    """Return new Series (same index) of sequences with gap characters dropped
+    If outfile_path is provided, write un-aligned record seqs to new fasta file"""
     seq_srs = pd.Series(index=align_srs.index)
     for idx, align_seq in align_srs.iteritems():
         seq = align_seq.replace("-", "")
@@ -213,9 +211,7 @@ def load_tsv_table(input_tsv_fpath,tax_subset=[],ODB_ID_index=True):
     return tsv_df
 
 
-    ### Distance Matrix Functions
-#construct_id_dm makes an np.ndarray for the identity distance matrix of sequences for which OrthoDB id is
-# in the index of seq_df; distance matrix rows will be ordered to the order in seq_fpath if ordered isFalse
+### Distance Matrix Functions ###
 def construct_id_dm(seq_df, seq_fpath, align_outpath="tmp/iddm_align.fasta",
                     ordered=False,aligned=False,kalign_silent=True):
     """Constructs an np.ndarray corresponding to the identity distance matrix of records in seq_df

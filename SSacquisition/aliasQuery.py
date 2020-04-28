@@ -34,8 +34,7 @@ def alias_GC_query(driver,gene_name):
 
 
     gene_cards_url = "https://www.genecards.org/cgi-bin/carddisp.pl?gene={0}".format(gene_name.upper())
-    # aliases_fpath = "aliases_data/" + gene_name + "_aliases.txt"
-    aliases_fpath = "aliases_data/{0}_aliases.txt".format(gene_name)
+    aliases_fpath = "alias_data/{0}_aliases.txt".format(gene_name)
     list_xpath = "//ul[@class='list-unstyled list-spacious']/li"
     elem_xpaths = [list_xpath]
     driver.get(gene_cards_url)
@@ -93,7 +92,7 @@ def download_alias_data(gene_list, config):
     errors_fpath = "{0}/{1}".format(run_name,errors_fname)
     check_error_file, gc_errors_df = load_errors(errors_fpath,"GeneCardsError")
     for gene_name in gene_list:
-        aliases_fpath = "aliases_data/{0}_aliases.txt".format(gene_name)
+        aliases_fpath = "alias_data/{0}_aliases.txt".format(gene_name)
         if not os.path.exists(aliases_fpath):
             if check_error_file and gene_name in gc_errors_df["gene_symbol"].unique():
                 print_errors(gc_errors_df, gene_name)
