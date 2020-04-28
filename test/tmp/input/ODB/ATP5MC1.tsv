@@ -1,5 +1,0 @@
-pub_og_id	og_name	level_taxid	organism_taxid	organism_name	int_prot_id	pub_gene_id	description
-206351at40674	ATP synthase membrane subunit c locus 1	40674	10090_0	Mus musculus	10090_0:0034c4	Atp5mc1	ATP synthase F(0) complex subunit C1, mitochondrial
-206351at40674	ATP synthase membrane subunit c locus 1	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00103c	ATP5G1	ATP synthase membrane subunit c locus 1
-206351at40674	ATP synthase membrane subunit c locus 1	40674	9601_0	Pongo abelii	9601_0:003f0f	ATP5G1	ATP synthase membrane subunit c locus 1
-206351at40674	ATP synthase membrane subunit c locus 1	40674	9606_0	Homo sapiens	9606_0:00415a	ATP5G1;ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
