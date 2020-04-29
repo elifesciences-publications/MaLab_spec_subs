@@ -77,8 +77,7 @@ def relative_entropy(pC,bg,gap_penalty=1):
     ratio = pC/bg
     log_ratio = np.log(ratio)/np.log(2)
     RE = sum([a*b for a,b in zip(pC,log_ratio)])
-    if gap_penalty:
-        RE*= gap_penalty
+    RE*= gap_penalty
     return RE
 
 def JSD(col,bg,weights,aas,jsd_lam=0.5,use_gap_penalty=True):

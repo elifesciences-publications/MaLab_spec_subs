@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
+import os
+
 from IPython.display import display
 from collections import OrderedDict
 from SSanalysis import JSDcalc
+from SSutility.SSerrors import SequenceAnalysisError
+from SSutility.SSfasta import align_fasta_to_df
 
 def gen_blos_df():
     from Bio.SubsMat.MatrixInfo import blosum62
@@ -41,7 +45,7 @@ def find_uniques(align_df, sub_freq_threshold, test_species_idx,display_uniques=
     for pos in align_df:
         col = align_df[pos]
         sub_counts = col.value_counts()
-        test_var = col[test_species_idx]
+        test_var = col[test_species_idx][0]
         test_vc = sub_counts[test_var]
         if test_vc <= sub_freq_threshold and test_var!='X':
             uniques.loc[:,pos] = col
@@ -66,7 +70,7 @@ def align_pos_to_native_pos(align_df, idx, align_pos):
     :param align_pos: alignment column position to convert to native position
     :return: native_pos: converted alignment position
     """
-    pre_pos = align_df.loc[idx,:align_pos-1]
+    pre_pos = align_df.loc[idx.values[0],:align_pos-1]
     pre_pos_vc = pre_pos.value_counts()
     native_pos = align_pos
     if '-' in pre_pos_vc:
@@ -75,13 +79,13 @@ def align_pos_to_native_pos(align_df, idx, align_pos):
 
 
 def calc_z_scores(scores):
-    """For an array/pandas Series of scores, calculates z-scores and returns them.
+    """For an array/pandas Series of scores, calculates z-scores and returns them. Ignores NaN values.
 
     :param scores: array/Series of scores for which z-scores will be calculated
     :return: z_scores: array/Series of same dimensions/index as scores.
     """
-    mean = np.mean(scores)
-    std = np.std(scores)
+    mean = np.nanmean(scores)
+    std = np.nanstd(scores)
     z_scores = (scores-mean)/std
     return z_scores
 
@@ -102,8 +106,7 @@ def generate_jsd_series(test_idx,align_df,
     :return jsd_srs: pandas Series containing JSD values at each position (1-indexed)
     :return jsd_zscores: pandas Series containing JSD z-score (calculated using mean and std of this alignment only)
     """
-    from SSanalysis import aas, blosum62_bg
-    jsd_srs = pd.Series(index=align_df.columns)#range(1,alignlen))
+    jsd_srs = pd.Series(index=align_df.columns)
     if keep_test_spec:
         jsd_df = align_df.copy()
     else:
@@ -112,6 +115,13 @@ def generate_jsd_series(test_idx,align_df,
     weights = JSDcalc.calculate_sequence_weights(jsd_nd)
     for i,col in enumerate(jsd_nd.T):
         jsd = JSDcalc.JSD(col,blosum62_bg,weights,aas,use_gap_penalty=use_gap_penalty)
+        # if i==42:
+        #     print(use_gap_penalty)
+        #     print(jsd)
+        #     print("FORCE")
+        #     print(col)
+        #     print(JSDcalc.JSD(col, blosum62_bg, weights, aas, use_gap_penalty=False))
+        #     pass
         jsd_srs[i+1] = jsd
     jsd_zscores = calc_z_scores(jsd_srs)
     return jsd_srs, jsd_zscores
@@ -129,22 +139,23 @@ def filter_score_srs(score_srs, uniques):
     return unique_scores
 
 def variant_counts(col,test_spec_idx):
-    """
+    """For col, return a dictionary containing information on gap_fraction,test_species/ outgroup variants, and the
+    number of instances/ ratios of those variants
 
-    :param col: Alignment DataFrame column (including test species)
+    :param (Series) col: Series corresponding to alignment dataframe column (including test species)
     :param test_spec_idx: index of col corresponding to test species record
     :return: metrics: dictionary containing test_variant, outgroup_variant, and gap_fraction
     """
-    align_col = col.values
-    outgroup_variant = align_col.mode().iloc[0]
-    gap_ratio = JSDcalc.gap_fraction(align_col)
-    test_variant = col[test_spec_idx]#align_df.loc[test_species, pos]
+    outgroup_variant = col.mode().iloc[0]
+    gap_ratio = gap_fraction(col)
+    test_variant = col[test_spec_idx][0]
     vc = col.value_counts()
-    og_var_freq = vc[outgroup_variant]
-    test_var_freq = vc[test_variant]
-    metrics = {'test_variant':test_variant,'outgroup_variant':outgroup_variant,'gap_fraction':gap_ratio,
-               'outgroup_variant_freq':og_var_freq,'test_variant_freq':test_var_freq}
-    return metrics
+    og_var_freq,test_var_freq = vc[outgroup_variant],vc[test_variant]
+    og_var_ratio,test_var_ratio = og_var_freq/len(col), test_var_freq/len(col)
+    vc_metrics = {'test_variant':test_variant,'outgroup_variant':outgroup_variant,'gap_fraction':gap_ratio,
+               'outgroup_variant_count':og_var_freq,'test_variant_count':test_var_freq,
+               'outgroup_variant_ratio':og_var_ratio,'test_variant_ratio':test_var_ratio}
+    return vc_metrics
 
 def test_outgroup_blosum(col,test_spec_idx,blos_df):
     """Calculates average BLOSUM62 score of the test species variant in col against all outgroup variants. NaN for gaps.
@@ -154,7 +165,7 @@ def test_outgroup_blosum(col,test_spec_idx,blos_df):
     :param blos_df: DataFrame corresponding to blosum matrix; index and columns are amino acid characters
     :return: Average test variant vs outgroup variant blosum scores for col.
     """
-    test_var = col[test_spec_idx]
+    test_var = col[test_spec_idx][0]
     outgroup_col = col.drop(test_spec_idx)
     og_col_nd = outgroup_col.values
     if test_var != '-':
@@ -163,8 +174,18 @@ def test_outgroup_blosum(col,test_spec_idx,blos_df):
         blos_mean = np.nan
     return blos_mean
 
+def test_outgroup_blosum_series(align_df,test_spec_idx,blos_df):
+    blos_srs = pd.Series(index=align_df.columns)
+    for pos in align_df.columns:
+        aln_col = align_df.loc[:,pos]
+        blos_mean = test_outgroup_blosum(aln_col,test_spec_idx,blos_df)
+        blos_srs[pos] = blos_mean
+    blos_srs.name = "Test-Outgroup BLOSUM62"
+    blos_z = calc_z_scores(blos_srs)
+    return blos_srs, blos_z
+
 def pairwise_outgroup_blosum(col,test_spec_idx,blos_df):
-    """Returns average pairwise blosum score between all residues in outgroup of column
+    """Returns average pairwise blosum score between all non-gap residues in outgroup of column
 
     :param col: pandas Series corresponding to column from alignment DataFrame
     :param test_spec_idx: index of test_species in col
@@ -187,61 +208,139 @@ def pairwise_outgroup_blosum(col,test_spec_idx,blos_df):
         blos_pw = np.nan
     return blos_pw
 
-def summary_table(align_df, uniques, test_idx,blos_df, display_summary):
+def gene_summary_table(align_df, ncbi_idx, test_idx,blos_df, display_summary=False,drop_NCBI=True,
+                       summary_table_outpath="", use_jsd_gap_penalty=True):
+    """Given an align_df representing OrthoDB and NCBI record multiple sequence alignment, calculates JSD, BLOSUM,
+    gap and variant metrics for the OrthoDB records only.
 
-    jsd, jsd_z = generate_jsd_series(test_idx,align_df)
-    jsd_uniques, jsd_z_uniques = filter_score_srs(jsd,uniques), filter_score_srs(jsd_z,uniques)
-
-    jsd_nd = align_df.copy().drop(index=test_species).values
-    unique_positions = sw_metrics.index
-    unique_positions.name = "MSA Position"
-    n_seq = len(align_df.index)
-    cols_list = ["Test Species Position", "Test Variant","Test Variant Instances","Outgroup Variant",\
-                 "Outgroup Variant Instances","Aligned Sequences", "Gap Fraction", "JSD","JSD Z-Score", \
-                 "Test vs Outgroup Blosum62", "Outgroup Pairwise Blosum62"]
-    summary_df = pd.DataFrame(index=unique_positions,columns=cols_list)
-    for pos in unique_positions:
-        native_pos = JSDcalc.align_pos_to_native_pos(align_df, test_species,pos)
-        jsd = pos_jsds[pos]
-        jsd_z = pos_jsdzs[pos]
-        align_col_srs = align_df.loc[:,pos]
-        align_col = align_col_srs.values
-        outgroup_variant = align_col_srs.mode().iloc[0]
-        gap_fraction = JSDcalc.gap_ratio(align_col)
-        test_variant = align_df.loc[test_species,pos]
-        vc = align_df[pos].value_counts()
-        og_var_freq = vc[outgroup_variant]
-        test_var_freq = vc[test_variant]
-        col = jsd_nd.T[pos-1]
-        if not test_variant == '-':
-            blos_mean = np.mean(blos_df[test_variant][col])
-        else:
-            blos_mean = np.nan
-        #pairwise calculations
-        others_col = jsd_nd.T[pos-1]
-        pairwise_scores = []
-        skip_chars = ['-','X']
-        for i,first in enumerate(others_col):
-            for j,second in enumerate(others_col):
-                if i<j:
-                    if not first in skip_chars and not second in skip_chars:
-                        pairwise_scores.append(blos_df[first][second])
-                    else:
-                        pass
-        if pairwise_scores:
-#             blosum62_pairwise[pos] = np.mean(pairwise_scores)
-            blos_pw = np.mean(pairwise_scores)
-        else:
-            blos_pw = np.nan
-        row_values = [native_pos, test_variant, test_var_freq,outgroup_variant,og_var_freq,n_seq,gap_fraction,jsd,jsd_z,blos_mean,blos_pw]
-        summary_row = pd.Series(name=pos,data=dict(zip(cols_list,row_values)))
-#         summary_df = summary_df.append(summary_row)
-        summary_df.loc[pos] = summary_row
-    #Output conditional on config option
+    :param align_df: OrthoDB and NCBI MSA DataFrame. Columns are 1-indexed alignment positions and index is record ids.
+    :param ncbi_idx: Record id of NCBI record. Excluded from analysis calculations if drop_NCBI=True. Stored in
+    AGS Variant column in summary table
+    :param test_idx: Record id of test_species (all other ODB records will be used as the outgroup for JSD and BLOSUM)
+    :param blos_df: BLOSUM62 matrix as DataFrame taking amino acid chars as index/col values
+    :param display_summary: If true, displays calculated summary statistics table to stdout
+    :param drop_NCBI: If true, NCBI records will not be considered part of the outgroup and will be exluced from
+    analysis calculations
+    :return:
+    """
+    if drop_NCBI:
+        analysis_df = align_df.drop(index=ncbi_idx)
+    else:
+        analysis_df = align_df
+    unique_thresh = max(int(len(analysis_df)*0.1), 1)
+    uniques = find_uniques(analysis_df,unique_thresh,test_idx)
+    unique_pos = uniques.columns
+    if len(unique_pos) == 0:
+        raise SequenceAnalysisError(0,"No species unique substitutions under occurence " 
+                                      "threshold {0} instances".format(unique_thresh))
+    n_seq = len(analysis_df)
+    #Calculate JSD and BLOSUM + z-scores for entire alignment
+    jsd, jsd_z = generate_jsd_series(test_idx,analysis_df,keep_test_spec=False,use_gap_penalty=use_jsd_gap_penalty)
+    test_og_blos_srs, test_og_blos_z_srs = test_outgroup_blosum_series(analysis_df,test_idx,blos_df)
+    summary_col_labels = ['Test Species Position','Test Variant','AGS Variant','Test Variant Count',
+                          'Outgroup Variant', 'Outgroup Variant Count', 'Analysis Sequences', 'Gap Fraction',
+                          'JSD','JSD Z-Score','Test-Outgroup BLOSUM62', 'Test-Outgroup BLOSUM Z-Score',
+                          'Outgroup Pairwise BLOSUM62']
+    summary_df = pd.DataFrame(columns=summary_col_labels)
+    summary_df.index.name = "MSA Position"
+    for pos in unique_pos:
+        #Calculate variant count metrics, pull blos/jsd values from alignment-calculated Series
+        aln_col = uniques.loc[:,pos]
+        vc_metrics = variant_counts(aln_col,test_idx)
+        tv, tvc, ov, ovc, gf = [vc_metrics[label] for label in ['test_variant','test_variant_count','outgroup_variant',
+                                                            'outgroup_variant_count','gap_fraction']]
+        test_og_blos,test_og_blos_z = test_og_blos_srs[pos],test_og_blos_z_srs[pos]
+        #Calculate outgroup pairwise BLOSUM, native sequence position of substitution in test-species
+        og_pw_blos = pairwise_outgroup_blosum(aln_col,test_idx,blos_df)
+        native_pos = align_pos_to_native_pos(analysis_df,test_idx,pos)
+        ags_var = align_df.loc[ncbi_idx,pos][0]
+        row_dict = dict(zip(summary_col_labels,[native_pos,tv,ags_var,tvc,ov,ovc,n_seq,gf,jsd[pos],
+                                                jsd_z[pos],test_og_blos,test_og_blos_z,og_pw_blos]))
+        summary_df.loc[pos,:] = row_dict
     if display_summary:
-        print(test_species+" Semi-Unique Substitutions Summary")
-        print("Number of Species: "+str(len(align_df.index)))
-        with pd.option_context("display.max_rows",None,"display.max_columns", None,"display.max_colwidth",200):
-            display(summary_df)
-#             pass
+        print("Test Species Index: {0}".format(test_idx))
+        display(summary_df)
+    if summary_table_outpath:
+        summary_df.to_csv(summary_table_outpath,sep='\t')
     return summary_df
+
+def load_summary_table(summary_fpath):
+    summary_df = pd.read_csv(summary_fpath,sep='\t',index_col=0)
+    return summary_df
+
+def overall_summary_table(config, gene_symbols,use_jsd_gap_penalty=True,force_recalc=False):
+    """Calculates summary analysis statistics for every gene symbol in gene_symbols.
+
+    :param config: configparser object from config/config.txt
+    :param gene_symbols: array-like or Series of gene symbols
+    :param use_jsd_gap_penalty: Determines if JSD calculations are performed with gap penalty or not. If you change
+    this, it is recommended to set force_recalc to True to avoid any inconsistencies between files calculated before
+    the change and after.
+    :param force_recalc: If True, recalculates and rewrites all summary statistic data.
+    :return: None. Writes individual gene summary tables to appropriate output subdirectories and overall summary table
+    to [run_name]/summary/overall_summary.tsv
+    """
+    from SSutility.SSerrors import load_errors, write_errors, print_errors
+    run_name,errors_fname = config['RUN']['RunName'],config['RUN']['ErrorsFileName']
+    ODB_test_id, NCBI_taxid = config['ODB']['ODBTestTaxID'], config['NCBI']['NCBITaxID']
+    errors_fpath = "{0}/{1}".format(run_name,errors_fname)
+
+    #Columns for overall summary table
+    overall_summary_col_labels = ['Gene','MSA Position','Test Species Position', 'Test Variant', 'AGS Variant',
+                                  'Test Variant Count', 'Outgroup Variant', 'Outgroup Variant Count',
+                                  'Analysis Sequences', 'Gap Fraction',
+                                  'JSD', 'JSD Alignment Z-Score','JSD US Z-Score',
+                                  'Test-Outgroup BLOSUM62', 'Test-Outgroup BLOSUM Alignment Z-Score',
+                                  'Test-Outgroup BLOSUM US Z-Score','Outgroup Pairwise BLOSUM62']
+    overall_df = pd.DataFrame(columns=overall_summary_col_labels)
+    overall_summary_fpath = "{0}/summary/overall_summary.tsv".format(run_name)
+    check_errors, errors_df = load_errors(errors_fpath)
+    for symbol in gene_symbols:
+        summary_outpath = "{0}/output/{1}/{1}_summary.tsv".format(run_name,symbol)
+        if not os.path.exists(summary_outpath) or force_recalc:
+            #Check logged errors before attempting analysis. All logged errors will cause analysis to be skipped.
+            #Logged SequenceAnalysisErrors are printed to stdout (others are passed over silently)
+            if check_errors and symbol in errors_df['gene_symbol'].unique():
+                sae_df = errors_df.loc[errors_df['error_type']=="SequenceAnalysiserror",:]
+                if symbol in sae_df['gene_symbol'].unique():
+                    print_errors(sae_df,symbol)
+                continue
+            try:
+                msa_fpath =  "{0}/output/{1}/{1}_msa.fasta".format(run_name,symbol)
+                records_fpath = "{0}/output/{1}/{1}_records.tsv".format(run_name,symbol)
+                records_df = pd.read_csv(records_fpath,sep='\t',index_col=0)
+                records_df.index.name = "record_id"
+                ncbi_idx = records_df.loc[records_df['db_source']=="NCBI",:].index
+                test_idx = records_df.loc[records_df['organism_taxid']==ODB_test_id,:].index
+                align_df = align_fasta_to_df(msa_fpath)
+
+                summary_df = gene_summary_table(align_df,ncbi_idx,test_idx,blos_df,
+                               display_summary=False,drop_NCBI=True,summary_table_outpath=summary_outpath,
+                                use_jsd_gap_penalty=use_jsd_gap_penalty)
+            except SequenceAnalysisError as sae:
+                write_errors(errors_fpath,symbol,sae)
+                continue
+        else:
+            summary_df = load_summary_table(summary_outpath)
+        #Format summary_df into overall_summary format (add Gene and MSA position columns, rename Z-score columns)
+        formatted = summary_df.reset_index(drop=False)
+        formatted.insert(0,"Gene",[symbol]*len(formatted))
+        formatted = formatted.rename(columns={'JSD Z-Score':'JSD Alignment Z-Score',
+                                       'Test-Outgroup BLOSUM Z-Score':'Test-Outgroup BLOSUM Alignment Z-Score'})
+        overall_df = overall_df.append(formatted,ignore_index=True,sort=False)
+    display_overall=False
+    if display_overall:
+        with pd.option_context('display.max_columns',None):
+            display(overall_df)
+    #Unique Substitution Set-wide Z scores for JSD and BLOSUM
+    us_jsd, us_blos = calc_z_scores(overall_df['JSD']), calc_z_scores(overall_df['Test-Outgroup BLOSUM62'])
+    overall_df.loc[:,'JSD US Z-Score'] = us_jsd
+    overall_df.loc[:,'Test-Outgroup BLOSUM US Z-Score'] = us_blos
+    overall_df.to_csv(overall_summary_fpath,sep='\t')
+    return overall_df
+
+
+
+
+#Global variables for module
+aas, blosum62_bg, blos_df, sim_matrix = gen_blos_df()
