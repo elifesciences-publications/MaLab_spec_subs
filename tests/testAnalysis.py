@@ -183,7 +183,7 @@ class testCalculations(unittest.TestCase):
         non_gp_43_jsd = non_gp_summary.loc[43]['JSD']
         print(gp_43_jsd)
         print(non_gp_43_jsd)
-        self.assertNotAlmostEquals(gp_43_jsd,non_gp_43_jsd)
+        self.assertNotAlmostEqual(gp_43_jsd,non_gp_43_jsd)
 
     def test_overall_summary(self):
         from SSanalysis import SSanalysiscalc as ac

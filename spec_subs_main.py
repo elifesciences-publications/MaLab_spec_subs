@@ -66,7 +66,7 @@ def ss_filter(config, tax_subset, gene_id_df):
         for i,row in qc_df.loc[qc_df['gene_symbol']==qc_symbol,:].iterrows():
             print("{0}\t{1}".format(row.values[0],row.values[1]))
 
-def ss_analysis():
+def ss_analysis(config,gene_id_df):
     """Calculates jensen-shannon divergence, BLOSUM62 scores, and various other alignment metrics for the filtered
     dataset. JSD calculation code is modified from the below paper and accompanying code and is found in
     SSanalysis/JSDcalc.py
@@ -76,7 +76,10 @@ def ss_analysis():
     https://compbio.cs.princeton.edu/conservation/
     :return:
     """
-    pass
+    from SSanalysis import SSanalysiscalc as ac
+    gene_symbols = gene_id_df['gene_symbol']
+    ac.overall_summary_table(config, gene_symbols, use_jsd_gap_penalty=True, force_recalc=True)
+
 
 
 def main():
@@ -84,6 +87,7 @@ def main():
     from SSutility import config, tax_subset, gene_id_df, tax_table
     ss_acquisition(config, gene_id_df, tax_table)
     ss_filter(config, tax_subset, gene_id_df)
+    ss_analysis(config,gene_id_df)
 
 if __name__ == '__main__':
     main()
