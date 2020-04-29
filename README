@@ -28,3 +28,6 @@ Check KAlign command works (ie no "command not found")
 
 With the default configuration file, this should create a subdirectory named cDNAscreen_041020 which will contain
 directories for 1) downloaded unfiltered input files (input) 2) filtered record sets and gene specific summary (output)
+3) run summary table for all unique substitutions, GS-consensus unique substitutions, filled gene ID tables, plots
+(summary)
+
