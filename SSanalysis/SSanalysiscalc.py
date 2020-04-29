@@ -165,16 +165,27 @@ def test_outgroup_blosum(col,test_spec_idx,blos_df):
     :param blos_df: DataFrame corresponding to blosum matrix; index and columns are amino acid characters
     :return: Average test variant vs outgroup variant blosum scores for col.
     """
+    skip_chars = ['X','-']
+    #test_spec_idx is Pandas Index object, use [0] to get character value instead of Series
     test_var = col[test_spec_idx][0]
     outgroup_col = col.drop(test_spec_idx)
+    outgroup_col = outgroup_col[~outgroup_col.isin(skip_chars)]
     og_col_nd = outgroup_col.values
-    if test_var != '-':
+    if test_var not in skip_chars:
         blos_mean = np.mean(blos_df[test_var][og_col_nd])
     else:
         blos_mean = np.nan
     return blos_mean
 
 def test_outgroup_blosum_series(align_df,test_spec_idx,blos_df):
+    """Returns series of scores/z-scores for test vs outgroup blosum values for entire align_df.
+
+    :param align_df: MSA DataFrame
+    :param test_spec_idx: Index object corresponding to test_species. Remaining species in align_df considered outgroup
+    :param blos_df: Blosum62 DataFrame
+    :return: blos_srs: Series of test vs outgroup BLOSUM62 scores
+    :return: blos_z: Z-scores calculated for above series
+    """
     blos_srs = pd.Series(index=align_df.columns)
     for pos in align_df.columns:
         aln_col = align_df.loc[:,pos]
@@ -301,7 +312,7 @@ def overall_summary_table(config, gene_symbols,use_jsd_gap_penalty=True,force_re
             #Check logged errors before attempting analysis. All logged errors will cause analysis to be skipped.
             #Logged SequenceAnalysisErrors are printed to stdout (others are passed over silently)
             if check_errors and symbol in errors_df['gene_symbol'].unique():
-                sae_df = errors_df.loc[errors_df['error_type']=="SequenceAnalysiserror",:]
+                sae_df = errors_df.loc[errors_df['error_type']=="SequenceAnalysisError",:]
                 if symbol in sae_df['gene_symbol'].unique():
                     print_errors(sae_df,symbol)
                 continue
@@ -338,8 +349,6 @@ def overall_summary_table(config, gene_symbols,use_jsd_gap_penalty=True,force_re
     overall_df.loc[:,'Test-Outgroup BLOSUM US Z-Score'] = us_blos
     overall_df.to_csv(overall_summary_fpath,sep='\t',float_format='%.5f')
     return overall_df
-
-
 
 
 #Global variables for module
