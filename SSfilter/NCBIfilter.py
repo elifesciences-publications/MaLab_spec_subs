@@ -59,9 +59,11 @@ def select_NCBI_record(ODB_fasta_fpath,NCBI_fasta_fpath,taxid_dict,ODB_final_inp
         compare_record_ids = ODB_final_input_df.loc[ODB_final_input_df['organism_taxid'].isin(compare_taxids)].index
         md_row,min_dist = min_dist_spec_record(id_dm,align_srs.index,spec_record_ids,compare_record_ids,combined_df)
         final_combined_df = ODB_final_input_df.append(md_row,sort=False)
+        final_combined_df.index.name = "record_id"
         return final_combined_df
     else:
         combined_df = ODB_final_input_df.append(ncbi_df,sort=False)
+        combined_df.index.name = "record_id"
         return combined_df
 
 def annotate_source_and_filter(config,symbol,combined_df,am_df,em_df,
