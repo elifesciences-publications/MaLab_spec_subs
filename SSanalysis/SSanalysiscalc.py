@@ -165,7 +165,7 @@ def test_outgroup_blosum(col,test_spec_idx,blos_df):
     :param blos_df: DataFrame corresponding to blosum matrix; index and columns are amino acid characters
     :return: Average test variant vs outgroup variant blosum scores for col.
     """
-    skip_chars = ['X','-']
+    skip_chars = ['X','-','U']
     #test_spec_idx is Pandas Index object, use [0] to get character value instead of Series
     test_var = col[test_spec_idx][0]
     outgroup_col = col.drop(test_spec_idx)
