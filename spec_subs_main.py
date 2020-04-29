@@ -78,8 +78,12 @@ def ss_analysis(config,gene_id_df):
     """
     from SSanalysis import SSanalysiscalc as ac
     gene_symbols = gene_id_df['gene_symbol']
-    ac.overall_summary_table(config, gene_symbols, use_jsd_gap_penalty=True, force_recalc=True)
+    ac.overall_summary_table(config, gene_symbols, use_jsd_gap_penalty=True, force_recalc=False)
 
+def ss_visualization(config):
+    from SSanalysis import SSvisualization
+    plot_symbols = ["ATP5MC1", "ATP5MC3", "ATPIF1", "MANF"]
+    SSvisualization.summary_plots(config,plot_symbols)
 
 
 def main():
@@ -88,6 +92,7 @@ def main():
     ss_acquisition(config, gene_id_df, tax_table)
     ss_filter(config, tax_subset, gene_id_df)
     ss_analysis(config,gene_id_df)
+    ss_visualization(config)
 
 if __name__ == '__main__':
     main()

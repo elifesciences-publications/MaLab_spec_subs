@@ -289,7 +289,9 @@ def overall_summary_table(config, gene_symbols,use_jsd_gap_penalty=True,force_re
     the change and after.
     :param force_recalc: If True, recalculates and rewrites all summary statistic data.
     :return: None. Writes individual gene summary tables to appropriate output subdirectories and overall summary table
-    to [run_name]/summary/overall_summary.tsv
+    to [run_name]/summary/overall_summary.tsv Overall_summary table contains new columns corresponding to 1) gene symbol,
+    2) gene-specific MSA position, 3, 4) Unique Substitution Wide Z-scores for JSD and Test-Outgroup BLOSUM
+    MSA position,
     """
     from SSutility.SSerrors import load_errors, write_errors, print_errors
     run_name,errors_fname = config['RUN']['RunName'],config['RUN']['ErrorsFileName']
