@@ -1,0 +1,313 @@
+pub_og_id	og_name	level_taxid	organism_taxid	organism_name	int_prot_id	pub_gene_id	description
+133433at40674	Cyclin dependent kinase 5	40674	10090_0	Mus musculus	10090_0:0016b1	Cdk5	Cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	10116_0	Rattus norvegicus	10116_0:001abf	Cdk5	Cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	10141_0	Cavia porcellus	10141_0:002528	CDK5	Cyclin dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	13616_0	Monodelphis domestica	13616_0:004af6	CDK5	cyclin-dependent-like kinase 5 isoform X1
+133433at40674	Cyclin dependent kinase 5	40674	246437_0	Tupaia chinensis	246437_0:001a97	CDK5	cyclin-dependent-like kinase 5 isoform X1
+133433at40674	Cyclin dependent kinase 5	40674	34839_0	Chinchilla lanigera	34839_0:003b4f	Cdk5	cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	42254_0	Sorex araneus	42254_0:004214	CDK5	cyclin-dependent-like kinase 5 isoform X1
+133433at40674	Cyclin dependent kinase 5	40674	43179_0	Ictidomys tridecemlineatus	43179_0:001dfe	CDK5	Cyclin dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	43346_0	Bison bison	43346_0:003c47	CDK5	cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	74533_0	Panthera tigris	74533_0:002801	CDK5	cyclin-dependent-like kinase 5 isoform X2
+133433at40674	Cyclin dependent kinase 5	40674	9365_0	Erinaceus europaeus	9365_0:004377	CDK5	cyclin-dependent-like kinase 5 isoform X1
+133433at40674	Cyclin dependent kinase 5	40674	9483_0	Callithrix jacchus	9483_0:0022dc	CDK5	Cyclin dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9544_0	Macaca mulatta	9544_0:001068	CDK5	Cyclin-dependent kinase 5 isoform 1
+133433at40674	Cyclin dependent kinase 5	40674	9598_0	Pan troglodytes	9598_0:0020f4	CDK5	CDK5 isoform 1
+133433at40674	Cyclin dependent kinase 5	40674	9601_0	Pongo abelii	9601_0:001d18	CDK5	CDK5 isoform 1
+133433at40674	Cyclin dependent kinase 5	40674	9606_0	Homo sapiens	9606_0:0021e1	CDK5	Cyclin-dependent kinase 5, isoform CRA_a
+133433at40674	Cyclin dependent kinase 5	40674	9646_0	Ailuropoda melanoleuca	9646_0:000c57	CDK5	Cyclin dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9685_0	Felis catus	9685_0:00066d	CDK5	Cyclin dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9785_0	Loxodonta africana	9785_0:001815	CDK5	Cyclin dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9796_0	Equus caballus	9796_0:001056	CDK5	cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9823_0	Sus scrofa	9823_0:004894	CDK5	cyclin-dependent-like kinase 5 isoform X1
+133433at40674	Cyclin dependent kinase 5	40674	9913_0	Bos taurus	9913_0:000bcb	CDK5	Cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9925_0	Capra hircus	9925_0:000b6d	CDK5	cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9938_0	Ovis aries musimon	9938_0:001f4b	CDK5	cyclin-dependent-like kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9940_0	Ovis aries	9940_0:0015c7	Cdk5	Cyclin-dependent kinase 5
+133433at40674	Cyclin dependent kinase 5	40674	9986_0	Oryctolagus cuniculus	9986_0:00224c	CDK5	Cyclin dependent kinase 5
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	10090_0	Mus musculus	10090_0:0041ba	Apex1	DNA-(apurinic or apyrimidinic site) lyase, mitochondrial
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	10116_0	Rattus norvegicus	10116_0:00489d	Apex1	DNA-(apurinic or apyrimidinic site) lyase, mitochondrial
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	10141_0	Cavia porcellus	10141_0:0036f3	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	13616_0	Monodelphis domestica	13616_0:0009e4	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	246437_0	Tupaia chinensis	246437_0:003b86	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	34839_0	Chinchilla lanigera	34839_0:00499e	Apex1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	42254_0	Sorex araneus	42254_0:001f87	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	43179_0	Ictidomys tridecemlineatus	43179_0:004818	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	43346_0	Bison bison	43346_0:0018a6	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	74533_0	Panthera tigris	74533_0:0032db	APEX1	DNA-(apurinic or apyrimidinic site) lyase isoform X1
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9258_0	Ornithorhynchus anatinus	9258_0:004349	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9365_0	Erinaceus europaeus	9365_0:000708	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9483_0	Callithrix jacchus	9483_0:0027b1	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9544_0	Macaca mulatta	9544_0:002113	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9598_0	Pan troglodytes	9598_0:0038c2	APEX1	DNA-(apurinic or apyrimidinic site) lyase, mitochondrial
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9601_0	Pongo abelii	9601_0:003575	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9606_0	Homo sapiens	9606_0:003832	APEX1	DNA-(apurinic or apyrimidinic site) lyase, mitochondrial
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9646_0	Ailuropoda melanoleuca	9646_0:004333	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9685_0	Felis catus	9685_0:001913	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9785_0	Loxodonta africana	9785_0:004854	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9796_0	Equus caballus	9796_0:000139	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9823_0	Sus scrofa	9823_0:00241a	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9913_0	Bos taurus	9913_0:001ff5	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9925_0	Capra hircus	9925_0:001d1e	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9938_0	Ovis aries musimon	9938_0:0049c1	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9940_0	Ovis aries	9940_0:002099	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+144820at40674	DNA-(apurinic or apyrimidinic site) lyase	40674	9986_0	Oryctolagus cuniculus	9986_0:002d08	APEX1	DNA-(apurinic or apyrimidinic site) lyase
+161791at40674	Serine proteases, trypsin domain	40674	10090_0	Mus musculus	10090_0:003eb7	Gzma	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	10116_0	Rattus norvegicus	10116_0:000f2c	Gzma	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	10141_0	Cavia porcellus	10141_0:0026ff	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	10141_0	Cavia porcellus	10141_0:00274b	LOC100727037	granzyme A-like
+161791at40674	Serine proteases, trypsin domain	40674	13616_0	Monodelphis domestica	13616_0:0025eb	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	246437_0	Tupaia chinensis	246437_0:00177b	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	34839_0	Chinchilla lanigera	34839_0:0024dd	Gzma	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	42254_0	Sorex araneus	42254_0:001b31	LOC101548920	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:000a8c	LOC101961680	LOC101961680
+161791at40674	Serine proteases, trypsin domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:000a95	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	43346_0	Bison bison	43346_0:003c2f	LOC105001045	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	43346_0	Bison bison	43346_0:003c3a	LOC105001044	granzyme A-like
+161791at40674	Serine proteases, trypsin domain	40674	74533_0	Panthera tigris	74533_0:001303	GZMA	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9365_0	Erinaceus europaeus	9365_0:001236	LOC103109778	granzyme A-like
+161791at40674	Serine proteases, trypsin domain	40674	9365_0	Erinaceus europaeus	9365_0:001238	LOC103109779	granzyme A-like
+161791at40674	Serine proteases, trypsin domain	40674	9483_0	Callithrix jacchus	9483_0:0006ff	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9544_0	Macaca mulatta	9544_0:001b7b	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9598_0	Pan troglodytes	9598_0:00185c	GZMA	GZMA isoform 1
+161791at40674	Serine proteases, trypsin domain	40674	9601_0	Pongo abelii	9601_0:00151c	GZMA	GZMA isoform 1
+161791at40674	Serine proteases, trypsin domain	40674	9606_0	Homo sapiens	9606_0:0018fa	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9646_0	Ailuropoda melanoleuca	9646_0:004049	GZMA	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9685_0	Felis catus	9685_0:000307	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9785_0	Loxodonta africana	9785_0:0010d6	LOC100676692	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9785_0	Loxodonta africana	9785_0:001118	LOC111749961	granzyme A-like
+161791at40674	Serine proteases, trypsin domain	40674	9796_0	Equus caballus	9796_0:0040de	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9823_0	Sus scrofa	9823_0:00441e	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9823_0	Sus scrofa	9823_0:004455	gzmA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9913_0	Bos taurus	9913_0:003d4e	GZMA	GZMA protein
+161791at40674	Serine proteases, trypsin domain	40674	9913_0	Bos taurus	9913_0:003e2c	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9925_0	Capra hircus	9925_0:0039ce	GZMA	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9925_0	Capra hircus	9925_0:003a61	LOC102184761	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9938_0	Ovis aries musimon	9938_0:001ee4	LOC101117107	granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9938_0	Ovis aries musimon	9938_0:001eeb	LOC101116862	granzyme A-like
+161791at40674	Serine proteases, trypsin domain	40674	9940_0	Ovis aries	9940_0:00383a	GZMA	Granzyme A
+161791at40674	Serine proteases, trypsin domain	40674	9940_0	Ovis aries	9940_0:0038df	LOC101117107	LOC101117107
+161791at40674	Serine proteases, trypsin domain	40674	9986_0	Oryctolagus cuniculus	9986_0:001b5c	LOC100346200	LOC100346200
+161791at40674	Serine proteases, trypsin domain	40674	9986_0	Oryctolagus cuniculus	9986_0:001c0a	LOC100346285	LOC100346285
+161791at40674	Serine proteases, trypsin domain	40674	9986_0	Oryctolagus cuniculus	9986_0:004f30	LOC100341759	granzyme A-like
+161924at40674	Ribosomal protein S3, C-terminal	40674	10090_0	Mus musculus	10090_0:00252c	Rps3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	10116_0	Rattus norvegicus	10116_0:0004fd	Rps3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	10141_0	Cavia porcellus	10141_0:000bb2	Rps3	Rps3
+161924at40674	Ribosomal protein S3, C-terminal	40674	13616_0	Monodelphis domestica	13616_0:003536	RPS3	Ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:00037f	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	34839_0	Chinchilla lanigera	34839_0:000df0	Rps3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	42254_0	Sorex araneus	42254_0:0043da	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00146c	RPS3	Ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	43346_0	Bison bison	43346_0:00291f	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	43346_0	Bison bison	43346_0:004d40	LOC104981419	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	74533_0	Panthera tigris	74533_0:0015f0	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9258_0	Ornithorhynchus anatinus	9258_0:0025f2	LOC100074614	40S ribosomal protein S3-like
+161924at40674	Ribosomal protein S3, C-terminal	40674	9365_0	Erinaceus europaeus	9365_0:00160f	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9483_0	Callithrix jacchus	9483_0:002f3b	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9544_0	Macaca mulatta	9544_0:003874	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9598_0	Pan troglodytes	9598_0:002d38	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9601_0	Pongo abelii	9601_0:002cea	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9606_0	Homo sapiens	9606_0:002fa7	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9606_0	Homo sapiens	9606_0:00301d	RPS3	40S ribosomal protein S3 isoform 2
+161924at40674	Ribosomal protein S3, C-terminal	40674	9646_0	Ailuropoda melanoleuca	9646_0:000bb1	RPS3	Ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9685_0	Felis catus	9685_0:002fc1	RPS3	RPS3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9785_0	Loxodonta africana	9785_0:004195	RPS3	Ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9796_0	Equus caballus	9796_0:001bc8	RPS3	RPS3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9823_0	Sus scrofa	9823_0:002b93	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9913_0	Bos taurus	9913_0:002e78	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9925_0	Capra hircus	9925_0:002a53	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9938_0	Ovis aries musimon	9938_0:003192	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9940_0	Ovis aries	9940_0:003510	RPS3	40S ribosomal protein S3
+161924at40674	Ribosomal protein S3, C-terminal	40674	9986_0	Oryctolagus cuniculus	9986_0:0005e4	RPS3	40S ribosomal protein S3
+162535at40674	Nucleophosmin, C-terminal	40674	10090_0	Mus musculus	10090_0:00371a	Npm1	Npm1 protein
+162535at40674	Nucleophosmin, C-terminal	40674	10116_0	Rattus norvegicus	10116_0:0035dc	Npm1	Nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	10116_0	Rattus norvegicus	10116_0:005631	LOC300303	nucleophosmin-like isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	13616_0	Monodelphis domestica	13616_0:000ffb	NPM1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	13616_0	Monodelphis domestica	13616_0:0041e5	LOC100617346	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	13616_0	Monodelphis domestica	13616_0:004c54	LOC100018768	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:001528	LOC102475883	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:002413	LOC106735456	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:002af2	LOC102474726	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:0034a6	LOC106736225	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:0039af	LOC106736426	LOW QUALITY PROTEIN: nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:004a31	LOC106733891	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	34839_0	Chinchilla lanigera	34839_0:00064b	Npm1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	42254_0	Sorex araneus	42254_0:002573	NPM1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	43179_0	Ictidomys tridecemlineatus	43179_0:0032e8	Npm1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	43346_0	Bison bison	43346_0:00227b	LOC104991743	transcription initiation factor TFIID subunit 4-like
+162535at40674	Nucleophosmin, C-terminal	40674	43346_0	Bison bison	43346_0:0030fc	NPM1	nucleophosmin isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	74533_0	Panthera tigris	74533_0:000af1	NPM1	nucleophosmin isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	9258_0	Ornithorhynchus anatinus	9258_0:0008ae	NPM1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9365_0	Erinaceus europaeus	9365_0:00179e	NPM1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9483_0	Callithrix jacchus	9483_0:000716	NPM1	Nucleophosmin isoform 1
+162535at40674	Nucleophosmin, C-terminal	40674	9544_0	Macaca mulatta	9544_0:000c91	LOC697644	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	9544_0	Macaca mulatta	9544_0:001b93	NPM1	Nucleophosmin isoform 1
+162535at40674	Nucleophosmin, C-terminal	40674	9598_0	Pan troglodytes	9598_0:001819	NPM1	NPM1 isoform 1
+162535at40674	Nucleophosmin, C-terminal	40674	9598_0	Pan troglodytes	9598_0:00208f	LOC100608524	nucleophosmin-like isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	9601_0	Pongo abelii	9601_0:000f81	LOC103890272	nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	9601_0	Pongo abelii	9601_0:00170e	DKFZp469O2211	Uncharacterized protein DKFZp469O2211
+162535at40674	Nucleophosmin, C-terminal	40674	9601_0	Pongo abelii	9601_0:001d0c	LOC100454929	nucleophosmin-like isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	9601_0	Pongo abelii	9601_0:002b86	LOC100454680	nucleophosmin-like isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	9606_0	Homo sapiens	9606_0:001730	NPM1	Nucleophosmin isoform 2
+162535at40674	Nucleophosmin, C-terminal	40674	9646_0	Ailuropoda melanoleuca	9646_0:00288e	NPM1	NPM1
+162535at40674	Nucleophosmin, C-terminal	40674	9646_0	Ailuropoda melanoleuca	9646_0:003661	LOC100479614	LOW QUALITY PROTEIN: nucleophosmin-like
+162535at40674	Nucleophosmin, C-terminal	40674	9685_0	Felis catus	9685_0:00018a	NPM1	Nucleophosmin 1
+162535at40674	Nucleophosmin, C-terminal	40674	9785_0	Loxodonta africana	9785_0:000481	NPM1	NPM1
+162535at40674	Nucleophosmin, C-terminal	40674	9796_0	Equus caballus	9796_0:003200	NPM1	Nucleophosmin 1
+162535at40674	Nucleophosmin, C-terminal	40674	9823_0	Sus scrofa	9823_0:004474	NPM1	Nucleophosmin 1
+162535at40674	Nucleophosmin, C-terminal	40674	9913_0	Bos taurus	9913_0:003dfe	NPM1	Nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9925_0	Capra hircus	9925_0:003130	LOC102176453	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9925_0	Capra hircus	9925_0:003a07	NPM1	nucleophosmin isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	9938_0	Ovis aries musimon	9938_0:002b9a	NPM1	nucleophosmin isoform X2
+162535at40674	Nucleophosmin, C-terminal	40674	9940_0	Ovis aries	9940_0:000434	LOC101102605	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9940_0	Ovis aries	9940_0:001f3b	LOC101113241	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9940_0	Ovis aries	9940_0:003921	NPM1	LOW QUALITY PROTEIN: nucleophosmin isoform X1
+162535at40674	Nucleophosmin, C-terminal	40674	9986_0	Oryctolagus cuniculus	9986_0:000c63	NPM1	nucleophosmin
+162535at40674	Nucleophosmin, C-terminal	40674	9986_0	Oryctolagus cuniculus	9986_0:001159	NPM1	Nucleophosmin 1 isoform 1 (Predicted)
+187410at40674	Cold shock domain	40674	10090_0	Mus musculus	10090_0:00156c	Ybx1	Nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	10116_0	Rattus norvegicus	10116_0:0022bf	Ybx1	Nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	10141_0	Cavia porcellus	10141_0:0007e1	YB1	Y-box binding protein 1
+187410at40674	Cold shock domain	40674	13616_0	Monodelphis domestica	13616_0:003500	YBX1	nuclease-sensitive element-binding protein 1 isoform X1
+187410at40674	Cold shock domain	40674	246437_0	Tupaia chinensis	246437_0:00124a	LOC102496080	LOW QUALITY PROTEIN: nuclease-sensitive element-binding protein 1-like
+187410at40674	Cold shock domain	40674	246437_0	Tupaia chinensis	246437_0:002348	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	246437_0	Tupaia chinensis	246437_0:004ed2	LOC102499206	LOW QUALITY PROTEIN: nuclease-sensitive element-binding protein 1-like
+187410at40674	Cold shock domain	40674	34839_0	Chinchilla lanigera	34839_0:004713	Ybx1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	42254_0	Sorex araneus	42254_0:002e05	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00063b	Ybx1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:004002	LOC101961017	LOW QUALITY PROTEIN: nuclease-sensitive element-binding protein 1-like
+187410at40674	Cold shock domain	40674	43346_0	Bison bison	43346_0:004697	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	74533_0	Panthera tigris	74533_0:000c63	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9258_0	Ornithorhynchus anatinus	9258_0:002b08	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9365_0	Erinaceus europaeus	9365_0:002623	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9365_0	Erinaceus europaeus	9365_0:0027c6	LOC103116761	LOW QUALITY PROTEIN
+187410at40674	Cold shock domain	40674	9483_0	Callithrix jacchus	9483_0:001e69	LOC100401646	LOW QUALITY PROTEIN: nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9483_0	Callithrix jacchus	9483_0:004cac	LOC100413674	LOW QUALITY PROTEIN: nuclease-sensitive element-binding protein 1-like
+187410at40674	Cold shock domain	40674	9544_0	Macaca mulatta	9544_0:0005a8	YBX1	nuclease-sensitive element-binding protein 1 isoform X1
+187410at40674	Cold shock domain	40674	9598_0	Pan troglodytes	9598_0:0005f2	YBX1	YBX1 isoform 1
+187410at40674	Cold shock domain	40674	9601_0	Pongo abelii	9601_0:0006fd	YBX1	YBX1 isoform 1
+187410at40674	Cold shock domain	40674	9606_0	Homo sapiens	9606_0:0000b1	YBX1	Nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9646_0	Ailuropoda melanoleuca	9646_0:003a9d	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9685_0	Felis catus	9685_0:00226b	YBX1	YBX1
+187410at40674	Cold shock domain	40674	9785_0	Loxodonta africana	9785_0:002ed8	YBX1	Y-box binding protein 1
+187410at40674	Cold shock domain	40674	9796_0	Equus caballus	9796_0:000835	YBX1	nuclease-sensitive element-binding protein 1 isoform X1
+187410at40674	Cold shock domain	40674	9823_0	Sus scrofa	9823_0:00239c	YBX1	LOW QUALITY PROTEIN: nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9913_0	Bos taurus	9913_0:0008f6	YBX1	Nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9925_0	Capra hircus	9925_0:000809	YBX1	nuclease-sensitive element-binding protein 1 isoform X1
+187410at40674	Cold shock domain	40674	9938_0	Ovis aries musimon	9938_0:002601	YBX1	nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9940_0	Ovis aries	9940_0:000472	NSEP1	Nuclease sensitive element binding protein 1
+187410at40674	Cold shock domain	40674	9986_0	Oryctolagus cuniculus	9986_0:0018a2	YBX1	Nuclease-sensitive element-binding protein 1
+187410at40674	Cold shock domain	40674	9986_0	Oryctolagus cuniculus	9986_0:0021e8	YBX1	nuclease-sensitive element-binding protein 1
+46955at40674	Ku, C-terminal	40674	10090_0	Mus musculus	10090_0:0001eb	Xrcc5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	10116_0	Rattus norvegicus	10116_0:003292	Xrcc5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	10141_0	Cavia porcellus	10141_0:00062a	XRCC5	X-ray repair cross complementing 5
+46955at40674	Ku, C-terminal	40674	13616_0	Monodelphis domestica	13616_0:004597	XRCC5	X-ray repair cross complementing 5
+46955at40674	Ku, C-terminal	40674	246437_0	Tupaia chinensis	246437_0:002c62	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	34839_0	Chinchilla lanigera	34839_0:002a06	Xrcc5	X-ray repair cross-complementing protein 5 isoform X1
+46955at40674	Ku, C-terminal	40674	42254_0	Sorex araneus	42254_0:00041e	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	43179_0	Ictidomys tridecemlineatus	43179_0:002c62	Xrcc5	X-ray repair cross-complementing protein 5 isoform X1
+46955at40674	Ku, C-terminal	40674	43346_0	Bison bison	43346_0:004361	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	74533_0	Panthera tigris	74533_0:00240e	XRCC5	X-ray repair cross-complementing protein 5 isoform X1
+46955at40674	Ku, C-terminal	40674	9258_0	Ornithorhynchus anatinus	9258_0:003ec8	LOC103166242	X-ray repair cross-complementing protein 5-like
+46955at40674	Ku, C-terminal	40674	9258_0	Ornithorhynchus anatinus	9258_0:0047e4	LOC103167825	X-ray repair cross-complementing protein 5-like
+46955at40674	Ku, C-terminal	40674	9365_0	Erinaceus europaeus	9365_0:0040b3	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9483_0	Callithrix jacchus	9483_0:001b55	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9544_0	Macaca mulatta	9544_0:0031a1	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9598_0	Pan troglodytes	9598_0:000cbe	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9601_0	Pongo abelii	9601_0:000cba	DKFZp469K071	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9606_0	Homo sapiens	9606_0:000cd3	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9646_0	Ailuropoda melanoleuca	9646_0:00057e	XRCC5	X-ray repair cross-complementing protein 5 isoform X1
+46955at40674	Ku, C-terminal	40674	9685_0	Felis catus	9685_0:002683	XRCC5	X-ray repair cross complementing 5
+46955at40674	Ku, C-terminal	40674	9785_0	Loxodonta africana	9785_0:000846	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9796_0	Equus caballus	9796_0:00147d	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9823_0	Sus scrofa	9823_0:0042ec	XRCC5	X-ray repair cross complementing 5
+46955at40674	Ku, C-terminal	40674	9913_0	Bos taurus	9913_0:000604	XRCC5	XRCC5 protein
+46955at40674	Ku, C-terminal	40674	9925_0	Capra hircus	9925_0:000377	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9938_0	Ovis aries musimon	9938_0:0046cb	XRCC5	X-ray repair cross-complementing protein 5
+46955at40674	Ku, C-terminal	40674	9940_0	Ovis aries	9940_0:000bcd	XRCC5	X-ray repair cross complementing 5
+46955at40674	Ku, C-terminal	40674	9986_0	Oryctolagus cuniculus	9986_0:0012ef	XRCC5	X-ray repair cross complementing 5
+76715at40674	Sirtuin family	40674	10090_0	Mus musculus	10090_0:003209	Sirt1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	10116_0	Rattus norvegicus	10116_0:005414	Sirt1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	10141_0	Cavia porcellus	10141_0:00352f	SIRT1	Sirtuin 1
+76715at40674	Sirtuin family	40674	13616_0	Monodelphis domestica	13616_0:00045a	SIRT1	Sirtuin 1
+76715at40674	Sirtuin family	40674	246437_0	Tupaia chinensis	246437_0:001757	SIRT1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	34839_0	Chinchilla lanigera	34839_0:001892	Sirt1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	42254_0	Sorex araneus	42254_0:0037a8	SIRT1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	43179_0	Ictidomys tridecemlineatus	43179_0:001bfb	Sirt1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	43346_0	Bison bison	43346_0:003285	SIRT1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	74533_0	Panthera tigris	74533_0:003f3b	SIRT1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9258_0	Ornithorhynchus anatinus	9258_0:001864	SIRT1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	9365_0	Erinaceus europaeus	9365_0:0034a2	SIRT1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	9483_0	Callithrix jacchus	9483_0:003396	SIRT1	SIRT1
+76715at40674	Sirtuin family	40674	9544_0	Macaca mulatta	9544_0:0025ef	SIRT1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9598_0	Pan troglodytes	9598_0:0029be	SIRT1	SIRT1 isoform 1
+76715at40674	Sirtuin family	40674	9601_0	Pongo abelii	9601_0:0028b5	SIRT1	SIRT1 isoform 1
+76715at40674	Sirtuin family	40674	9606_0	Homo sapiens	9606_0:0029d7	SIRT1	Sirtuin (Silent mating type information regulation 2 homolog) 1 (S. cerevisiae), isoform CRA_a
+76715at40674	Sirtuin family	40674	9646_0	Ailuropoda melanoleuca	9646_0:000599	SIRT1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9685_0	Felis catus	9685_0:00349e	SIRT1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	9785_0	Loxodonta africana	9785_0:0015a4	SIRT1	LOW QUALITY PROTEIN: NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	9796_0	Equus caballus	9796_0:000098	SIRT1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9823_0	Sus scrofa	9823_0:003e87	SIRT1	Sirtuin 1
+76715at40674	Sirtuin family	40674	9913_0	Bos taurus	9913_0:004b2e	SIRT1	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9913_0	Bos taurus	9913_0:004c1e	SIRT1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	9925_0	Capra hircus	9925_0:00476e	Sirt1	NAD-dependent protein deacetylase sirtuin-1
+76715at40674	Sirtuin family	40674	9938_0	Ovis aries musimon	9938_0:0013c2	TRNAC-GCA	NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9940_0	Ovis aries	9940_0:00494b	SIRT1	LOW QUALITY PROTEIN: NAD-dependent protein deacetylase sirtuin-1 isoform X1
+76715at40674	Sirtuin family	40674	9986_0	Oryctolagus cuniculus	9986_0:002ee4	SIRT1	Sirtuin 1
+79669at40674	X-ray repair cross complementing 6	40674	10090_0	Mus musculus	10090_0:004657	Desi1;Xrcc6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	10116_0	Rattus norvegicus	10116_0:002aea	Xrcc6	X-ray repair complementing defective repair in Chinese hamster cells 6, isoform CRA_a
+79669at40674	X-ray repair cross complementing 6	40674	10141_0	Cavia porcellus	10141_0:00278f	XRCC6	X-ray repair cross complementing 6
+79669at40674	X-ray repair cross complementing 6	40674	13616_0	Monodelphis domestica	13616_0:005091	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	246437_0	Tupaia chinensis	246437_0:001bf9	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	34839_0	Chinchilla lanigera	34839_0:000c6a	Xrcc6	X-ray repair cross-complementing protein 6 isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	42254_0	Sorex araneus	42254_0:00222f	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	43179_0	Ictidomys tridecemlineatus	43179_0:001237	XRCC6	X-ray repair cross complementing 6
+79669at40674	X-ray repair cross complementing 6	40674	43346_0	Bison bison	43346_0:00095e	XRCC6	X-ray repair cross-complementing protein 6 isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	74533_0	Panthera tigris	74533_0:0011fa	DESI1	X-ray repair cross-complementing protein 6 isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	9258_0	Ornithorhynchus anatinus	9258_0:003231	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	9365_0	Erinaceus europaeus	9365_0:001ed3	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	9483_0	Callithrix jacchus	9483_0:0008b2	LOC100412666	LOW QUALITY PROTEIN: X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	9483_0	Callithrix jacchus	9483_0:004f68	XRCC6	X-ray repair cross complementing 6
+79669at40674	X-ray repair cross complementing 6	40674	9544_0	Macaca mulatta	9544_0:0025b3	LOC699639	LOW QUALITY PROTEIN: X-ray repair cross-complementing protein 6-like
+79669at40674	X-ray repair cross complementing 6	40674	9544_0	Macaca mulatta	9544_0:002724	XRCC6	X-ray repair cross complementing 6
+79669at40674	X-ray repair cross complementing 6	40674	9598_0	Pan troglodytes	9598_0:004fa3	XRCC6	ATP-dependent DNA helicase 2 subunit 1
+79669at40674	X-ray repair cross complementing 6	40674	9601_0	Pongo abelii	9601_0:004c14	DKFZp459H0114	Uncharacterized protein DKFZp459H0114
+79669at40674	X-ray repair cross complementing 6	40674	9606_0	Homo sapiens	9606_0:004e86	XRCC6	X-ray repair complementing defective repair in Chinese hamster cells 6 (Ku autoantigen, 70kDa), isoform CRA_a
+79669at40674	X-ray repair cross complementing 6	40674	9646_0	Ailuropoda melanoleuca	9646_0:004245	XRCC6	X-ray repair cross complementing 6
+79669at40674	X-ray repair cross complementing 6	40674	9685_0	Felis catus	9685_0:001d69	DESI1;XRCC6	Desumoylating isopeptidase 1
+79669at40674	X-ray repair cross complementing 6	40674	9785_0	Loxodonta africana	9785_0:004088	XRCC6	X-ray repair cross-complementing protein 6 isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	9796_0	Equus caballus	9796_0:004acc	XRCC6	X-ray repair cross-complementing protein 6 isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	9823_0	Sus scrofa	9823_0:001b59	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	9913_0	Bos taurus	9913_0:000f0c	XRCC6	X-ray repair cross complementing 6
+79669at40674	X-ray repair cross complementing 6	40674	9925_0	Capra hircus	9925_0:000d57	XRCC6	X-ray repair cross-complementing protein 6
+79669at40674	X-ray repair cross complementing 6	40674	9938_0	Ovis aries musimon	9938_0:003482	XRCC6	X-ray repair cross-complementing protein 6 isoform X2
+79669at40674	X-ray repair cross complementing 6	40674	9938_0	Ovis aries musimon	9938_0:0050f3	LOC101117389	X-ray repair cross-complementing protein 6-like isoform X2
+79669at40674	X-ray repair cross complementing 6	40674	9940_0	Ovis aries	9940_0:000799	LOC101117389	X-ray repair cross-complementing protein 6-like isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	9940_0	Ovis aries	9940_0:00134b	XRCC6	X-ray repair cross-complementing protein 6 isoform X1
+79669at40674	X-ray repair cross complementing 6	40674	9986_0	Oryctolagus cuniculus	9986_0:003c92	XRCC6	X-ray repair cross complementing 6
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	10090_0	Mus musculus	10090_0:0021b3	Hnrnpl	Hnrnpl
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	10116_0	Rattus norvegicus	10116_0:000925	Hnrnpl	Heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	10141_0	Cavia porcellus	10141_0:001b23	Hnrnpl	Heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	13616_0	Monodelphis domestica	13616_0:002eb5	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	246437_0	Tupaia chinensis	246437_0:0037f1	HNRNPL	heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	34839_0	Chinchilla lanigera	34839_0:00329f	Hnrnpl	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	42254_0	Sorex araneus	42254_0:0038a6	HNRNPL	heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00399b	Hnrnpl	Heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	43346_0	Bison bison	43346_0:002c0f	HNRNPL	LOW QUALITY PROTEIN: heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	74533_0	Panthera tigris	74533_0:004240	HNRNPL	LOW QUALITY PROTEIN: heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9258_0	Ornithorhynchus anatinus	9258_0:003d9a	HNRNPL	heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9365_0	Erinaceus europaeus	9365_0:00202e	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9483_0	Callithrix jacchus	9483_0:004736	HNRNPL	Heterogeneous nuclear ribonucleoprotein L isoform a
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9544_0	Macaca mulatta	9544_0:0048d8	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9598_0	Pan troglodytes	9598_0:00454e	HNRNPL	HNRNPL isoform 8
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9601_0	Pongo abelii	9601_0:004388	HNRNPL	LOW QUALITY PROTEIN: heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9606_0	Homo sapiens	9606_0:00473d	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9606_0	Homo sapiens	9606_0:00544c	HNRNPL	Heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9646_0	Ailuropoda melanoleuca	9646_0:003a97	HNRNPL	LOW QUALITY PROTEIN: heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9685_0	Felis catus	9685_0:0040e1	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9796_0	Equus caballus	9796_0:00257b	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9823_0	Sus scrofa	9823_0:002230	HNRNPL	LOW QUALITY PROTEIN: heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9913_0	Bos taurus	9913_0:00357c	HNRNPL	Heterogeneous nuclear ribonucleoprotein L
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9925_0	Capra hircus	9925_0:0030f6	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X1
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9938_0	Ovis aries musimon	9938_0:001a80	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X3
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9940_0	Ovis aries	9940_0:0030e4	HNRNPL	heterogeneous nuclear ribonucleoprotein L isoform X2
+84892at40674	Heterogeneous nuclear ribonucleoprotein L	40674	9986_0	Oryctolagus cuniculus	9986_0:000ff0	HNRNPL	Heterogeneous nuclear ribonucleoprotein L

@@ -1,0 +1,30 @@
+pub_og_id	og_name	level_taxid	organism_taxid	organism_name	int_prot_id	pub_gene_id	description
+206351at40674	ATP synthase membrane subunit c locus 1	40674	10090_0	Mus musculus	10090_0:0034c4	Atp5mc1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	10116_0	Rattus norvegicus	10116_0:00386d	Atp5mc1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	10141_0	Cavia porcellus	10141_0:001a5d	Atp5g1	Atp5g1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	13616_0	Monodelphis domestica	13616_0:0012c0	ATP5G1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	246437_0	Tupaia chinensis	246437_0:004438	ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	34839_0	Chinchilla lanigera	34839_0:00276b	Atp5mc1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	42254_0	Sorex araneus	42254_0:001ba2	ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00103c	ATP5G1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	43346_0	Bison bison	43346_0:00201d	ATP5G1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	74533_0	Panthera tigris	74533_0:002314	ATP5G1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9365_0	Erinaceus europaeus	9365_0:00309d	ATP5G1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9483_0	Callithrix jacchus	9483_0:001279	ATP5G1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9544_0	Macaca mulatta	9544_0:0008ab	LOC694260	LOW QUALITY PROTEIN: ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9544_0	Macaca mulatta	9544_0:00165f	LOC707476	LOC707476
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9544_0	Macaca mulatta	9544_0:003f9c	ATP5G1	ATP synthase lipid-binding protein, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9598_0	Pan troglodytes	9598_0:004080	ATP5MC1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9601_0	Pongo abelii	9601_0:003f0f	ATP5G1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9606_0	Homo sapiens	9606_0:00415a	ATP5G1;ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9646_0	Ailuropoda melanoleuca	9646_0:00114b	ATP5MC1	ATP5G1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9685_0	Felis catus	9685_0:003ed5	ATP5G1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9785_0	Loxodonta africana	9785_0:002b05	ATP5G1	ATP synthase membrane subunit c locus 1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9796_0	Equus caballus	9796_0:00281a	ATP5MC1	ATP5MC1
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9823_0	Sus scrofa	9823_0:00364f	ATP5G1;ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9823_0	Sus scrofa	9823_0:003c30	LOC100519871	LOC100519871
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9913_0	Bos taurus	9913_0:003ba0	ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9925_0	Capra hircus	9925_0:003902	ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9938_0	Ovis aries musimon	9938_0:001616	ATP5G1	ATP synthase F(0) complex subunit C1, mitochondrial precursor
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9940_0	Ovis aries	9940_0:0027b8	ATP5MC1	ATP synthase F(0) complex subunit C1, mitochondrial
+206351at40674	ATP synthase membrane subunit c locus 1	40674	9986_0	Oryctolagus cuniculus	9986_0:0033f5	ATP5G1	ATP synthase membrane subunit c locus 1

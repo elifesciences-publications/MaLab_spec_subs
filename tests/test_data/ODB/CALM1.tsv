@@ -1,0 +1,180 @@
+pub_og_id	og_name	level_taxid	organism_taxid	organism_name	int_prot_id	pub_gene_id	description
+169352at40674	EF-hand domain	40674	10141_0	Cavia porcellus	10141_0:0003e5	Calml6	LOW QUALITY PROTEIN: calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	246437_0	Tupaia chinensis	246437_0:002829	LOC102485493	calmodulin-like
+169352at40674	EF-hand domain	40674	246437_0	Tupaia chinensis	246437_0:0036c5	CALML6	calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:0041cf	Calml6	calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	43346_0	Bison bison	43346_0:002eaa	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	74533_0	Panthera tigris	74533_0:003c4a	CALML6	calmodulin-like protein 6 isoform X1
+169352at40674	EF-hand domain	40674	9483_0	Callithrix jacchus	9483_0:001c86	CALML6	calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9544_0	Macaca mulatta	9544_0:00049e	CALML6	calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9598_0	Pan troglodytes	9598_0:0007f8	CALML6	CALML6 isoform 2
+169352at40674	EF-hand domain	40674	9601_0	Pongo abelii	9601_0:0007f5	CALML6	CALML6 isoform 1
+169352at40674	EF-hand domain	40674	9606_0	Homo sapiens	9606_0:0006d5	CALML6	Calmodulin-like 6, isoform CRA_a
+169352at40674	EF-hand domain	40674	9646_0	Ailuropoda melanoleuca	9646_0:002ea6	CALML6	calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9685_0	Felis catus	9685_0:002226	CALML6	calmodulin-like protein 6 isoform X1
+169352at40674	EF-hand domain	40674	9796_0	Equus caballus	9796_0:00065d	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9823_0	Sus scrofa	9823_0:001c9a	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9913_0	Bos taurus	9913_0:002f9c	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9925_0	Capra hircus	9925_0:002e32	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6
+169352at40674	EF-hand domain	40674	9938_0	Ovis aries musimon	9938_0:0022bc	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6 isoform X2
+169352at40674	EF-hand domain	40674	9940_0	Ovis aries	9940_0:002c7b	CALML6	LOW QUALITY PROTEIN: calmodulin-like protein 6 isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	10090_0	Mus musculus	10090_0:0021e1	Calm1;Calm2;Calm3	Calm1
+193282at40674	EF-hand, Ca insensitive	40674	10090_0	Mus musculus	10090_0:003d37	Calm1	Calmodulin-1
+193282at40674	EF-hand, Ca insensitive	40674	10090_0	Mus musculus	10090_0:004e13	Calm1;Calm2;Calm3	Calm1
+193282at40674	EF-hand, Ca insensitive	40674	10116_0	Rattus norvegicus	10116_0:00072c	Calm1;Calm2;Calm3	Calmodulin-1
+193282at40674	EF-hand, Ca insensitive	40674	10116_0	Rattus norvegicus	10116_0:002547	Calm1;Calm2;Calm3	Calmodulin-1
+193282at40674	EF-hand, Ca insensitive	40674	10116_0	Rattus norvegicus	10116_0:00268c	Calm1;Calm2;Calm3	Calmodulin-1
+193282at40674	EF-hand, Ca insensitive	40674	10141_0	Cavia porcellus	10141_0:0010d3	CALM2	Calmodulin 2
+193282at40674	EF-hand, Ca insensitive	40674	10141_0	Cavia porcellus	10141_0:002f64	CALM2	Calmodulin 2
+193282at40674	EF-hand, Ca insensitive	40674	10141_0	Cavia porcellus	10141_0:003178	CALM2	Calmodulin 2
+193282at40674	EF-hand, Ca insensitive	40674	13616_0	Monodelphis domestica	13616_0:00012c	CALM1	CALM1
+193282at40674	EF-hand, Ca insensitive	40674	13616_0	Monodelphis domestica	13616_0:000da9	CALM1	CALM1
+193282at40674	EF-hand, Ca insensitive	40674	13616_0	Monodelphis domestica	13616_0:002b3d	CALM1	CALM1
+193282at40674	EF-hand, Ca insensitive	40674	246437_0	Tupaia chinensis	246437_0:0005d1	CALM3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	246437_0	Tupaia chinensis	246437_0:002dd0	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	246437_0	Tupaia chinensis	246437_0:0032a8	CALM2	calmodulin isoform X2
+193282at40674	EF-hand, Ca insensitive	40674	34839_0	Chinchilla lanigera	34839_0:002079	Calm1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	34839_0	Chinchilla lanigera	34839_0:00219d	Calm2	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	34839_0	Chinchilla lanigera	34839_0:004d0d	Calm3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	42254_0	Sorex araneus	42254_0:001897	CALM3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	42254_0	Sorex araneus	42254_0:00211b	CALM1	calmodulin isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	42254_0	Sorex araneus	42254_0:003ce0	CALM2	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	43179_0	Ictidomys tridecemlineatus	43179_0:000f6a	LOC101967074	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	43179_0	Ictidomys tridecemlineatus	43179_0:00184f	Calm2	Calm2
+193282at40674	EF-hand, Ca insensitive	40674	43179_0	Ictidomys tridecemlineatus	43179_0:003a53	Calm2	Calm2
+193282at40674	EF-hand, Ca insensitive	40674	43346_0	Bison bison	43346_0:00170f	CALM2	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	43346_0	Bison bison	43346_0:0023df	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	43346_0	Bison bison	43346_0:003376	CALM3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	43346_0	Bison bison	43346_0:003528	LOC104998408	calmodulin-alpha-like
+193282at40674	EF-hand, Ca insensitive	40674	74533_0	Panthera tigris	74533_0:002020	CALM2	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	74533_0	Panthera tigris	74533_0:003d6c	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9258_0	Ornithorhynchus anatinus	9258_0:000033	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9258_0	Ornithorhynchus anatinus	9258_0:003e60	LOC100083509	LOC100083509
+193282at40674	EF-hand, Ca insensitive	40674	9365_0	Erinaceus europaeus	9365_0:00281c	CALM1	calmodulin isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	9365_0	Erinaceus europaeus	9365_0:0036b8	CALM1	calmodulin isoform X2
+193282at40674	EF-hand, Ca insensitive	40674	9365_0	Erinaceus europaeus	9365_0:003cad	CALM1	calmodulin isoform X2
+193282at40674	EF-hand, Ca insensitive	40674	9483_0	Callithrix jacchus	9483_0:002860	CALM3	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9483_0	Callithrix jacchus	9483_0:003927	CALM3	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9483_0	Callithrix jacchus	9483_0:0046d2	CALM3	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9544_0	Macaca mulatta	9544_0:000ecc	LOC717686	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9544_0	Macaca mulatta	9544_0:001efe	LOC717686	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9544_0	Macaca mulatta	9544_0:0031ff	LOC717686	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9598_0	Pan troglodytes	9598_0:000a46	CALM2	calmodulin-2 isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	9598_0	Pan troglodytes	9598_0:003808	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9598_0	Pan troglodytes	9598_0:004902	CALM2	CALM1 isoform 2
+193282at40674	EF-hand, Ca insensitive	40674	9601_0	Pongo abelii	9601_0:000949	CALM2	calmodulin-2 isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	9601_0	Pongo abelii	9601_0:003546	CALM;CALM1	CALM1 isoform 1
+193282at40674	EF-hand, Ca insensitive	40674	9601_0	Pongo abelii	9601_0:00450f	CALM;CALM3	CALM1 isoform 1
+193282at40674	EF-hand, Ca insensitive	40674	9606_0	Homo sapiens	9606_0:0008cf	CALM1	CALM1 protein
+193282at40674	EF-hand, Ca insensitive	40674	9606_0	Homo sapiens	9606_0:003762	CALM1	Calmodulin-1
+193282at40674	EF-hand, Ca insensitive	40674	9606_0	Homo sapiens	9606_0:004912	CALM1;CALM2;CALM3	Calmodulin 1 (Phosphorylase kinase, delta), isoform CRA_a
+193282at40674	EF-hand, Ca insensitive	40674	9646_0	Ailuropoda melanoleuca	9646_0:0000c3	CALM2	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9646_0	Ailuropoda melanoleuca	9646_0:00207d	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9646_0	Ailuropoda melanoleuca	9646_0:002934	CALM3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9685_0	Felis catus	9685_0:000fe9	CALM2	CALM2
+193282at40674	EF-hand, Ca insensitive	40674	9685_0	Felis catus	9685_0:0019c1	CALM2	CALM2
+193282at40674	EF-hand, Ca insensitive	40674	9685_0	Felis catus	9685_0:003f7c	CALM2	CALM2
+193282at40674	EF-hand, Ca insensitive	40674	9785_0	Loxodonta africana	9785_0:000c24	LOC100657612	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9785_0	Loxodonta africana	9785_0:00132a	CALM1	calmodulin-1
+193282at40674	EF-hand, Ca insensitive	40674	9785_0	Loxodonta africana	9785_0:003725	CALM2	calmodulin-2
+193282at40674	EF-hand, Ca insensitive	40674	9796_0	Equus caballus	9796_0:0024fb	CALM2	Calmodulin 2
+193282at40674	EF-hand, Ca insensitive	40674	9796_0	Equus caballus	9796_0:003400	CALM	Calmodulin-like protein
+193282at40674	EF-hand, Ca insensitive	40674	9796_0	Equus caballus	9796_0:004589	CALM2	Calmodulin 2
+193282at40674	EF-hand, Ca insensitive	40674	9823_0	Sus scrofa	9823_0:000f42	CALM3	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9823_0	Sus scrofa	9823_0:001d3f	CALM3	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9823_0	Sus scrofa	9823_0:0026be	CALM3	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9913_0	Bos taurus	9913_0:002123	CALM1	calmodulin isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	9913_0	Bos taurus	9913_0:0022ea	CALM	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9913_0	Bos taurus	9913_0:003519	CALM	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9913_0	Bos taurus	9913_0:003daf	CALM	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9925_0	Capra hircus	9925_0:001d15	CALM1	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9925_0	Capra hircus	9925_0:002267	CALM2	calmodulin isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	9925_0	Capra hircus	9925_0:003405	CALM3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9938_0	Ovis aries musimon	9938_0:00080f	CALM2	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9938_0	Ovis aries musimon	9938_0:0016a3	CALM3	calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9938_0	Ovis aries musimon	9938_0:001f35	CALM1	calmodulin isoform X2
+193282at40674	EF-hand, Ca insensitive	40674	9940_0	Ovis aries	9940_0:001234	LOC105614854	LOC105614854
+193282at40674	EF-hand, Ca insensitive	40674	9940_0	Ovis aries	9940_0:00148a	CALM2	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9940_0	Ovis aries	9940_0:002050	CALM1	calmodulin isoform X1
+193282at40674	EF-hand, Ca insensitive	40674	9940_0	Ovis aries	9940_0:0032c8	CALM2	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9986_0	Oryctolagus cuniculus	9986_0:00081d	CALM	Calmodulin
+193282at40674	EF-hand, Ca insensitive	40674	9986_0	Oryctolagus cuniculus	9986_0:0034b7	CALM	Calmodulin
+194001at40674	EF-hand domain	40674	10090_0	Mus musculus	10090_0:005518	Cetn2	Centrin-2
+194001at40674	EF-hand domain	40674	10116_0	Rattus norvegicus	10116_0:005836	Cetn2	centrin-2 isoform X1
+194001at40674	EF-hand domain	40674	10141_0	Cavia porcellus	10141_0:00033f	Cetn2	Cetn2
+194001at40674	EF-hand domain	40674	246437_0	Tupaia chinensis	246437_0:00491b	CETN2	centrin-2
+194001at40674	EF-hand domain	40674	34839_0	Chinchilla lanigera	34839_0:003ea8	Cetn2	centrin-2
+194001at40674	EF-hand domain	40674	42254_0	Sorex araneus	42254_0:001523	CETN2	centrin-2
+194001at40674	EF-hand domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:003fa3	CETN2	Centrin 2
+194001at40674	EF-hand domain	40674	43346_0	Bison bison	43346_0:000007	CETN2	centrin-2
+194001at40674	EF-hand domain	40674	74533_0	Panthera tigris	74533_0:002c1b	CETN2	centrin-2
+194001at40674	EF-hand domain	40674	9365_0	Erinaceus europaeus	9365_0:0031e6	CETN2	centrin-2 isoform X2
+194001at40674	EF-hand domain	40674	9483_0	Callithrix jacchus	9483_0:004e06	CETN2	Centrin 2
+194001at40674	EF-hand domain	40674	9544_0	Macaca mulatta	9544_0:004cc8	CETN2	Centrin-2
+194001at40674	EF-hand domain	40674	9598_0	Pan troglodytes	9598_0:00516d	CETN2	CETN2 isoform 1
+194001at40674	EF-hand domain	40674	9601_0	Pongo abelii	9601_0:004e44	CETN2	CETN2 isoform 1
+194001at40674	EF-hand domain	40674	9606_0	Homo sapiens	9606_0:005022	CETN2	Centrin-2
+194001at40674	EF-hand domain	40674	9646_0	Ailuropoda melanoleuca	9646_0:0045a0	CETN2	centrin-2 isoform X1
+194001at40674	EF-hand domain	40674	9685_0	Felis catus	9685_0:004b62	CETN2	Centrin 2
+194001at40674	EF-hand domain	40674	9785_0	Loxodonta africana	9785_0:004683	CETN2	centrin-2 isoform X1
+194001at40674	EF-hand domain	40674	9796_0	Equus caballus	9796_0:004edd	CETN2	centrin-2
+194001at40674	EF-hand domain	40674	9823_0	Sus scrofa	9823_0:0049bd	CETN2	F2Z563_PIG
+194001at40674	EF-hand domain	40674	9913_0	Bos taurus	9913_0:00520d	CETN2	Centrin-2
+194001at40674	EF-hand domain	40674	9925_0	Capra hircus	9925_0:004df0	CETN2	centrin-2 isoform X2
+194001at40674	EF-hand domain	40674	9938_0	Ovis aries musimon	9938_0:00495c	CETN2	centrin-2
+194001at40674	EF-hand domain	40674	9940_0	Ovis aries	9940_0:004d84	CETN2	CETN2
+194001at40674	EF-hand domain	40674	9986_0	Oryctolagus cuniculus	9986_0:003c4d	CETN2	centrin-2
+201898at40674	EF-hand domain	40674	10090_0	Mus musculus	10090_0:003e3e	Calm5	Calmodulin 5
+201898at40674	EF-hand domain	40674	10090_0	Mus musculus	10090_0:003e95	Calm4	Calmodulin-4
+201898at40674	EF-hand domain	40674	10116_0	Rattus norvegicus	10116_0:004cc3	Calml5	calmodulin-4
+201898at40674	EF-hand domain	40674	10141_0	Cavia porcellus	10141_0:00335f	LOC100728625	calmodulin-4
+201898at40674	EF-hand domain	40674	246437_0	Tupaia chinensis	246437_0:002f05	CALML5	Calmodulin-like protein 5
+201898at40674	EF-hand domain	40674	246437_0	Tupaia chinensis	246437_0:003986	LOC102495258	Calmodulin
+201898at40674	EF-hand domain	40674	34839_0	Chinchilla lanigera	34839_0:0014cf	LOC102022930	calmodulin-4-like
+201898at40674	EF-hand domain	40674	42254_0	Sorex araneus	42254_0:00114c	CALML5	calmodulin-like protein 5
+201898at40674	EF-hand domain	40674	43179_0	Ictidomys tridecemlineatus	43179_0:000cc0	Calml5	calmodulin-like protein 5
+201898at40674	EF-hand domain	40674	43346_0	Bison bison	43346_0:0012f7	CALML5	calmodulin-like protein 5
+201898at40674	EF-hand domain	40674	74533_0	Panthera tigris	74533_0:0016ae	LOC102963939	calmodulin-like
+201898at40674	EF-hand domain	40674	9365_0	Erinaceus europaeus	9365_0:00276c	LOC103116641	calmodulin-like
+201898at40674	EF-hand domain	40674	9483_0	Callithrix jacchus	9483_0:001da2	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9544_0	Macaca mulatta	9544_0:0024d9	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9598_0	Pan troglodytes	9598_0:002a5a	CALML5	CALML5 isoform 1
+201898at40674	EF-hand domain	40674	9601_0	Pongo abelii	9601_0:002645	CALML5	CALML5 isoform 1
+201898at40674	EF-hand domain	40674	9606_0	Homo sapiens	9606_0:002a23	CALML5	Calmodulin-like skin protein variant
+201898at40674	EF-hand domain	40674	9646_0	Ailuropoda melanoleuca	9646_0:001ec5	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9685_0	Felis catus	9685_0:002001	LOC102902667	calmodulin-like
+201898at40674	EF-hand domain	40674	9785_0	Loxodonta africana	9785_0:001bdd	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9796_0	Equus caballus	9796_0:004c5a	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9823_0	Sus scrofa	9823_0:003174	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9913_0	Bos taurus	9913_0:002814	CALML5	CALML5 protein
+201898at40674	EF-hand domain	40674	9925_0	Capra hircus	9925_0:002469	LOC102175311	calmodulin
+201898at40674	EF-hand domain	40674	9938_0	Ovis aries musimon	9938_0:001c95	LOC101105840	calmodulin
+201898at40674	EF-hand domain	40674	9940_0	Ovis aries	9940_0:002d81	CALML5	Calmodulin like 5
+201898at40674	EF-hand domain	40674	9986_0	Oryctolagus cuniculus	9986_0:003e26	CALML5	Calmodulin like 5
+37707at40674	Centriolar coiled-coil protein 110	40674	10090_0	Mus musculus	10090_0:002717	Ccp110	Centriolar coiled-coil protein of 110 kDa
+37707at40674	Centriolar coiled-coil protein 110	40674	10116_0	Rattus norvegicus	10116_0:000c4f	Ccp110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	10141_0	Cavia porcellus	10141_0:0045d1	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	13616_0	Monodelphis domestica	13616_0:003d87	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	246437_0	Tupaia chinensis	246437_0:0010c9	CCP110	centriolar coiled-coil protein of 110 kDa
+37707at40674	Centriolar coiled-coil protein 110	40674	34839_0	Chinchilla lanigera	34839_0:0022cd	Ccp110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	42254_0	Sorex araneus	42254_0:000dae	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	43179_0	Ictidomys tridecemlineatus	43179_0:001630	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	43346_0	Bison bison	43346_0:001477	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	74533_0	Panthera tigris	74533_0:002779	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9258_0	Ornithorhynchus anatinus	9258_0:0000fa	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9365_0	Erinaceus europaeus	9365_0:000b9f	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9483_0	Callithrix jacchus	9483_0:003275	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9544_0	Macaca mulatta	9544_0:004aee	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9598_0	Pan troglodytes	9598_0:003e9e	CCP110	CCP110 isoform 2
+37707at40674	Centriolar coiled-coil protein 110	40674	9601_0	Pongo abelii	9601_0:003bf0	CCP110	CCP110 isoform 1
+37707at40674	Centriolar coiled-coil protein 110	40674	9606_0	Homo sapiens	9606_0:003daa	CCP110	Centriolar coiled-coil protein of 110 kDa
+37707at40674	Centriolar coiled-coil protein 110	40674	9646_0	Ailuropoda melanoleuca	9646_0:003d31	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9685_0	Felis catus	9685_0:0044bf	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9785_0	Loxodonta africana	9785_0:003c83	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9796_0	Equus caballus	9796_0:003034	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9823_0	Sus scrofa	9823_0:0011de	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9913_0	Bos taurus	9913_0:0046e7	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9925_0	Capra hircus	9925_0:0043cb	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9938_0	Ovis aries musimon	9938_0:0018e6	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1
+37707at40674	Centriolar coiled-coil protein 110	40674	9940_0	Ovis aries	9940_0:00475f	CCP110	Centriolar coiled-coil protein 110
+37707at40674	Centriolar coiled-coil protein 110	40674	9986_0	Oryctolagus cuniculus	9986_0:0011ef	CCP110	centriolar coiled-coil protein of 110 kDa isoform X1

@@ -1,0 +1,107 @@
+pub_og_id	og_name	level_taxid	organism_taxid	organism_name	int_prot_id	pub_gene_id	description
+136949at40674	Tetraspanin	40674	10090_0	Mus musculus	10090_0:001c04	Tspan9	Tetraspanin-9
+136949at40674	Tetraspanin	40674	10090_0	Mus musculus	10090_0:0026d2	Tspan4	Tetraspanin
+136949at40674	Tetraspanin	40674	10116_0	Rattus norvegicus	10116_0:0003fd	Tspan4	Tetraspanin
+136949at40674	Tetraspanin	40674	10116_0	Rattus norvegicus	10116_0:0005e2	Tspan4	Tetraspanin
+136949at40674	Tetraspanin	40674	10116_0	Rattus norvegicus	10116_0:001b7e	Tspan9	Tetraspanin
+136949at40674	Tetraspanin	40674	10141_0	Cavia porcellus	10141_0:0002ce	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	10141_0	Cavia porcellus	10141_0:000b21	Tspan9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	13616_0	Monodelphis domestica	13616_0:0048ee	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	13616_0	Monodelphis domestica	13616_0:005167	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	246437_0	Tupaia chinensis	246437_0:003f35	TSPAN4	tetraspanin-4 isoform X2
+136949at40674	Tetraspanin	40674	246437_0	Tupaia chinensis	246437_0:005335	TSPAN9	tetraspanin-9
+136949at40674	Tetraspanin	40674	34839_0	Chinchilla lanigera	34839_0:001aad	Tspan9	tetraspanin-9
+136949at40674	Tetraspanin	40674	34839_0	Chinchilla lanigera	34839_0:0035c1	Tspan4	tetraspanin-4
+136949at40674	Tetraspanin	40674	42254_0	Sorex araneus	42254_0:000a0b	TSPAN4	tetraspanin-4
+136949at40674	Tetraspanin	40674	42254_0	Sorex araneus	42254_0:0022ac	TSPAN9	tetraspanin-9
+136949at40674	Tetraspanin	40674	43179_0	Ictidomys tridecemlineatus	43179_0:003284	TSPAN9	Tetraspanin
+136949at40674	Tetraspanin	40674	43179_0	Ictidomys tridecemlineatus	43179_0:0048e9	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	43346_0	Bison bison	43346_0:0008d4	TSPAN4	tetraspanin-4
+136949at40674	Tetraspanin	40674	43346_0	Bison bison	43346_0:0023b8	TSPAN9	tetraspanin-9
+136949at40674	Tetraspanin	40674	74533_0	Panthera tigris	74533_0:002dc8	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	74533_0	Panthera tigris	74533_0:003b25	TSPAN4	tetraspanin-4 isoform X1
+136949at40674	Tetraspanin	40674	74533_0	Panthera tigris	74533_0:003b35	LOC107180749	tetraspanin-4 isoform X3
+136949at40674	Tetraspanin	40674	9258_0	Ornithorhynchus anatinus	9258_0:004370	LOC100089608	tetraspanin-9
+136949at40674	Tetraspanin	40674	9258_0	Ornithorhynchus anatinus	9258_0:0043ee	LOC100073380	tetraspanin-9-like
+136949at40674	Tetraspanin	40674	9365_0	Erinaceus europaeus	9365_0:002683	TSPAN9	Tetraspanin
+136949at40674	Tetraspanin	40674	9365_0	Erinaceus europaeus	9365_0:00434f	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9483_0	Callithrix jacchus	9483_0:002747	TSPAN9	Tetraspanin
+136949at40674	Tetraspanin	40674	9483_0	Callithrix jacchus	9483_0:003029	TSPAN4	tetraspanin-4
+136949at40674	Tetraspanin	40674	9544_0	Macaca mulatta	9544_0:002e34	TSPAN9	Tetraspanin
+136949at40674	Tetraspanin	40674	9544_0	Macaca mulatta	9544_0:0037c1	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9598_0	Pan troglodytes	9598_0:002c18	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9598_0	Pan troglodytes	9598_0:00342a	TSPAN9	Tetraspanin
+136949at40674	Tetraspanin	40674	9601_0	Pongo abelii	9601_0:002cba	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9601_0	Pongo abelii	9601_0:003059	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9606_0	Homo sapiens	9606_0:002cd3	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9606_0	Homo sapiens	9606_0:0030c8	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9606_0	Homo sapiens	9606_0:0032ae	TSPAN9	Tetraspanin-9
+136949at40674	Tetraspanin	40674	9646_0	Ailuropoda melanoleuca	9646_0:00070b	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9646_0	Ailuropoda melanoleuca	9646_0:0048c9	TSPAN4	tetraspanin-4 isoform X1
+136949at40674	Tetraspanin	40674	9685_0	Felis catus	9685_0:001faa	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9685_0	Felis catus	9685_0:003045	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9785_0	Loxodonta africana	9785_0:001b32	TSPAN9	Tetraspanin
+136949at40674	Tetraspanin	40674	9796_0	Equus caballus	9796_0:0014fd	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9796_0	Equus caballus	9796_0:002bbb	TSPAN4	tetraspanin-4 isoform X1
+136949at40674	Tetraspanin	40674	9823_0	Sus scrofa	9823_0:0017d6	TSPAN9	Tetraspanin-9
+136949at40674	Tetraspanin	40674	9913_0	Bos taurus	9913_0:00102a	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9913_0	Bos taurus	9913_0:004c84	TSPAN4	Tetraspanin
+136949at40674	Tetraspanin	40674	9925_0	Capra hircus	9925_0:001106	TSPAN9	tetraspanin-9 isoform X1
+136949at40674	Tetraspanin	40674	9925_0	Capra hircus	9925_0:005088	TSPAN4	tetraspanin-4 isoform X1
+136949at40674	Tetraspanin	40674	9938_0	Ovis aries musimon	9938_0:002529	TSPAN9	tetraspanin-9
+136949at40674	Tetraspanin	40674	9938_0	Ovis aries musimon	9938_0:0047aa	TSPAN4	tetraspanin-4 isoform X2
+136949at40674	Tetraspanin	40674	9940_0	Ovis aries	9940_0:000ecd	TSPAN9	Tetraspanin-9
+136949at40674	Tetraspanin	40674	9940_0	Ovis aries	9940_0:004258	TSPAN4	LOW QUALITY PROTEIN: tetraspanin-4 isoform X1
+136949at40674	Tetraspanin	40674	9986_0	Oryctolagus cuniculus	9986_0:00167e	TSPAN9	tetraspanin-9 isoform X2
+167859at40674	Tetraspanin	40674	10090_0	Mus musculus	10090_0:001b38	Tspan11	Tetraspanin-11
+167859at40674	Tetraspanin	40674	10090_0	Mus musculus	10090_0:0021fb	Cd151	CD151 antigen
+167859at40674	Tetraspanin	40674	10116_0	Rattus norvegicus	10116_0:0003d0	Cd151	CD151 antigen
+167859at40674	Tetraspanin	40674	10116_0	Rattus norvegicus	10116_0:00090f	Cd151	CD151 antigen
+167859at40674	Tetraspanin	40674	10116_0	Rattus norvegicus	10116_0:001e56	Tspan11	Tetraspanin-11
+167859at40674	Tetraspanin	40674	10141_0	Cavia porcellus	10141_0:0002f4	Cd151	CD151 antigen
+167859at40674	Tetraspanin	40674	10141_0	Cavia porcellus	10141_0:000b2d	Tspan11	Tetraspanin
+167859at40674	Tetraspanin	40674	13616_0	Monodelphis domestica	13616_0:004afa	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	13616_0	Monodelphis domestica	13616_0:005166	CD151	CD151 antigen
+167859at40674	Tetraspanin	40674	246437_0	Tupaia chinensis	246437_0:003f38	CD151	CD151 antigen
+167859at40674	Tetraspanin	40674	246437_0	Tupaia chinensis	246437_0:005333	TSPAN11	tetraspanin-11
+167859at40674	Tetraspanin	40674	34839_0	Chinchilla lanigera	34839_0:001a61	LOC102028320	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	34839_0	Chinchilla lanigera	34839_0:0035b7	Cd151	CD151 antigen
+167859at40674	Tetraspanin	40674	42254_0	Sorex araneus	42254_0:00092d	CD151	CD151 antigen
+167859at40674	Tetraspanin	40674	42254_0	Sorex araneus	42254_0:002212	TSPAN11	tetraspanin-11
+167859at40674	Tetraspanin	40674	43179_0	Ictidomys tridecemlineatus	43179_0:003275	Tspan11	LOW QUALITY PROTEIN: tetraspanin-11
+167859at40674	Tetraspanin	40674	43346_0	Bison bison	43346_0:0002c7	LOC104988432	CD151 antigen
+167859at40674	Tetraspanin	40674	43346_0	Bison bison	43346_0:002437	TSPAN11	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	74533_0	Panthera tigris	74533_0:002de3	LOC102972208	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	9258_0	Ornithorhynchus anatinus	9258_0:004442	LOC100090379	CD151 antigen
+167859at40674	Tetraspanin	40674	9258_0	Ornithorhynchus anatinus	9258_0:0048de	TSPAN11	LOW QUALITY PROTEIN: tetraspanin-11
+167859at40674	Tetraspanin	40674	9365_0	Erinaceus europaeus	9365_0:002685	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9483_0	Callithrix jacchus	9483_0:00248d	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9483_0	Callithrix jacchus	9483_0:002bdf	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9544_0	Macaca mulatta	9544_0:002d93	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9544_0	Macaca mulatta	9544_0:003645	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9598_0	Pan troglodytes	9598_0:002bcf	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9598_0	Pan troglodytes	9598_0:00322d	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9601_0	Pongo abelii	9601_0:0029e4	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9601_0	Pongo abelii	9601_0:00307a	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9606_0	Homo sapiens	9606_0:002ea4	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9606_0	Homo sapiens	9606_0:0030b3	TSPAN11	Tetraspanin-11
+167859at40674	Tetraspanin	40674	9646_0	Ailuropoda melanoleuca	9646_0:0006f6	TSPAN11	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	9646_0	Ailuropoda melanoleuca	9646_0:0048cb	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9685_0	Felis catus	9685_0:001f68	TSPAN11	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	9685_0	Felis catus	9685_0:002d7c	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9785_0	Loxodonta africana	9785_0:001c01	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9796_0	Equus caballus	9796_0:0016ce	TSPAN11	Tetraspanin
+167859at40674	Tetraspanin	40674	9796_0	Equus caballus	9796_0:002c42	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9823_0	Sus scrofa	9823_0:000d30	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9823_0	Sus scrofa	9823_0:00183e	TSPAN11	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	9913_0	Bos taurus	9913_0:000dd4	TSPAN11	Tetraspanin-11
+167859at40674	Tetraspanin	40674	9913_0	Bos taurus	9913_0:004d0a	CD151	Tetraspanin
+167859at40674	Tetraspanin	40674	9925_0	Capra hircus	9925_0:000d49	TSPAN11	tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	9925_0	Capra hircus	9925_0:0048de	CD151	CD151 antigen
+167859at40674	Tetraspanin	40674	9938_0	Ovis aries musimon	9938_0:00252c	LOC101118175	tetraspanin-11 isoform X2
+167859at40674	Tetraspanin	40674	9938_0	Ovis aries musimon	9938_0:002955	LOC105602461	LOW QUALITY PROTEIN: CD151 antigen-like isoform X2
+167859at40674	Tetraspanin	40674	9938_0	Ovis aries musimon	9938_0:0047b2	LOC105613315	CD151 antigen
+167859at40674	Tetraspanin	40674	9940_0	Ovis aries	9940_0:000e73	LOC101118175	LOW QUALITY PROTEIN: tetraspanin-11 isoform X1
+167859at40674	Tetraspanin	40674	9940_0	Ovis aries	9940_0:0038ab	LOC105602461	LOW QUALITY PROTEIN: CD151 antigen-like isoform X1
+167859at40674	Tetraspanin	40674	9986_0	Oryctolagus cuniculus	9986_0:0015a9	TSPAN11	Tetraspanin
+226179at40674	Tetraspanin/Peripherin	40674	43346_0	Bison bison	43346_0:0008c9	LOC105005414	CD151 antigen-like isoform X1
