@@ -261,7 +261,7 @@ def gene_summary_table(align_df, ncbi_idx, test_idx,blos_df, display_summary=Fal
         print("Test Species Index: {0}".format(test_idx))
         display(summary_df)
     if summary_table_outpath:
-        summary_df.to_csv(summary_table_outpath,sep='\t')
+        summary_df.to_csv(summary_table_outpath,sep='\t',float_format='%.5f')
     return summary_df
 
 def load_summary_table(summary_fpath):
@@ -336,7 +336,7 @@ def overall_summary_table(config, gene_symbols,use_jsd_gap_penalty=True,force_re
     us_jsd, us_blos = calc_z_scores(overall_df['JSD']), calc_z_scores(overall_df['Test-Outgroup BLOSUM62'])
     overall_df.loc[:,'JSD US Z-Score'] = us_jsd
     overall_df.loc[:,'Test-Outgroup BLOSUM US Z-Score'] = us_blos
-    overall_df.to_csv(overall_summary_fpath,sep='\t')
+    overall_df.to_csv(overall_summary_fpath,sep='\t',float_format='%.5f')
     return overall_df
 
 
