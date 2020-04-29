@@ -39,7 +39,7 @@ def empty_directory(path):
 
 def create_run_directory(run_name):
     """Make diretory tree for a run. Also creates tmp directory for storage of temporary alignment files"""
-    dirpaths = ["{0}", "{0}/input", "{0}/input/ODB", "{0}/input/NCBI", "{0}/output", "{0}/summary", "{0}/run_params"]
+    dirpaths = ["{0}", "{0}/input", "{0}/input/ODB", "{0}/input/NCBI", "{0}/output", "{0}/summary"]
     for dirpath in dirpaths:
         formatted = dirpath.format(run_name)
         create_directory(formatted)

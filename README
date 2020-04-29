@@ -6,21 +6,25 @@ https://github.com/evanmlee/MaLab_spec_subs
 1) Python Environment
 a) Install conda (Miniconda is sufficient): https://docs.conda.io/projects/conda/en/latest/user-guide/install/
 b) Using terminal, navigate to the MaLab_spec_subs installation directory.
->cd config
 c) run the following command to set up an environment with all required packages from the provided environment yml file.
-> conda env create --file malab_ss.yml
+...:MaLab_spec_subs > conda env create --file config/malab_ss.yml
 d) Before running project script, activate the malab_ss environment
->source activate malab_ss
+...:MaLab_spec_subs > source activate malab_ss
 
 2) Install KAlign:
 https://github.com/TimoLassmann/kalign/
 More recent installation instructions can be found here:
 https://github.com/TimoLassmann/kalign/blob/master/README.md
+Check KAlign command works (ie no "command not found")
+> which kalign
+> kalign --help
 
 3) Run test scripts in tests directory (from main spec_subs directory
 >source activate malab_ss
 (malab_ss) ...:MaLab_spec_subs > python -m unittest discover tests
 
 4) Run main acquisition/filtering/analysis/plotting script
+(malab_ss) ...:MaLab_spec_subs > python spec_subs_main.py
 
-(malab_ss) ...:MaLab_spec_subs > python spec_subs_main.py 
+With the default configuration file, this should create a subdirectory named cDNAscreen_041020 which will contain
+directories for 1) downloaded unfiltered input files (input) 2) filtered record sets and gene specific summary (output)

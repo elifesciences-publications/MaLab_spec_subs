@@ -121,6 +121,11 @@ def config_initialization():
     tax_table = odb_tablev10(spec_list)
     run_name = run_config['RunName']
     SSdirectory.create_run_directory(run_name)
+    #Copy config file to summary_directory
+    src_config = "config/config.txt"
+    dest_config = "{0}/summary/config.txt".format(run_name)
+    import shutil
+    shutil.copy(src_config,dest_config)
     return config, tax_subset, gene_id_df, tax_table
 
 def main():
