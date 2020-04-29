@@ -19,7 +19,9 @@ import unittest
 import pandas as pd
 import os
 import warnings
-os.chdir("..")
+# os.chdir("..")
+import sys
+sys.path.append(os.getcwd())
 
 from SSutility import SSdirectory, SSconfig, SSfasta, SSerrors
 from SSacquisition import ODBquery,NCBIquery
@@ -65,7 +67,7 @@ class testNCBIQuery(unittest.TestCase):
         # Ignore me
         from IPython.display import display
         # config, spec_list, tax_subset, gene_id_df, tax_table = SSconfig.config_initialization()
-        gene_id_df = SSconfig.read_geneID_file("test/test_data/cDNAscreen_geneIDs_clean.csv")
+        gene_id_df = SSconfig.read_geneID_file("tests/test_data/cDNAscreen_geneIDs_clean.csv")
         with pd.option_context('display.max_columns', None, 'display.max_rows', 5):
             pass
         row_generator = gene_id_df.iterrows()

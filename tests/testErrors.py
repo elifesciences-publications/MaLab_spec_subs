@@ -17,7 +17,9 @@
 
 import unittest
 import os
-os.chdir("..")
+# os.chdir("..")
+import sys
+sys.path.append(os.getcwd())
 from SSutility import SSdirectory, SSerrors
 
 import contextlib
@@ -33,6 +35,7 @@ class SSErrorsTest(unittest.TestCase):
         SSdirectory.empty_directory(test_temp_dir)
 
     def test_write_errors(self):
+        print("Write Errors Test")
         test_efpath = "{0}/test_errors_fpath.tsv".format(test_temp_dir)
         self.assertFalse(os.path.exists(test_efpath))
         print("Inserting test error")
@@ -53,6 +56,7 @@ class SSErrorsTest(unittest.TestCase):
 
 
     def test_print_errors(self):
+        print("Print Errors Test - adding test errors")
         test_efpath = "{0}/test_errors_fpath.tsv".format(test_temp_dir)
 
         test_error = SSerrors.NCBIQueryError(0, "test_message")
@@ -83,17 +87,21 @@ class SSErrorsTest(unittest.TestCase):
                     self.assertFalse(out_line in output)
 
     def test_qc_log(self):
+        print("Quality check log test")
         test_fpath = "{0}/qc_test.tsv".format(test_temp_dir)
         #Write one entry
+        print("Writing test entry, should only output once")
         ODBfilter.write_ref_seq_QC(test_fpath,"CD151","a test message")
         test_qc = pd.read_csv(test_fpath,sep="\t",index_col=0)
         self.assertTrue(len(test_qc) == 1)
         #Attempt rewriting same entry
+        print("rewriting same entry - should output only once")
         ODBfilter.write_ref_seq_QC(test_fpath, "CD151", "a test message")
         test_qc = pd.read_csv(test_fpath, sep="\t", index_col=0)
         self.assertTrue(len(test_qc) == 1)
+        print("Adding new entry - should only print new entry")
         # Test new entry writing with same symbol identifier
-        ODBfilter.write_ref_seq_QC(test_fpath, "CD151", "a new test message!")
+        ODBfilter.write_ref_seq_QC(test_fpath, "CD151", "a new test message.")
         test_qc = pd.read_csv(test_fpath, sep="\t", index_col=0)
         self.assertTrue(len(test_qc) == 2)
 
@@ -106,7 +114,7 @@ class SSErrorsTest(unittest.TestCase):
         errors_fpath = "{0}/{1}".format(run_name, errors_fname)
         print(errors_fpath)
         check, errors_df = SSerrors.load_errors(errors_fpath)
-        display(errors_df)
+        # display(errors_df)
         self.assertTrue("gene_symbol" in errors_df.columns)
 
 if __name__ == "__main__":

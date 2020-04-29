@@ -15,8 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#Change directory so config file paths work
 import os
-os.chdir("..")
+# os.chdir("..")
+import sys
+sys.path.append(os.getcwd())
 import unittest
 from SSutility import SSfasta
 from IPython.display import display
@@ -198,8 +201,7 @@ class testCalculations(unittest.TestCase):
         non_gp_summary = ac.gene_summary_table(align_df,ncbi_idx,test_idx,blos_df,summary_table_outpath=test_outpath,
                                                use_jsd_gap_penalty=False)
         non_gp_43_jsd = non_gp_summary.loc[43]['JSD']
-        print(gp_43_jsd)
-        print(non_gp_43_jsd)
+        self.assertAlmostEqual(0,gp_43_jsd)
         self.assertNotAlmostEqual(gp_43_jsd,non_gp_43_jsd)
 
     def test_overall_summary(self):

@@ -16,7 +16,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-os.chdir("..")
+# os.chdir("..")
+import sys
+sys.path.append(os.getcwd())
 
 import pandas as pd
 import unittest
