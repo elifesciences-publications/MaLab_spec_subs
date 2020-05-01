@@ -58,4 +58,4 @@ NCBIProteinIDField = ags_protein_ids
 
 #NCBIAPIKey: Encouraged but optional to increase your requests per second limit on the 
 #NCBI REST API. More info on NCBI API Keys here: https://www.ncbi.nlm.nih.gov/books/NBK25497/
-NCBIAPIKey = 24a8e1dd4d64cf50b37f0bdd369af8274309
+NCBIAPIKey = ""
